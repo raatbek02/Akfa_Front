@@ -1,0 +1,63 @@
+@import url("../../../assets/fonts/fonts.css");
+
+.category__container {
+  padding: 0 30px;
+}
+.category__title {
+  max-width: 650px;
+  margin: 30px auto 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.category__title--line {
+  width: 220px;
+  height: 2px;
+  background-color: #777777;
+}
+.category__title h2 {
+  font-size: 36px;
+  font-family: Gilroy;
+  font-weight: 800;
+  color: #ff0000;
+  padding-bottom: 5px;
+}
+.show_click {
+  margin: 15px 0;
+}
+.show_click span {
+  font-size: 15px;
+  font-weight: 900;
+  color: #3e3e3e;
+  cursor:  pointer;
+}
+.category__content {
+  display: flex;
+  justify-content: space-between;
+  font-family: Geometria;
+  font-weight: 700;
+}
+.category__item {
+  width: 200px;
+  height: 130px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  cursor: pointer;
+}
+.category__item img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+.category__item p {
+  z-index: 10;
+  text-align: center;
+  color: #ffffff;
+}

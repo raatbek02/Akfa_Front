@@ -1,0 +1,42 @@
+.contacts__container {
+	padding: 0 50px 40px 100px;
+}
+h2 {
+  color: #ff0000;
+  font-family: Geometria;
+  font-weight: 700;
+  font-size: 40px;
+  text-align: center;
+  margin: 35px 0 50px;
+}
+.contacts__content {
+	display: flex;
+}
+.contacts__left {
+	width: 50%;
+	  font-family: Geometria;
+  font-weight: 500;
+  color: #3e3e3e;
+  padding-top: 20px;
+  
+
+}
+.contacts__left ul li {
+	 margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+}
+.contacts__left ul li span {
+  margin-left: 35px;
+}
+.contact_map {
+	width: 450px;
+
+}
+.contact_map img {
+	width: 100%;
+}
+
+.contacts__right {
+	width: 50%;
+}

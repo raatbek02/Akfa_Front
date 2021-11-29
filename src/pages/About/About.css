@@ -1,0 +1,46 @@
+.about{
+	padding-bottom: 120px;
+}
+.about__container {
+  padding: 0 100px;
+}
+h2 {
+  color: #ff0000;
+  font-family: Geometria;
+  font-weight: 700;
+  font-size: 40px;
+  text-align: center;
+  margin: 35px 0 50px;
+}
+.about__us {
+  display: flex;
+}
+.about__us--left {
+  width: 60%;
+  padding-right: 30px;
+}
+.about__us--right {
+  width: 40%;
+}
+.about__us--right img {
+  width: 100%;
+}
+.about__text p {
+  margin-bottom: 15px;
+  font-family: Geometria;
+  font-weight: 500;
+  color: #3E3E3E;
+  line-height: 25px;
+}
+.about__text p span {
+  color: #ff0000;
+}
+.about__text  ul li {
+	margin-bottom: 40px;
+	font-family: Geometria;
+  font-weight: 500;
+  color: #3E3E3E;
+}
+.about__text  ul li span {
+	margin-right: 15px;
+}

@@ -1,0 +1,51 @@
+.banner {
+  background: url("../../../assets//images/banner_bg.png");
+  background-repeat: no-repeat;
+  padding: 200px 0;
+  font-family: Gilroy;
+  font-weight: 800;
+}
+.banner__container {
+  padding: 0 30px;
+}
+.banner__content {
+  display: flex;
+  align-items: center;
+}
+.banner__left {
+  width: 50%;
+  padding-left: 50px;
+}
+.banner__left h1 {
+  max-width: 600px;
+  font-size: 48px;
+  color: #ff0000;
+}
+.banner__btn button {
+  padding: 5px 40px;
+  font-family: Gilroy;
+  font-size: 24px;
+  color: #3e3e3e;
+  background: linear-gradient(
+    90deg,
+    rgba(46, 255, 104, 1) 0%,
+    rgba(1, 222, 63, 1) 100%
+  );
+  margin-top: 60px;
+}
+.banner__right {
+  width: 50%;
+}
+.banner__right img {
+  width: 100%;
+}
+
+/* ...............................SWIPER ........................................*/
+
+.swiper-pagination-bullet {
+  background: #3e3e3e;
+  width: 15px;
+  height: 15px;
+  padding: 2px;
+  border: 2px solid #000;
+}

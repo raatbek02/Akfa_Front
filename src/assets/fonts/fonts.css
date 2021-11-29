@@ -1,0 +1,21 @@
+@font-face {
+  font-family: Geometria;
+  src: url("./Geometria-Medium.woff"), url("./Geometria-Medium.woff2");
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: Geometria;
+  src: url("./Geometria-Bold.woff"), url("./Geometria-Bold.woff2");
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: Gilroy;
+  src: url("./Gilroy-ExtraBold.woff"), url("./Gilroy-ExtraBold.woff2");
+  font-weight: 800;
+  font-display: swap;
+  font-style: normal;
+}

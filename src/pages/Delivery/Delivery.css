@@ -1,0 +1,40 @@
+.delivery__container {
+  padding: 0 50px 120px 100px;
+}
+h2 {
+  color: #ff0000;
+  font-family: Geometria;
+  font-weight: 700;
+  font-size: 40px;
+  text-align: center;
+  margin: 35px 0 50px;
+}
+.delivery__content {
+  display: flex;
+}
+.delivery__left {
+  width: 50%;
+}
+.delivery__text p {
+  margin-bottom: 15px;
+  font-family: Geometria;
+  font-weight: 500;
+  color: #3e3e3e;
+  line-height: 25px;
+}
+.delivery__text ul {
+  margin-bottom: 40px;
+}
+.delivery__text ul li {
+  font-family: Geometria;
+  font-weight: 500;
+  color: #3e3e3e;
+}
+.delivery__text ul li span {
+  margin-right: 15px;
+}
+.delivery__right {
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+}

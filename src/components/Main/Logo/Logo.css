@@ -1,0 +1,25 @@
+.logo {
+  background-color: #f4feff;
+}
+.logo__conteiner {
+  padding: 30px;
+}
+.logo__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo__items {
+  /* width: 150px; */
+}
+.logo__img{
+	display: block;
+  width: 120px;
+}
+
+ /* SWIPER */
+
+ .swiper-slide {
+	 display: flex;
+	 justify-content: center;
+ }

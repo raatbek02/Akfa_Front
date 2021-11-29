@@ -1,0 +1,18 @@
+* {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  outline: none;
+  box-sizing: border-box;
+}
+button {
+  border-style: none;
+}
+input {
+  border-style: none;
+}
+a {
+  text-decoration: none;
+  color: unset;
+}
+
