@@ -25,8 +25,7 @@ function Banner() {
         speed={900}
         //   spaceBetween={20}
         slidesPerView={1}
-        onSlideChange={() => console.log("slide change")}
-        onSwiper={(swiper) => console.log(swiper)}
+
       >
         {arr.map((_, i) => {
           return (

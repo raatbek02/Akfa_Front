@@ -29,15 +29,27 @@
   display: flex;
   justify-content: space-between;
 }
-.product__sorting--item {
+.product__sorting li {
   margin: 40px 0;
   padding: 6px 25px;
   border: 2px solid #000;
   border-radius: 5px;
-  font-family: Gilroy;
-  font-weight: 800;
+  font-family: Geometria;
+  font-weight: 500;
   font-size: 20px;
   color: #2e2d2d;
+  cursor: pointer;
+}
+.product__sorting li.active {
+  margin: 40px 0;
+  padding: 6px 25px;
+  border: 2px solid #000;
+  border-radius: 5px;
+  font-family: Geometria;
+  font-weight: 500;
+  font-size: 20px;
+  color: #ffffff;
+  background-color: #3f3d56;
   cursor: pointer;
 }
 .product__sorting--item:first-child {

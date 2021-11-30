@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./CategoriesPage.css";
 import category_5 from "../../assets/images/categories_img/category_5.png";
 import star from "../../assets/images/star.png";
+import axios from "axios";
+import { useParams } from "react-router";
 
 const data = [];
 for (let i = 0; i < 18; i++) {
@@ -15,7 +17,25 @@ for (let i = 0; i < 18; i++) {
 }
 const stars = [star, star, star, star, star];
 
+
 function CategoriesPage() {
+  const [activeItem, setActiveItem] = useState(null);
+	const [subcategory, setCategory] = useState([]);
+	
+	const { id } = useParams()
+	console.log('id',id)
+  console.log(subcategory);
+
+  useEffect(() => {
+    const getSubcategories = async () => {
+      await axios
+        .get(`http://127.0.0.1:8000/api/subcategory?categories=${id}`)
+        .then(({ data }) => {
+          setCategory(data);
+        });
+    };
+    getSubcategories();
+  }, []);
   return (
     <div className="categoriesPage">
       <div className="categoriesPage__container">
@@ -24,18 +44,25 @@ function CategoriesPage() {
           <h2>Ветеринария</h2>
           <div className="categoriesPage__title--line"></div>
         </div>
-        <div className="categoriesPage__sorting">
-          <div className="categoriesPage__sorting--item">Все</div>
-          <div className="categoriesPage__sorting--item">
-            Ветеринарные УЗИ-аппараты
-          </div>
-          <div className="categoriesPage__sorting--item">
-            Ветеринарные Ренгеновые аппараты
-          </div>
-          <div className="categoriesPage__sorting--item">
-            Ветеринарные Ренгеновые аппараты
-          </div>
-        </div>
+        <ul className="categoriesPage__sorting">
+          <li
+            onClick={() => setActiveItem(null)}
+            className={activeItem === null ? "active" : ""}
+          >
+            Все
+          </li>
+          {subcategory.map((obj) => {
+            return (
+              <li
+                key={obj.id}
+                onClick={() => setActiveItem(obj.id)}
+                className={activeItem === obj.id ? "active" : ""}
+              >
+                {obj.title}
+              </li>
+            );
+          })}
+        </ul>
 
         <div className="categoriesPage__content">
           {data.map((el) => {

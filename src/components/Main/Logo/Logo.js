@@ -23,8 +23,7 @@ function Logo() {
           speed={900}
           //  spaceBetween={20}
           slidesPerView={5}
-          onSlideChange={() => console.log("slide change")}
-          onSwiper={(swiper) => console.log(swiper)}
+         
         >
           <div className="logo__content">
             <SwiperSlide>

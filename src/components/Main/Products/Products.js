@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Products.css";
 import category_5 from "../../../assets/images/categories_img/category_5.png";
 import star from "../../../assets/images/star.png";
@@ -15,10 +15,17 @@ for (let i = 0; i < 24; i++) {
     rating: star,
   });
 }
+const product_filter = [
+  { id: 1, name: " Новинки" },
+  { id: 2, name: " Хит продаж" },
+];
+
 const stars = [star, star, star, star, star];
 
 function Products() {
+  const [activeItem, setActiveItem] = useState(null);
   const navigate = useNavigate();
+
   return (
     <div className="products">
       <div className="products__container">
@@ -27,11 +34,25 @@ function Products() {
           <h2>Товары</h2>
           <div className="products__title--line"></div>
         </div>
-        <div className="product__sorting">
-          <div className="product__sorting--item">Популярные</div>
-          <div className="product__sorting--item">Новинки</div>
-          <div className="product__sorting--item">Хит продаж</div>
-        </div>
+        <ul className="product__sorting">
+          <li
+            onClick={() => setActiveItem(null)}
+            className={activeItem === null ? "active" : ""}
+          >
+            Популярные
+          </li>
+          {product_filter.map((obj) => {
+            return (
+              <li
+                key={obj.id}
+                onClick={() => setActiveItem(obj.id)}
+                className={activeItem === obj.id ? "active" : ""}
+              >
+                {obj.name}
+              </li>
+            );
+          })}
+        </ul>
         <div className="product__content">
           {data.map((el) => {
             return (

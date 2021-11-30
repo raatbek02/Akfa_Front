@@ -26,7 +26,7 @@
   display: flex;
   margin-bottom: 40px;
 }
-.categoriesPage__sorting--item {
+.categoriesPage__sorting li{
   padding: 6px 15px;
   margin-right: 16px;
   border: 2px solid #000;
@@ -35,6 +35,17 @@
   font-size: 16px;
   color: rgba(62, 62, 62, 0.9);
   cursor: pointer;
+}
+.categoriesPage__sorting .active {
+  padding: 6px 15px;
+  margin-right: 16px;
+  border: 2px solid #000;
+  border-radius: 5px;
+  font-family: Geometria;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  background-color: #3F3D56;
 }
 .categoriesPage--item:first-child {
   background-color: #3f3d56;
