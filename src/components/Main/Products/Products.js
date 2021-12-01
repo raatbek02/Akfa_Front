@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./Products.css";
 import category_5 from "../../../assets/images/categories_img/category_5.png";
 import star from "../../../assets/images/star.png";
 import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { addProducts } from "../../../store/productSlice";
 
 const data = [];
 for (let i = 0; i < 24; i++) {
@@ -24,7 +27,20 @@ const stars = [star, star, star, star, star];
 
 function Products() {
   const [activeItem, setActiveItem] = useState(null);
+  //   const [product, setProduct] = useState([]);
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.productSlice.products);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      await axios
+        .get("http://127.0.0.1:8000/api/products/")
+        .then(({ data }) => dispatch(addProducts(data)));
+    };
+    getProducts();
+  }, []);
 
   return (
     <div className="products">
@@ -54,30 +70,31 @@ function Products() {
           })}
         </ul>
         <div className="product__content">
-          {data.map((el) => {
-            return (
-              //   <div className='product__line'>
-              <div
-                onClick={() => navigate(`productPage/:${el.id}`)}
-                className="product__item"
-              >
-                <div className="product__img">
-                  <img src={el.img} alt="No img" />
+          {products[0] &&
+            products[0].map((el) => {
+              return (
+                //   <div className='product__line'>
+                <div
+                  onClick={() => navigate(`productPage/${el._id}`)}
+                  className="product__item"
+                >
+                  <div className="product__img">
+                    <img src={el.image} alt="No img" />
+                  </div>
+                  <div className="product__name">{el.title}</div>
+                  <div className="product__price">
+                    <span>{el.price} $</span>
+                    <span> есть</span>
+                  </div>
+                  <div className="product__rating">
+                    {stars.map((star) => (
+                      <img src={star} alt="No img" />
+                    ))}
+                  </div>
                 </div>
-                <div className="product__name">{el.name}</div>
-                <div className="product__price">
-                  <span>25.35 $</span>
-                  <span> есть</span>
-                </div>
-                <div className="product__rating">
-                  {stars.map((star) => (
-                    <img src={star} alt="No img" />
-                  ))}
-                </div>
-              </div>
-              //   </div>
-            );
-          })}
+                //   </div>
+              );
+            })}
         </div>
       </div>
     </div>

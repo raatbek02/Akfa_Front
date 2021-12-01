@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ProductPage.css";
-import productMain from "../../assets/images/productPage.png";
 import productRest from "../../assets/images/productPage_rest.png";
 import review_profile from "../../assets/images/review_profile.png";
 import productPage_star from "../../assets/images/productPage_star.png";
+import axios from "axios";
+import { useParams } from "react-router";
 
 const restImages = [];
 for (let i = 0; i < 5; i++) {
@@ -12,7 +13,18 @@ for (let i = 0; i < 5; i++) {
 
 function ProductPage() {
   const [show, setShow] = useState(true);
-
+  const [oneProduct, setOneProduct] = useState({});
+  const { id } = useParams();
+  console.log(oneProduct);
+  console.log(id);
+  useEffect(() => {
+    const getOneProduct = async () => {
+      await axios
+        .get(`http://127.0.0.1:8000/api/products/${id}`)
+        .then(({ data }) => setOneProduct(data));
+    };
+    getOneProduct();
+  }, []);
   const showDescHandler = () => {
     setShow(true);
   };
@@ -24,27 +36,27 @@ function ProductPage() {
     <div className="productPage">
       <div className="productPage__container">
         <div className="productPage__path">
-          Ветеринария / Ветеринарное УЗИ - аппараты
+          {oneProduct.category} / {oneProduct.subcategory}
         </div>
         <div className="productPage__content">
           <div className="productPage__top">
             <div className="productPage__left">
-              <p className="productPage__name">AR-Mammo</p>
+              <p className="productPage__name">{oneProduct.title}</p>
 
-              <span>Код товара: AR-Mammo</span>
+              <span>Код товара: {oneProduct.title}</span>
 
               <div className="productPage__img">
-                <img src={productMain} alt="No img" />
+                <img src={oneProduct.image} alt="No img" />
               </div>
               <div className="productPage__restImg">
                 {restImages.map((el) => {
-                  return <img src={el} alt="No img" />;
+                  return <img src={oneProduct.image} alt="No img" />;
                 })}
               </div>
             </div>
             <div className="productPage__right">
               <div className="productPage__right--block">
-                <div className="productPage__price">25.45$</div>
+                <div className="productPage__price">{oneProduct.price} $</div>
                 <div className="productPage__right--content">
                   <div className="productPage__right--left">
                     <p>Доступность: На складе</p>

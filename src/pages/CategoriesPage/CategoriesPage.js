@@ -3,7 +3,7 @@ import "./CategoriesPage.css";
 import category_5 from "../../assets/images/categories_img/category_5.png";
 import star from "../../assets/images/star.png";
 import axios from "axios";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 const data = [];
 for (let i = 0; i < 18; i++) {
@@ -17,14 +17,15 @@ for (let i = 0; i < 18; i++) {
 }
 const stars = [star, star, star, star, star];
 
-
 function CategoriesPage() {
   const [activeItem, setActiveItem] = useState(null);
-	const [subcategory, setCategory] = useState([]);
-	
-	const { id } = useParams()
-	console.log('id',id)
-  console.log(subcategory);
+  const [subcategory, setCategory] = useState([]);
+  const [categoryProducts, setCategoryProducts] = useState([]);
+  console.log(categoryProducts);
+  console.log("activeItem", activeItem);
+
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   useEffect(() => {
     const getSubcategories = async () => {
@@ -34,14 +35,29 @@ function CategoriesPage() {
           setCategory(data);
         });
     };
+
     getSubcategories();
   }, []);
+
+  useEffect(() => {
+    const getCategoriesProducts = async () => {
+      await axios
+        .get(
+          `http://127.0.0.1:8000/api/products/?category=${id}&${
+            activeItem !== null ? `subcategory=${activeItem}` : ""
+          }`
+        )
+        .then(({ data }) => setCategoryProducts(data));
+    };
+    getCategoriesProducts();
+  }, [activeItem]);
+
   return (
     <div className="categoriesPage">
       <div className="categoriesPage__container">
         <div className="categoriesPage__title">
           <div className="categoriesPage__title--line"></div>
-          <h2>Ветеринария</h2>
+          <h2>{categoryProducts[0] && categoryProducts[0].category}</h2>
           <div className="categoriesPage__title--line"></div>
         </div>
         <ul className="categoriesPage__sorting">
@@ -65,26 +81,31 @@ function CategoriesPage() {
         </ul>
 
         <div className="categoriesPage__content">
-          {data.map((el) => {
-            return (
-              <div className="categoriesPage__item">
-                <div className="categoriesPage__img">
-                  <img src={category_5} alt="No img" />
+          {categoryProducts &&
+            categoryProducts.map((el) => {
+              return (
+                <div
+                  key={el._id}
+                  onClick={() => navigate(`/productPage/${el._id}`)}
+                  className="categoriesPage__item"
+                >
+                  <div className="categoriesPage__img">
+                    <img src={el.image} alt="No img" />
+                  </div>
+                  <div className="categoriesPage__name">{el.title}</div>
+                  <div className="categoriesPage__price">
+                    <span>{el.price} $</span>
+                    <span> есть</span>
+                  </div>
+                  <div className="categoriesPage__rating">
+                    {stars.map((el) => (
+                      <img src={star} alt="No img" />
+                    ))}
+                  </div>
                 </div>
-                <div className="categoriesPage__name">Касметология</div>
-                <div className="categoriesPage__price">
-                  <span>25.35 $</span>
-                  <span> есть</span>
-                </div>
-                <div className="categoriesPage__rating">
-                  {stars.map((el) => (
-                    <img src={star} alt="No img" />
-                  ))}
-                </div>
-              </div>
-              //   </div>
-            );
-          })}
+                //   </div>
+              );
+            })}
         </div>
       </div>
     </div>
