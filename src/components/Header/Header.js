@@ -1,32 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Header.css";
 import search from "../../assets/images/search.png";
 import { Link, NavLink } from "react-router-dom";
+import Modal from "../UI/Modal/Modal";
+import Auth from "../Auth/Auth";
+import {
+  ABOUT_ROUTE,
+  CONTACTS_ROUTE,
+  DELIVERY_ROUTE,
+  HOME_ROUTE,
+  NEWS_ROUTE,
+} from "../../utils/consts";
 
 const list = [
   {
     name: "Главная",
-    path: "/",
+    path: HOME_ROUTE,
   },
   {
     name: "О нас",
-    path: "/about",
+    path: ABOUT_ROUTE,
   },
   {
     name: "Новости",
-    path: "/news",
+    path: NEWS_ROUTE,
   },
   {
     name: "Доставка и оплата",
-    path: "/delivery",
+    path: DELIVERY_ROUTE,
   },
   {
     name: "Контакты",
-    path: "/contacts",
+    path: CONTACTS_ROUTE,
   },
 ];
 
 function Header() {
+  const [modalAuth, setModalAuth] = useState(false);
   return (
     <header className="header">
       <div className="header__container">
@@ -55,33 +65,15 @@ function Header() {
                 <img src={search} alt="No img" />
               </div>
               <div className="header__btn">
-                <button>sign up</button>
+                <button onClick={() => setModalAuth(true)}>sign up</button>
               </div>
             </div>
           </div>
-
-          {/* <div className="header__menu">
-            <ul>
-              <li>Главная</li>
-              <li>О нас</li>
-              <li>Новости</li>
-              <li>Доставка и оплата</li>
-              <li>Контакты</li>
-            </ul>
-          </div>
-          <div className="header__logo">
-            <img src={akfa} alt="No img" />
-          </div>
-          <div className="header__sign">
-            <div className="header__search">
-              <img src={search} alt="No img" />
-            </div>
-            <div className="header__btn">
-              <button>sign up</button>
-            </div>
-          </div> */}
         </div>
       </div>
+      <Modal active={modalAuth} setActive={setModalAuth}>
+        <Auth />
+      </Modal>
     </header>
   );
 }

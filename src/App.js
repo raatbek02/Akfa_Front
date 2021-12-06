@@ -1,28 +1,31 @@
 import "./App.css";
-import { Routes, Route} from "react-router-dom";
+// import { CartProvider } from "react-use-cart";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
-import Main from "./components/Main/Main";
-import About from "./pages/About/About";
-import Delivery from "./pages/Delivery/Delivery";
-import Contacts from "./pages/Contacts/Contacts";
-import News from "./pages/News/News";
-import CategoriesPage from "./pages/CategoriesPage/CategoriesPage";
-import ProductPage from "./pages/ProductPage/ProductPage";
+import AppRouter from "./components/AppRouter";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserData } from "./http/userApi";
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setTimeout(() => {
+      getUserData(dispatch);
+      setLoading(false);
+    }, 500);
+  }, []);
+
+  if (loading) {
+    return <p>Загрузкa...</p>;
+  }
+
   return (
     <div className="App">
       <Header />
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="about" element={<About />} />
-        <Route path="delivery" element={<Delivery />} />
-        <Route path="contacts" element={<Contacts />} />
-        <Route path="news" element={<News />} />
-        <Route path="categoriesPage/:id" element={<CategoriesPage />} />
-        <Route path="productPage/:id" element={<ProductPage />} />
-      </Routes>
+      <AppRouter />
       <Footer />
     </div>
   );

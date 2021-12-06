@@ -24,30 +24,29 @@
 }
 
 .product__sorting {
-  max-width: 550px;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 .product__sorting li {
-  margin: 40px 0;
+  margin: 40px 10px;
   padding: 6px 25px;
   border: 2px solid #000;
   border-radius: 5px;
   font-family: Geometria;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 18px;
   color: #2e2d2d;
   cursor: pointer;
 }
 .product__sorting li.active {
-  margin: 40px 0;
+  margin: 40px 10px;
   padding: 6px 25px;
   border: 2px solid #000;
   border-radius: 5px;
   font-family: Geometria;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 18px;
   color: #ffffff;
   background-color: #3f3d56;
   cursor: pointer;

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
-import "./ProductPage.css";
+import React, { useCallback, useEffect, useState } from "react";
+import axios from "axios";
+import { useParams } from "react-router";
+import { useCart } from "react-use-cart";
 import productRest from "../../assets/images/productPage_rest.png";
 import review_profile from "../../assets/images/review_profile.png";
 import productPage_star from "../../assets/images/productPage_star.png";
-import axios from "axios";
-import { useParams } from "react-router";
+import "./ProductPage.css";
 
 const restImages = [];
 for (let i = 0; i < 5; i++) {
@@ -14,9 +15,17 @@ for (let i = 0; i < 5; i++) {
 function ProductPage() {
   const [show, setShow] = useState(true);
   const [oneProduct, setOneProduct] = useState({});
+  const [count, setCount] = useState(1);
   const { id } = useParams();
-  console.log(oneProduct);
-  console.log(id);
+  const { addItem, items, totalItems, totalUniqueItems, emptyCart } = useCart();
+  console.log(count);
+
+  // console.log(oneProduct);
+  console.log("items", items);
+  console.log("totalItems", totalItems);
+  console.log("totalUniqueItems", totalUniqueItems);
+
+
   useEffect(() => {
     const getOneProduct = async () => {
       await axios
@@ -25,6 +34,15 @@ function ProductPage() {
     };
     getOneProduct();
   }, []);
+
+  const plusCount = () => {
+    setCount(count + 1);
+  };
+  const minusCount = () => {
+    if (count > 1) {
+      setCount(count - 1);
+    }
+  };
   const showDescHandler = () => {
     setShow(true);
   };
@@ -67,9 +85,9 @@ function ProductPage() {
                     <div className="productPage__quantity">
                       <span>кол-во</span>
                       <div className="productPage__counter">
-                        <div className="productPage__counter--num">1</div>
+                        <div className="productPage__counter--num">{count}</div>
                         <div className="productPage__counter--buttons">
-                          <button>
+                          <button onClick={plusCount}>
                             <svg
                               width="10"
                               height="11"
@@ -95,7 +113,7 @@ function ProductPage() {
                               />
                             </svg>
                           </button>
-                          <button>
+                          <button onClick={minusCount}>
                             <svg
                               width="10"
                               height="2"
@@ -117,7 +135,9 @@ function ProductPage() {
                       </div>
                     </div>
                     <div className="productPage__buttons">
-                      <button>В корзину</button>
+                      <button onClick={() => addItem(oneProduct)}>
+                        В корзину
+                      </button>
                       <button>Купить</button>
                     </div>
                   </div>

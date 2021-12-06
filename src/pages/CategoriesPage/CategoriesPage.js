@@ -5,16 +5,16 @@ import star from "../../assets/images/star.png";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router";
 
-const data = [];
-for (let i = 0; i < 18; i++) {
-  data.push({
-    img: category_5,
-    name: "Касметология",
-    price: "25.35 $",
-    availability: "есть",
-    rating: star,
-  });
-}
+// const data = [];
+// for (let i = 0; i < 18; i++) {
+//   data.push({
+//     img: category_5,
+//     name: "Касметология",
+//     price: "25.35 $",
+//     availability: "есть",
+//     rating: star,
+//   });
+// }
 const stars = [star, star, star, star, star];
 
 function CategoriesPage() {

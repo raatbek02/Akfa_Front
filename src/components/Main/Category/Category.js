@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { CATEGORIES_PAGE_ROUTE } from "../../../utils/consts";
 import "./Category.css";
 
 function Category() {
@@ -33,7 +34,7 @@ function Category() {
           {category.map((obj) => {
             return (
               <li
-                onClick={() => navigate(`categoriesPage/${obj.id}`)}
+                onClick={() => navigate(`${CATEGORIES_PAGE_ROUTE}/${obj.id}`)}
                 key={obj.id}
                 className="category__item"
               >

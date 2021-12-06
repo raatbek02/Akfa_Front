@@ -1,0 +1,29 @@
+.authContent {
+  width: 500px;
+  height: 500px;
+  background-color: rgb(76, 4, 99);
+  z-index: 200;
+  padding: 30px;
+  font-family: "Geometria";
+  font-weight: 500;
+}
+.authContent__titles span {
+  margin-right: 20px;
+  color: #fff;
+  font-size: 20px;
+}
+.authContent__content {
+  margin-top: 50px;
+}
+.authContent__content form p {
+  margin-bottom: 10px;
+}
+.authContent__content form p label {
+  font-size: 14px;
+  color: rgb(187, 183, 183);
+  margin-bottom: 10px;
+  display: block;
+}
+input[type="text"] {
+  background: red;
+}

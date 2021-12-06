@@ -1,26 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Products.css";
-import category_5 from "../../../assets/images/categories_img/category_5.png";
+// import category_5 from "../../../assets/images/categories_img/category_5.png";
 import star from "../../../assets/images/star.png";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { addProducts } from "../../../store/productSlice";
+import { useCart } from "react-use-cart";
+import { PRODUCT_PAGE_ROUTE } from "../../../utils/consts";
 
-const data = [];
-for (let i = 0; i < 24; i++) {
-  data.push({
-    id: 1,
-    img: category_5,
-    name: "Касметология",
-    price: "25.35 $",
-    availability: "есть",
-    rating: star,
-  });
-}
 const product_filter = [
-  { id: 1, name: " Новинки" },
-  { id: 2, name: " Хит продаж" },
+  { id: 1, name: " Популярные", type: "popular" },
+  { id: 2, name: " Новинки", type: "novelty" },
+  { id: 3, name: " Хит продаж", type: "actual" },
 ];
 
 const stars = [star, star, star, star, star];
@@ -28,6 +20,10 @@ const stars = [star, star, star, star, star];
 function Products() {
   const [activeItem, setActiveItem] = useState(null);
   //   const [product, setProduct] = useState([]);
+  const [sort, setSort] = useState(null);
+  const [type, setType] = useState("");
+  console.log(type);
+
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -36,12 +32,21 @@ function Products() {
   useEffect(() => {
     const getProducts = async () => {
       await axios
-        .get("http://127.0.0.1:8000/api/products/")
+        .get(
+          `http://127.0.0.1:8000/api/products/?${
+            type !== null ? `${type}=${sort}` : ""
+          }`
+        )
         .then(({ data }) => dispatch(addProducts(data)));
     };
     getProducts();
-  }, []);
+  }, [type]);
 
+	const { items } = useCart();
+console.log(items);
+	
+
+  // ${type}=${sort}
   return (
     <div className="products">
       <div className="products__container">
@@ -52,16 +57,23 @@ function Products() {
         </div>
         <ul className="product__sorting">
           <li
-            onClick={() => setActiveItem(null)}
+            onClick={() => {
+              setActiveItem(null);
+              setType(null);
+            }}
             className={activeItem === null ? "active" : ""}
           >
-            Популярные
+            Все
           </li>
           {product_filter.map((obj) => {
             return (
               <li
                 key={obj.id}
-                onClick={() => setActiveItem(obj.id)}
+                onClick={() => {
+                  setActiveItem(obj.id);
+                  setSort(true);
+                  setType(obj.type);
+                }}
                 className={activeItem === obj.id ? "active" : ""}
               >
                 {obj.name}
@@ -70,12 +82,11 @@ function Products() {
           })}
         </ul>
         <div className="product__content">
-          {products[0] &&
-            products[0].map((el) => {
+          {products &&
+            products.map((el) => {
               return (
-                //   <div className='product__line'>
                 <div
-                  onClick={() => navigate(`productPage/${el._id}`)}
+                  onClick={() => navigate(`${PRODUCT_PAGE_ROUTE}/${el.id}`)}
                   className="product__item"
                 >
                   <div className="product__img">
@@ -92,7 +103,6 @@ function Products() {
                     ))}
                   </div>
                 </div>
-                //   </div>
               );
             })}
         </div>
@@ -102,3 +112,15 @@ function Products() {
 }
 
 export default Products;
+
+// const data = [];
+// for (let i = 0; i < 24; i++) {
+//   data.push({
+//     id: 1,
+//     img: category_5,
+//     name: "Касметология",
+//     price: "25.35 $",
+//     availability: "есть",
+//     rating: star,
+//   });
+// }
