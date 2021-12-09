@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { login, registration } from "../../http/userApi";
 import { setIsAuth } from "../../store/isAuthStore";
@@ -15,11 +15,6 @@ function AuthContent() {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  //  const user = useSelector((state) => state.userSlice.user);
-  //  const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
-  //   console.log("user", user);
-  //   console.log("isAuth", isAuth);
 
   const signUp = async () => {
     try {
@@ -48,7 +43,8 @@ function AuthContent() {
     } catch (e) {
       alert("Неправильно или такой логин уже существует!!!");
     }
-  };
+	};
+	
 
   const logout = () => {
     dispatch(setIsAuth(false));

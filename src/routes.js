@@ -1,6 +1,7 @@
 import About from "./pages/About/About";
 import Cart from "./pages/Cart/Cart";
 import CategoriesPage from "./pages/CategoriesPage/CategoriesPage";
+import Checkout from "./pages/Checkout/Checkout";
 import Contacts from "./pages/Contacts/Contacts";
 import Delivery from "./pages/Delivery/Delivery";
 import Home from "./pages/Home";
@@ -10,6 +11,7 @@ import {
   ABOUT_ROUTE,
   CART_ROUTE,
   CATEGORIES_PAGE_ROUTE,
+  CHECKOUT__ROUTE,
   CONTACTS_ROUTE,
   DELIVERY_ROUTE,
   HOME_ROUTE,
@@ -52,5 +54,9 @@ export const publicRoutes = [
   {
     path: PRODUCT_PAGE_ROUTE + "/:id",
     Component: <ProductPage />,
+  },
+  {
+    path: CHECKOUT__ROUTE,
+    Component: <Checkout />,
   },
 ];

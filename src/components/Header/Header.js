@@ -6,6 +6,7 @@ import Modal from "../UI/Modal/Modal";
 import Auth from "../Auth/Auth";
 import {
   ABOUT_ROUTE,
+  CART_ROUTE,
   CONTACTS_ROUTE,
   DELIVERY_ROUTE,
   HOME_ROUTE,
@@ -67,6 +68,9 @@ function Header() {
               <div className="header__btn">
                 <button onClick={() => setModalAuth(true)}>sign up</button>
               </div>
+              <Link to={CART_ROUTE}>
+                <span>K</span>
+              </Link>
             </div>
           </div>
         </div>

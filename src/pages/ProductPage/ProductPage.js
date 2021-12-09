@@ -1,18 +1,21 @@
 import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useCart } from "react-use-cart";
 import productRest from "../../assets/images/productPage_rest.png";
 import review_profile from "../../assets/images/review_profile.png";
 import productPage_star from "../../assets/images/productPage_star.png";
 import "./ProductPage.css";
+import { $host } from "../../http";
+import { Link } from "react-router-dom";
+import { CART_ROUTE } from "../../utils/consts";
 
 const restImages = [];
 for (let i = 0; i < 5; i++) {
   restImages.push(productRest);
 }
 
-function ProductPage() {
+function ProductPage(props) {
   const [show, setShow] = useState(true);
   const [oneProduct, setOneProduct] = useState({});
   const [count, setCount] = useState(1);
@@ -20,11 +23,14 @@ function ProductPage() {
   const { addItem, items, totalItems, totalUniqueItems, emptyCart } = useCart();
   console.log(count);
 
-  // console.log(oneProduct);
-  console.log("items", items);
-  console.log("totalItems", totalItems);
-  console.log("totalUniqueItems", totalUniqueItems);
+  const token = JSON.parse(localStorage.getItem("token"));
 
+  //   const id2 = props.match.params.id;
+  //   console.log("id2", id2);
+  // console.log(oneProduct);
+    console.log("items", items);
+    console.log("totalItems", totalItems);
+    console.log("totalUniqueItems", totalUniqueItems);
 
   useEffect(() => {
     const getOneProduct = async () => {
@@ -49,6 +55,29 @@ function ProductPage() {
   const showReviewsHandler = () => {
     setShow(false);
   };
+
+  //   const addCart = () => {
+  //     const data = {
+  //       product: id,
+  //       quantity: count,
+  //     };
+
+  //     axios
+  //       .post(`http://127.0.0.1:8000/api/cart-item/`, data, {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: "Token " + token,
+  //         },
+  //       })
+  //       .then((res) => {
+  //         setCount(count);
+  //         console.log("Success", res);
+  //       })
+  //       .catch((e) => {
+  //         console.log("Ошибка", e);
+  //       });
+  //     //  e.preventDefault();
+  //   };
 
   return (
     <div className="productPage">
@@ -134,10 +163,18 @@ function ProductPage() {
                         </div>
                       </div>
                     </div>
+                    <Link to={CART_ROUTE}>
+                      <div style={{ fontSize: "25px" }}>КОРЗИНА</div>
+                    </Link>
                     <div className="productPage__buttons">
-                      <button onClick={() => addItem(oneProduct)}>
-                        В корзину
-                      </button>
+                      {token ? (
+                        <button onClick={() => addItem(oneProduct, count)}>
+                          В корзину
+                        </button>
+                      ) : (
+                        <p>Дообавить</p>
+                      )}
+
                       <button>Купить</button>
                     </div>
                   </div>

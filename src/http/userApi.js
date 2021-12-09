@@ -10,7 +10,7 @@ export const registration = async (username, email, password) => {
     role: "ADMIN",
   });
 
-  localStorage.setItem("token", data.token);
+  localStorage.setItem("token", JSON.stringify(data.token));
   return data.token;
 };
 
@@ -19,7 +19,7 @@ export const login = async (username, password) => {
     username,
     password,
   });
-  localStorage.setItem("token", data.token);
+  localStorage.setItem("token", JSON.stringify(data.token));
   return data.token;
 };
 
@@ -30,7 +30,7 @@ export const login = async (username, password) => {
 // };
 
 export const getUserData = (dispatch) => {
-  const token = localStorage.getItem("token");
+  const token = JSON.parse(localStorage.getItem("token"));
   return $host
     .get(`api/auth/user`, {
       headers: {
@@ -40,7 +40,7 @@ export const getUserData = (dispatch) => {
     })
     .then((res) => {
       dispatch(setIsAuth(true));
-      dispatch(setIsUser(res.data));
+      dispatch(setIsUser(res));
     })
     .catch((e) => {
       dispatch(setIsAuth(false));

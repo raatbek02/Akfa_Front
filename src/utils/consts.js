@@ -6,3 +6,4 @@ export const CONTACTS_ROUTE = "/contacts";
 export const CATEGORIES_PAGE_ROUTE = "/categoriesPage";
 export const PRODUCT_PAGE_ROUTE = "/productPage";
 export const CART_ROUTE = "/cart";
+export const CHECKOUT__ROUTE='/checkout'

@@ -4,8 +4,6 @@ import "./Products.css";
 // import category_5 from "../../../assets/images/categories_img/category_5.png";
 import star from "../../../assets/images/star.png";
 import { useNavigate } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
-import { addProducts } from "../../../store/productSlice";
 import { useCart } from "react-use-cart";
 import { PRODUCT_PAGE_ROUTE } from "../../../utils/consts";
 
@@ -19,15 +17,12 @@ const stars = [star, star, star, star, star];
 
 function Products() {
   const [activeItem, setActiveItem] = useState(null);
-  //   const [product, setProduct] = useState([]);
+  const [product, setProduct] = useState([]);
   const [sort, setSort] = useState(null);
   const [type, setType] = useState("");
   console.log(type);
 
   const navigate = useNavigate();
-
-  const dispatch = useDispatch();
-  const products = useSelector((state) => state.productSlice.products);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -37,14 +32,13 @@ function Products() {
             type !== null ? `${type}=${sort}` : ""
           }`
         )
-        .then(({ data }) => dispatch(addProducts(data)));
+        .then(({ data }) => setProduct(data));
     };
     getProducts();
   }, [type]);
 
-	const { items } = useCart();
-console.log(items);
-	
+  const { items } = useCart();
+  console.log(items);
 
   // ${type}=${sort}
   return (
@@ -82,8 +76,8 @@ console.log(items);
           })}
         </ul>
         <div className="product__content">
-          {products &&
-            products.map((el) => {
+          {product &&
+            product.map((el) => {
               return (
                 <div
                   onClick={() => navigate(`${PRODUCT_PAGE_ROUTE}/${el.id}`)}
