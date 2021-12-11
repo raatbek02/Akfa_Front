@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import { useCart } from "react-use-cart";
 import { login, registration } from "../../http/userApi";
 import { setIsAuth } from "../../store/isAuthStore";
 import { setIsUser } from "../../store/userStore";
@@ -15,6 +16,7 @@ function AuthContent() {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { emptyCart } = useCart();
 
   const signUp = async () => {
     try {
@@ -43,13 +45,13 @@ function AuthContent() {
     } catch (e) {
       alert("Неправильно или такой логин уже существует!!!");
     }
-	};
-	
+  };
 
   const logout = () => {
     dispatch(setIsAuth(false));
     dispatch(setIsUser({}));
     localStorage.clear();
+   //  emptyCart();
   };
 
   return (

@@ -4,7 +4,6 @@ const isAuthSlice = createSlice({
   name: "isAuth",
   initialState: {
     isAuth: false,
-
   },
   reducers: {
     setIsAuth(state, action) {
@@ -12,7 +11,6 @@ const isAuthSlice = createSlice({
         isAuth: action.payload,
       };
     },
-   
   },
 });
 

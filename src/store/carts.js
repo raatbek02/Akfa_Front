@@ -1,24 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const cartSlice = createSlice({
-  name: "user",
+  name: "cart",
   initialState: {
-    carts: {},
-    items: [],
+    auth_items: [],
   },
   reducers: {
-    setCarts(state, action) {
+    setAuthCart(state, action) {
       return {
-        carts: action.payload,
-      };
-    },
-    setCartItems(state, action) {
-      return {
-        items: action.payload,
+        auth_items: action.payload,
       };
     },
   },
 });
 
-export const { setIsUser } = cartSlice.actions;
+export const { setAuthCart } = cartSlice.actions;
 export default cartSlice.reducer;

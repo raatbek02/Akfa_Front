@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { useCart } from "react-use-cart";
 import { $host } from "../../http";
 
@@ -7,9 +8,13 @@ function Checkout() {
   const [checkoutInput, setCheckoutInput] = useState({
     firstName: "",
     phoneNumber: "",
-    address: "",
+	  address: "",
+	 
   });
-  const [error, setError] = useState([]);
+	const [error, setError] = useState([]);
+	const token = JSON.parse(localStorage.getItem("token"));
+	const user=useSelector(s=>s.userSlice.user)
+	
 
   const {
     isEmpty,
@@ -25,9 +30,13 @@ function Checkout() {
   const handleInput = (e) => {
     e.persist();
     setCheckoutInput({ ...checkoutInput, [e.target.name]: e.target.value });
-  };
+	};
+	
+	// const submitAuthOrder = (e) => {
+		
+	// }
 
-  const submitOrder = async (e) => {
+  const submitLocalOrder = async (e) => {
     e.preventDefault();
 
     const itemss = [];
@@ -39,7 +48,7 @@ function Checkout() {
       items: itemss,
     };
     items.map((item, i) => {
-      let obj = {
+		 let obj = {
         product: item.id,
         quantity: item.quantity,
         price: item.price,
@@ -52,16 +61,14 @@ function Checkout() {
       })
       .then((res) => {
         console.log("Успешно", res);
-        if (res.data.status === 200) {
-          alert("Заказ успешно отправлено!");
-          setError([]);
-        } else if (res.data.status === 422) {
-          alert("Все поля должны заполнены!");
-          setError(res.data.errors);
-        }
+        alert("Заказ успешно отправлено!");
+        setError([]);
+        emptyCart();
       })
       .catch((e) => {
         console.log("Ошибка", e);
+        alert("Все поля должны заполнены!");
+        setError(e);
       });
   };
 
@@ -142,7 +149,7 @@ function Checkout() {
             </div>
           </div>
           <div>
-            <button onClick={submitOrder}>Оформить заказ</button>
+            <button onClick={submitLocalOrder}>Оформить заказ</button>
           </div>
         </div>
       </div>

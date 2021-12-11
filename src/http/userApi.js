@@ -38,9 +38,9 @@ export const getUserData = (dispatch) => {
         Authorization: "Token " + token,
       },
     })
-    .then((res) => {
+    .then(({data}) => {
       dispatch(setIsAuth(true));
-      dispatch(setIsUser(res));
+      dispatch(setIsUser(data));
     })
     .catch((e) => {
       dispatch(setIsAuth(false));

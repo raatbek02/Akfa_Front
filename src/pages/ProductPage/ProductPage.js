@@ -9,6 +9,8 @@ import "./ProductPage.css";
 import { $host } from "../../http";
 import { Link } from "react-router-dom";
 import { CART_ROUTE } from "../../utils/consts";
+import { useDispatch, useSelector } from "react-redux";
+import { setAuthCart } from "../../store/carts";
 
 const restImages = [];
 for (let i = 0; i < 5; i++) {
@@ -21,16 +23,17 @@ function ProductPage(props) {
   const [count, setCount] = useState(1);
   const { id } = useParams();
   const { addItem, items, totalItems, totalUniqueItems, emptyCart } = useCart();
-  console.log(count);
 
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.userSlice.user);
   const token = JSON.parse(localStorage.getItem("token"));
 
   //   const id2 = props.match.params.id;
   //   console.log("id2", id2);
   // console.log(oneProduct);
-    console.log("items", items);
-    console.log("totalItems", totalItems);
-    console.log("totalUniqueItems", totalUniqueItems);
+  console.log("items", items);
+  console.log("totalItems", totalItems);
+  console.log("totalUniqueItems", totalUniqueItems);
 
   useEffect(() => {
     const getOneProduct = async () => {
@@ -56,28 +59,29 @@ function ProductPage(props) {
     setShow(false);
   };
 
-  //   const addCart = () => {
-  //     const data = {
-  //       product: id,
-  //       quantity: count,
-  //     };
+  const addAuthCart = async () => {
+    const data = {
+      product: id,
+      quantity: count,
+    };
 
-  //     axios
-  //       .post(`http://127.0.0.1:8000/api/cart-item/`, data, {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: "Token " + token,
-  //         },
-  //       })
-  //       .then((res) => {
-  //         setCount(count);
-  //         console.log("Success", res);
-  //       })
-  //       .catch((e) => {
-  //         console.log("Ошибка", e);
-  //       });
-  //     //  e.preventDefault();
-  //   };
+    await axios
+      .post(`http://127.0.0.1:8000/api/cart-item/`, data, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Token " + token,
+        },
+      })
+      .then((res) => {
+        setCount(count);
+
+        console.log("Success", res);
+      })
+      .catch((e) => {
+        console.log("Ошибка", e);
+      });
+    //  e.preventDefault();
+  };
 
   return (
     <div className="productPage">
@@ -168,11 +172,11 @@ function ProductPage(props) {
                     </Link>
                     <div className="productPage__buttons">
                       {token ? (
-                        <button onClick={() => addItem(oneProduct, count)}>
-                          В корзину
-                        </button>
+                        <button onClick={() => addAuthCart()}>В корзину</button>
                       ) : (
-                        <p>Дообавить</p>
+                        <p onClick={() => addItem(oneProduct, count)}>
+                          Дообавить
+                        </p>
                       )}
 
                       <button>Купить</button>

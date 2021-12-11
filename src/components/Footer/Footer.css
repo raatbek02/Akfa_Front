@@ -1,5 +1,7 @@
 .footer {
   background: #3f3d56;
+  position: sticky;
+  top: 100vh;
 }
 .footer__container {
   padding: 35px 100px;
@@ -53,9 +55,9 @@ h3 {
   margin-bottom: 25px;
 }
 .footer__form form input::placeholder {
-	color: #989898;
-	font-size: 17px;
-	padding-left: 5px;
+  color: #989898;
+  font-size: 17px;
+  padding-left: 5px;
 }
 .footer__form form button {
   padding: 8px 70px;

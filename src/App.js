@@ -9,9 +9,12 @@ import { getUserData } from "./http/userApi";
 import axios from "axios";
 import { addProducts } from "./store/productSlice";
 
+
 function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.userSlice.user);
+  const token = JSON.parse(localStorage.getItem("token"));
 
   useEffect(() => {
     setTimeout(() => {
@@ -29,17 +32,26 @@ function App() {
     getProducts();
   }, []);
 
+
   if (loading) {
     return <p>Загрузкa...</p>;
   }
 
   return (
     <div className="App">
-      <CartProvider>
-        <Header />
-        <AppRouter />
-        <Footer />
-      </CartProvider>
+      {token ? (
+        <CartProvider>
+          <Header />
+          <AppRouter />
+          <Footer />
+        </CartProvider>
+      ) : (
+        <CartProvider>
+          <Header />
+          <AppRouter />
+          <Footer />
+        </CartProvider>
+      )}
     </div>
   );
 }
