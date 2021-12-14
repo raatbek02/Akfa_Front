@@ -14,7 +14,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userSlice.user);
-  const token = JSON.parse(localStorage.getItem("token"));
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -39,21 +39,13 @@ function App() {
 
   return (
     <div className="App">
-      {token ? (
-        <CartProvider>
-          <Header />
-          <AppRouter />
-          <Footer />
-        </CartProvider>
-      ) : (
-        <CartProvider>
-          <Header />
-          <AppRouter />
-          <Footer />
-        </CartProvider>
-      )}
+      <CartProvider>
+        <Header />
+        <AppRouter />
+        <Footer />
+      </CartProvider>
     </div>
-  );
+  )
 }
 
 export default App;

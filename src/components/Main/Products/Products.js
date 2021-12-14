@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Products.css";
 // import category_5 from "../../../assets/images/categories_img/category_5.png";
-import star from "../../../assets/images/star.png";
+// import star from "../../../assets/images/star.png";
+import product_cart_logo from "../../../assets/images/new_design/product_cart_logo.svg";
+import product_compare_logo from "../../../assets/images/new_design/product_compare_logo.svg";
+
+
 import { useNavigate } from "react-router";
 import { useCart } from "react-use-cart";
 import { PRODUCT_PAGE_ROUTE } from "../../../utils/consts";
@@ -13,7 +17,7 @@ const product_filter = [
   { id: 3, name: " Хит продаж", type: "actual" },
 ];
 
-const stars = [star, star, star, star, star];
+// const stars = [star, star, star, star, star];
 
 function Products() {
   const [activeItem, setActiveItem] = useState(null);
@@ -28,7 +32,7 @@ function Products() {
     const getProducts = async () => {
       await axios
         .get(
-          `http://127.0.0.1:8000/api/products/?${
+          `http://127.0.0.1:8000/api/products?${
             type !== null ? `${type}=${sort}` : ""
           }`
         )
@@ -45,9 +49,9 @@ function Products() {
     <div className="products">
       <div className="products__container">
         <div className="products__title">
-          <div className="products__title--line"></div>
-          <h2>Товары</h2>
-          <div className="products__title--line"></div>
+          <h2>
+            <span>Товары</span>
+          </h2>
         </div>
         <ul className="product__sorting">
           <li
@@ -86,16 +90,29 @@ function Products() {
                   <div className="product__img">
                     <img src={el.image} alt="No img" />
                   </div>
-                  <div className="product__name">{el.title}</div>
-                  <div className="product__price">
-                    <span>{el.price} $</span>
-                    <span> есть</span>
+                  <div className="product__item--content">
+                    <div className="product__name">{el.title}</div>
+                    <div className="product__price">
+                      <span>{el.price} $</span>
+                      <span> есть</span>
+                    </div>
+
+                    <div className="product__buttons">
+                      <div className="product__cart-button">
+                        <img src={product_cart_logo} alt="No img" />
+                        <span> В корзину</span>
+                      </div>
+                      <div className="product__compare-button">
+                        <img src={product_compare_logo} alt="No img" />
+                      </div>
+                    </div>
                   </div>
-                  <div className="product__rating">
+
+                  {/* <div className="product__rating">
                     {stars.map((star) => (
                       <img src={star} alt="No img" />
                     ))}
-                  </div>
+                  </div> */}
                 </div>
               );
             })}

@@ -8,7 +8,11 @@ function AppRouter() {
   console.log("IsAuuuuuuth", isAuth);
   //   const isAuth = false;
   return (
-    <div>
+    <div
+      style={{
+        background: "#FAFAF2",
+      }}
+    >
       <Routes>
         {isAuth &&
           authRoutes.map(({ path, Component }) => (

@@ -6,41 +6,41 @@ import "swiper/swiper.min.css";
 
 import "./Logo.css";
 import logo_1 from "../../../assets/images/logo_1.png";
+import visa_logo from "../../../assets/images/new_design/visa_logo.png";
 
 SwiperCore.use([Autoplay, Pagination]);
 
 function Logo() {
   return (
     <div className="logo">
-      <div className="logo__conteiner">
+      <div className="logo__container">
         <Swiper
-           autoplay={{
-             delay: 3000,
-             disableOnInteraction: false,
-           }}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
           centeredSlides={false}
           loop={true}
           speed={900}
           //  spaceBetween={20}
           slidesPerView={5}
-         
         >
           <div className="logo__content">
             <SwiperSlide>
-              <img className="logo__img" src={logo_1} alt="No img" />
+              <img className="logo__img" src={visa_logo} alt="No img" />
             </SwiperSlide>
 
             <SwiperSlide>
-              <img className="logo__img" src={logo_1} alt="No img" />
+              <img className="logo__img" src={visa_logo} alt="No img" />
             </SwiperSlide>
             <SwiperSlide>
-              <img className="logo__img" src={logo_1} alt="No img" />
+              <img className="logo__img" src={visa_logo} alt="No img" />
             </SwiperSlide>
             <SwiperSlide>
-              <img className="logo__img" src={logo_1} alt="No img" />
+              <img className="logo__img" src={visa_logo} alt="No img" />
             </SwiperSlide>
             <SwiperSlide>
-              <img className="logo__img" src={logo_1} alt="No img" />
+              <img className="logo__img" src={visa_logo} alt="No img" />
             </SwiperSlide>
           </div>
         </Swiper>

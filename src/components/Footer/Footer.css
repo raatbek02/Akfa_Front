@@ -1,5 +1,10 @@
 .footer {
-  background: #3f3d56;
+   background: linear-gradient(
+    90deg,
+    rgba(255, 72, 72, 1) 0%,
+    rgba(206, 53, 53, 1) 61%,
+    rgba(170, 39, 75, 1) 100%
+  );
   position: sticky;
   top: 100vh;
 }

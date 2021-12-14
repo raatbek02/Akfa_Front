@@ -3,10 +3,10 @@ import Main from '../components/Main/Main'
 
 function Home() {
 	return (
-		<div>
-			<Main/>
-		</div>
-	)
+    <div style={{ background: "#FAFAF2" }}>
+      <Main />
+    </div>
+  );
 }
 
 export default Home

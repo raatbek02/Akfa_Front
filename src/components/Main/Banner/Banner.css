@@ -1,41 +1,82 @@
 .banner {
-  background: url("../../../assets//images/banner_bg.png");
-  background-repeat: no-repeat;
-  padding: 200px 0;
+  /* background: url("../../../assets//images/banner_bg.png"); */
   font-family: Gilroy;
   font-weight: 800;
+  /* height: 100vh; */
 }
 .banner__container {
-  padding: 0 30px;
+  padding: 0 80px;
+  filter: drop-shadow(0px 10px 16px rgba(0, 0, 0, 0.05));
 }
 .banner__content {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
+  justify-content: space-between;
+  margin: 50px 0 30px 0;
 }
 .banner__left {
-  width: 50%;
-  padding-left: 50px;
+  width: 65%;
+  height: 355px;
+  background: url("../../../assets/images/new_design/banner_main.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter: drop-shadow(0px 10px 16px rgba(0, 0, 0, 0.05));
+  border-radius: 10px;
+  padding: 35px 25px;
+  display: flex;
+  align-items: flex-end;
+  /* padding-left: 50px; */
 }
-.banner__left h1 {
+/* .banner__left h1 {
   max-width: 600px;
   font-size: 48px;
   color: #ff0000;
-}
+} */
 .banner__btn button {
-  padding: 5px 40px;
-  font-family: Gilroy;
-  font-size: 24px;
-  color: #3e3e3e;
-  background: linear-gradient(
-    90deg,
-    rgba(46, 255, 104, 1) 0%,
-    rgba(1, 222, 63, 1) 100%
-  );
+  padding: 5px 15px;
+  font-family: Geometria;
+  font-weight: 700;
+  font-size: 14px;
+  color: #3f3d56;
+  background: #c4c4c4;
   margin-top: 60px;
+  border-radius: 10px;
 }
+
 .banner__right {
-  width: 50%;
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
+.banner__right--top {
+  background: url("../../../assets/images/new_design/banner_main.png");
+  background-size: contain;
+  border-radius: 10px;
+
+  height: 170px;
+
+  filter: drop-shadow(0px 10px 16px rgba(0, 0, 0, 0.05));
+  padding: 12px 18px;
+
+  display: flex;
+  align-items: flex-end;
+}
+.banner__right--bottom {
+  border-radius: 10px;
+  background: url("../../../assets/images/new_design/banner_main.png");
+  background-size: contain;
+
+  height: 170px;
+
+  filter: drop-shadow(0px 10px 16px rgba(0, 0, 0, 0.05));
+
+  display: flex;
+  padding: 12px 18px;
+
+  align-items: flex-end;
+}
+
 .banner__right img {
   width: 100%;
 }

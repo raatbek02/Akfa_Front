@@ -1,8 +1,10 @@
 .logo {
   background-color: #f4feff;
+  box-shadow: 0px 10px 16px rgba(0, 0, 0, 0.05);
 }
-.logo__conteiner {
-  padding: 30px;
+.logo__container {
+  padding: 0 30px;
+
 }
 .logo__content {
   display: flex;
@@ -12,14 +14,13 @@
 .logo__items {
   /* width: 150px; */
 }
-.logo__img{
-	display: block;
-  width: 120px;
+.logo__img {
+  display: block;
+  /* width: 120px; */
 }
+/* SWIPER */
 
- /* SWIPER */
-
- .swiper-slide {
-	 display: flex;
-	 justify-content: center;
- }
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+}

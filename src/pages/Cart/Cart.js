@@ -1,14 +1,17 @@
+import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "react-use-cart";
+import { minusItem, plusItem, setAuthCart } from "../../store/carts";
 // import { setAuthCart } from "../../store/carts";
 import { CHECKOUT__ROUTE, HOME_ROUTE } from "../../utils/consts";
 
 function Cart() {
-  const [authCart, setAuthCart] = useState([]);
-	const authCartLS = JSON.parse(localStorage.getItem('auth_cart_items'));
+  //   const [authCart, setAuthCart] = useState([]);
+  //   const authCartLS = JSON.parse(localStorage.getItem("auth_cart_items"));
+  const authCart = useSelector((s) => s.cartSlice.authCart);
   console.log("authCart", authCart);
   const {
     isEmpty,
@@ -24,46 +27,34 @@ function Cart() {
   const user = useSelector((s) => s.userSlice.user);
   console.log("user", user);
   const token = JSON.parse(localStorage.getItem("token"));
+  const isAuth = useSelector((s) => s.isAuthSlice.isAuth);
+  console.log("isAuth", isAuth);
   let totalAuthCartPrice = 0;
 
   //   const auth_items = useSelector((s) => s.cartSlice.auth_items);
 
   useEffect(() => {
-    axios
-      .get(`http://127.0.0.1:8000/api/carts/` + user.id, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Token " + token,
-        },
-      })
-      .then(({ data }) => {
-        setAuthCart(data.items);
-        localStorage.setItem("auth_cart_items", JSON.stringify(data.items));
+    if (isAuth) {
+      axios
+        .get(`http://127.0.0.1:8000/api/carts/` + user.id, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Token " + token,
+          },
+        })
+        .then(({ data }) => {
+          dispatch(setAuthCart(data.items));
+          //   localStorage.setItem("auth_cart_items", JSON.stringify(data.items));
 
-        console.log("Успешно", data);
-      })
-      .catch((e) => {
-        console.log("Ощибка", e);
-        navigate(HOME_ROUTE);
-      });
+          console.log("Успешно", data);
+			 localStorage.setItem('cart_id',data.id)
+        })
+        .catch((e) => {
+          console.log("Ошибка", e);
+          //  navigate(HOME_ROUTE);
+        });
+    }
   }, []);
-
-  const handleDecrement = (cart_id) => {
-    setAuthCart((authCart) =>
-      authCart.map((item) =>
-        cart_id === item.id
-          ? { ...item, quantity: item.quantity - (item.quantity > 1 ? 1 : 0) }
-          : item
-      )
-    );
-  };
-  const handleIncrement = (cart_id) => {
-    setAuthCart((authCart) =>
-      authCart.map((item) =>
-        cart_id === item.id ? { ...item, quantity: item.quantity + 1 } : item
-      )
-    );
-  };
 
   const deleteCartItem = (e, cart_id) => {
     const thisClicked = e.currentTarget;
@@ -84,7 +75,7 @@ function Cart() {
         thisClicked.closest(".cart__item").remove();
       })
       .catch((e) => {
-        alert("Ощибка,", e);
+        alert("Ошибка,", e);
       });
   };
 
@@ -113,9 +104,9 @@ function Cart() {
   //   if (isEmpty) {
   //     return <p>Ваша корзина пустая! </p>;
   //   }
-  if (token && authCart > 0) {
-    return <p>Ваша КОРЗИНА пустая!</p>;
-  }
+  //   if (token && authCart.length <= 0) {
+  //     return <p>Ваша КОРЗИНА пустая!</p>;
+  //   }
   return (
     <div className="cart">
       <div className="cart__container">
@@ -128,38 +119,28 @@ function Cart() {
             justifyContent: "space-between",
           }}
         >
-          {/* {token
-            ? auth_items.items.map((obj) => {
+          {isAuth
+            ? authCart &&
+              authCart.map((obj) => {
+                totalAuthCartPrice += obj.product.price * obj.quantity;
                 return (
-                  <div key={obj.id} className="cart__item">
+                  <div key={obj.product.id} className="cart__item">
                     <div className="cart__img">
-                      <img src={obj.image} alt="No img" />
+                      <img src={obj.product.image} alt="No img" />
                     </div>
-                    <div className="cart__title">{obj.title}</div>
-                    <div className="cart__price">{obj.price} $</div>
+                    <div className="cart__title">{obj.product.title}</div>
+                    <div className="cart__price">{obj.product.price} $</div>
                     <div className="cart__counter">
-                      <span
-                        onClick={() =>
-                          updateItemQuantity(obj.id, obj.quantity - 1)
-                        }
-                      >
-                        -
-                      </span>
-                      <span
-                        onClick={() =>
-                          updateItemQuantity(obj.id, obj.quantity + 1)
-                        }
-                      >
-                        +
-                      </span>
+                      <span onClick={() => dispatch(minusItem(obj.id))}>-</span>
+                      <span onClick={() => dispatch(plusItem(obj.id))}>+</span>
                     </div>
                     <div className="cart__quantity">{obj.quantity} шт</div>
                     <div className="cart__totalItemPrice">
-                      {obj.itemTotal} $
+                      {obj.product.itemTotal} $
                     </div>
                     <div
                       className="cart__item-remove"
-                      onClick={() => removeItem(obj.id)}
+                      onClick={(e) => deleteCartItem(e, obj.product.id)}
                     >
                       Удалить товар
                     </div>
@@ -177,7 +158,10 @@ function Cart() {
                     <div className="cart__counter">
                       <span
                         onClick={() =>
-                          updateItemQuantity(obj.id, obj.quantity - 1)
+                          updateItemQuantity(
+                            obj.id,
+                            obj.quantity - (obj.quantity > 1 ? 1 : 0)
+                          )
                         }
                       >
                         -
@@ -202,67 +186,7 @@ function Cart() {
                     </div>
                   </div>
                 );
-              })} */}
-
-          {authCart &&
-            authCart.map((obj) => {
-              totalAuthCartPrice += obj.product.price * obj.quantity;
-              return (
-                <div key={obj.product.id} className="cart__item">
-                  <div className="cart__img">
-                    <img src={obj.product.image} alt="No img" />
-                  </div>
-                  <div className="cart__title">{obj.product.title}</div>
-                  <div className="cart__price">{obj.product.price} $</div>
-                  <div className="cart__counter">
-                    <span onClick={() => handleDecrement(obj.id)}>-</span>
-                    <span onClick={() => handleIncrement(obj.id)}>+</span>
-                  </div>
-                  <div className="cart__quantity">{obj.quantity} шт</div>
-                  <div className="cart__totalItemPrice">
-                    {obj.product.itemTotal} $
-                  </div>
-                  <div
-                    className="cart__item-remove"
-                    onClick={(e) => deleteCartItem(e, obj.product.id)}
-                  >
-                    Удалить товар
-                  </div>
-                </div>
-              );
-            })}
-
-          {/* {items.map((obj) => {
-            return (
-              <div key={obj.id} className="cart__item">
-                <div className="cart__img">
-                  <img src={obj.image} alt="No img" />
-                </div>
-                <div className="cart__title">{obj.title}</div>
-                <div className="cart__price">{obj.price} $</div>
-                <div className="cart__counter">
-                  <span
-                    onClick={() => updateItemQuantity(obj.id, obj.quantity - 1)}
-                  >
-                    -
-                  </span>
-                  <span
-                    onClick={() => updateItemQuantity(obj.id, obj.quantity + 1)}
-                  >
-                    +
-                  </span>
-                </div>
-                <div className="cart__quantity">{obj.quantity} шт</div>
-                <div className="cart__totalItemPrice">{obj.itemTotal} $</div>
-                <div
-                  className="cart__item-remove"
-                  onClick={() => removeItem(obj.id)}
-                >
-                  Удалить товар
-                </div>
-              </div>
-            );
-          })} */}
+              })}
         </div>
         <div
           style={{ margin: "100px 0" }}
@@ -274,13 +198,16 @@ function Cart() {
         <div className="cart__sumOrders">
           <div className="cart__sumOrders--itogo">
             <span>Итого:</span>
-            <span>{totalAuthCartPrice} $</span>
+            {isAuth ? (
+              <span>{totalAuthCartPrice} $</span>
+            ) : (
+              <span>{cartTotal} $</span>
+            )}
           </div>
 
           <Link to={CHECKOUT__ROUTE}>
             <button>Оформить заказ</button>
           </Link>
-          <button onClick={() => ubdateCart()}>Оформить и отправить </button>
         </div>
       </div>
     </div>

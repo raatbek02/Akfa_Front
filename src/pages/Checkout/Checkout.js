@@ -1,20 +1,25 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useCart } from "react-use-cart";
 import { $host } from "../../http";
+import { setAuthCart } from "../../store/carts";
 
 function Checkout() {
   const [checkoutInput, setCheckoutInput] = useState({
     firstName: "",
     phoneNumber: "",
-	  address: "",
-	 
+    address: "",
   });
-	const [error, setError] = useState([]);
-	const token = JSON.parse(localStorage.getItem("token"));
-	const user=useSelector(s=>s.userSlice.user)
-	
+  const [error, setError] = useState([]);
+  const token = JSON.parse(localStorage.getItem("token"));
+  const cart_id = localStorage.getItem("cart_id");
+  const dispatch = useDispatch();
+  const user = useSelector((s) => s.userSlice.user);
+  const authCart = useSelector((s) => s.cartSlice.authCart);
+  const isAuth = useSelector((s) => s.isAuthSlice.isAuth);
+
+  console.log("authCart checkout", authCart);
 
   const {
     isEmpty,
@@ -30,11 +35,41 @@ function Checkout() {
   const handleInput = (e) => {
     e.persist();
     setCheckoutInput({ ...checkoutInput, [e.target.name]: e.target.value });
-	};
-	
-	// const submitAuthOrder = (e) => {
-		
-	// }
+  };
+
+  const submitAuthOrder = async (e) => {
+    const auth_items = [];
+    const data = {
+      cart_id: cart_id,
+      user: user.id,
+      first_name: checkoutInput.firstName,
+      phone_number: checkoutInput.phoneNumber,
+      address: checkoutInput.address,
+      items: auth_items,
+    };
+    authCart.map((item) => {
+      let obj = {
+        product: item.product.id,
+        quantity: item.quantity,
+        price: item.product.price,
+      };
+      auth_items.push(obj);
+    });
+    await $host
+      .post(`api/order/`, data, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Token " + token,
+        },
+      })
+      .then((res) => {
+        console.log("auth_cart успешно отправлено в order", res);
+        //   dispatch(setAuthCart([]));
+      })
+      .catch((e) => {
+        console.log("Ошибка auth_cart ", e);
+      });
+  };
 
   const submitLocalOrder = async (e) => {
     e.preventDefault();
@@ -48,7 +83,7 @@ function Checkout() {
       items: itemss,
     };
     items.map((item, i) => {
-		 let obj = {
+      let obj = {
         product: item.id,
         quantity: item.quantity,
         price: item.price,
@@ -57,18 +92,16 @@ function Checkout() {
     });
     await $host
       .post(`api/order/`, data, {
-        "Content-Type": "application/json",
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
       .then((res) => {
         console.log("Успешно", res);
-        alert("Заказ успешно отправлено!");
-        setError([]);
-        emptyCart();
+        //   emptyCart();
       })
       .catch((e) => {
         console.log("Ошибка", e);
-        alert("Все поля должны заполнены!");
-        setError(e);
       });
   };
 
@@ -149,7 +182,11 @@ function Checkout() {
             </div>
           </div>
           <div>
-            <button onClick={submitLocalOrder}>Оформить заказ</button>
+            {isAuth ? (
+              <button onClick={submitAuthOrder}>Оформить заказ</button>
+            ) : (
+              <button onClick={submitLocalOrder}>Оформить заказ</button>
+            )}
           </div>
         </div>
       </div>

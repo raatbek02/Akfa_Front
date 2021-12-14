@@ -16,13 +16,14 @@ import {
   DELIVERY_ROUTE,
   HOME_ROUTE,
   NEWS_ROUTE,
+  PRIVATE__ROUTE,
   PRODUCT_PAGE_ROUTE,
 } from "./utils/consts";
 
 export const authRoutes = [
   {
-    path: CART_ROUTE,
-    Component: <Cart />,
+    path: PRIVATE__ROUTE,
+    //  Component: <Cart />,
   },
 ];
 
@@ -54,6 +55,10 @@ export const publicRoutes = [
   {
     path: PRODUCT_PAGE_ROUTE + "/:id",
     Component: <ProductPage />,
+  },
+  {
+    path: CART_ROUTE,
+    Component: <Cart />,
   },
   {
     path: CHECKOUT__ROUTE,

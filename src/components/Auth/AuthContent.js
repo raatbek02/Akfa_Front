@@ -50,8 +50,9 @@ function AuthContent() {
   const logout = () => {
     dispatch(setIsAuth(false));
     dispatch(setIsUser({}));
+    localStorage.removeItem("token");
     localStorage.clear();
-   //  emptyCart();
+     emptyCart();
   };
 
   return (

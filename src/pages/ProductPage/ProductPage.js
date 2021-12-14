@@ -5,6 +5,10 @@ import { useCart } from "react-use-cart";
 import productRest from "../../assets/images/productPage_rest.png";
 import review_profile from "../../assets/images/review_profile.png";
 import productPage_star from "../../assets/images/productPage_star.png";
+import product_cart_logo from "../../assets/images/new_design/product_cart_logo.svg";
+import product_compare_logo from "../../assets/images/new_design/product_compare_logo.svg";
+import arrowBellow from "../../assets/images/new_design/arrowBellow.svg";
+
 import "./ProductPage.css";
 import { $host } from "../../http";
 import { Link } from "react-router-dom";
@@ -26,6 +30,8 @@ function ProductPage(props) {
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userSlice.user);
+  const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
+
   const token = JSON.parse(localStorage.getItem("token"));
 
   //   const id2 = props.match.params.id;
@@ -91,95 +97,54 @@ function ProductPage(props) {
         </div>
         <div className="productPage__content">
           <div className="productPage__top">
-            <div className="productPage__left">
-              <p className="productPage__name">{oneProduct.title}</p>
-
-              <span>Код товара: {oneProduct.title}</span>
-
-              <div className="productPage__img">
-                <img src={oneProduct.image} alt="No img" />
-              </div>
-              <div className="productPage__restImg">
-                {restImages.map((el) => {
-                  return <img src={oneProduct.image} alt="No img" />;
-                })}
-              </div>
-            </div>
-            <div className="productPage__right">
-              <div className="productPage__right--block">
-                <div className="productPage__price">{oneProduct.price} $</div>
-                <div className="productPage__right--content">
-                  <div className="productPage__right--left">
-                    <p>Доступность: На складе</p>
-                    <p>Доступность: На складе</p>
-                    <div className="productPage__rating">Rating</div>
+            <div className="productPage__top--data">
+              <div className="productPage__top--data-left">
+                <div className="productPage__top--restImages">
+                  <div>
+                    {restImages.map((el) => {
+                      return <img src={oneProduct.image} alt="No img" />;
+                    })}
                   </div>
-                  <div className="productPage__right--right">
-                    <div className="productPage__quantity">
-                      <span>кол-во</span>
-                      <div className="productPage__counter">
-                        <div className="productPage__counter--num">{count}</div>
-                        <div className="productPage__counter--buttons">
-                          <button onClick={plusCount}>
-                            <svg
-                              width="10"
-                              height="11"
-                              viewBox="0 0 10 11"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <line
-                                x1="4.95459"
-                                y1="1.40918"
-                                x2="4.95459"
-                                y2="9.90918"
-                                stroke="#3F3D56"
-                                stroke-linecap="round"
-                              />
-                              <line
-                                x1="9.13623"
-                                y1="5.72742"
-                                x2="0.63623"
-                                y2="5.72742"
-                                stroke="#3F3D56"
-                                stroke-linecap="round"
-                              />
-                            </svg>
-                          </button>
-                          <button onClick={minusCount}>
-                            <svg
-                              width="10"
-                              height="2"
-                              viewBox="0 0 10 2"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <line
-                                x1="9.13623"
-                                y1="1"
-                                x2="0.63623"
-                                y2="0.999999"
-                                stroke="#3F3D56"
-                                stroke-linecap="round"
-                              />
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
+                  <span style={{ marginLeft: "5px" }}>
+                    <img src={arrowBellow} alt="No img" />
+                  </span>
+                </div>
+                <div className="productPage__top--mainImage">
+                  <div>
+                    <img src={oneProduct.image} alt="No img" />
+                  </div>
+                  <span>Код товара: {oneProduct.title}</span>
+                </div>
+              </div>
+              <div className="productPage__top--data-right">
+                <div className="productPage__top--title">
+                  {oneProduct.title}
+                </div>
+                <div className="productPage__top--price">
+                  <span>{oneProduct.price}$</span>
+                </div>
+                <div className="productPage__top--availibility">
+                  <span style={{ color: "#343E63", fontWeight: "700" }}>
+                    Доступность
+                  </span>
+                  : На складе
+                </div>
+                <div className="productPage__top--additionalInfo">
+                  Доп информация
+                </div>
+                <div className="productPage__top--cartButtons">
+                  <div>
+                    <div className="productPage__top--counter">
+                      <button>-</button>
+                      <span>1</span>
+                      <button>+</button>
                     </div>
-                    <Link to={CART_ROUTE}>
-                      <div style={{ fontSize: "25px" }}>КОРЗИНА</div>
-                    </Link>
-                    <div className="productPage__buttons">
-                      {token ? (
-                        <button onClick={() => addAuthCart()}>В корзину</button>
-                      ) : (
-                        <p onClick={() => addItem(oneProduct, count)}>
-                          Дообавить
-                        </p>
-                      )}
-
-                      <button>Купить</button>
+                    <div className="productPage__top-addCart">
+                      <img src={product_cart_logo} alt="No img" />
+                      <span> В корзину</span>
+                    </div>
+                    <div className="productPage__top-compareBtn">
+                      <img src={product_compare_logo} alt="No img" />
                     </div>
                   </div>
                 </div>
@@ -305,3 +270,98 @@ function ProductPage(props) {
 }
 
 export default ProductPage;
+
+// <div className="productPage__left">
+//   <p className="productPage__name">{oneProduct.title}</p>
+
+//   <span>Код товара: {oneProduct.title}</span>
+
+//   <div className="productPage__img">
+//     <img src={oneProduct.image} alt="No img" />
+//   </div>
+//   <div className="productPage__restImg">
+//     {restImages.map((el) => {
+//       return <img src={oneProduct.image} alt="No img" />;
+//     })}
+//   </div>
+// </div>
+// <div className="productPage__right">
+//   <div className="productPage__right--block">
+//     <div className="productPage__price">{oneProduct.price} $</div>
+//     <div className="productPage__right--content">
+//       <div className="productPage__right--left">
+//         <p>Доступность: На складе</p>
+//         <p>Доступность: На складе</p>
+//         <div className="productPage__rating">Rating</div>
+//       </div>
+//       <div className="productPage__right--right">
+//         <div className="productPage__quantity">
+//           <span>кол-во</span>
+//           <div className="productPage__counter">
+//             <div className="productPage__counter--num">{count}</div>
+//             <div className="productPage__counter--buttons">
+//               <button onClick={plusCount}>
+//                 <svg
+//                   width="10"
+//                   height="11"
+//                   viewBox="0 0 10 11"
+//                   fill="none"
+//                   xmlns="http://www.w3.org/2000/svg"
+//                 >
+//                   <line
+//                     x1="4.95459"
+//                     y1="1.40918"
+//                     x2="4.95459"
+//                     y2="9.90918"
+//                     stroke="#3F3D56"
+//                     stroke-linecap="round"
+//                   />
+//                   <line
+//                     x1="9.13623"
+//                     y1="5.72742"
+//                     x2="0.63623"
+//                     y2="5.72742"
+//                     stroke="#3F3D56"
+//                     stroke-linecap="round"
+//                   />
+//                 </svg>
+//               </button>
+//               <button onClick={minusCount}>
+//                 <svg
+//                   width="10"
+//                   height="2"
+//                   viewBox="0 0 10 2"
+//                   fill="none"
+//                   xmlns="http://www.w3.org/2000/svg"
+//                 >
+//                   <line
+//                     x1="9.13623"
+//                     y1="1"
+//                     x2="0.63623"
+//                     y2="0.999999"
+//                     stroke="#3F3D56"
+//                     stroke-linecap="round"
+//                   />
+//                 </svg>
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//         <Link to={CART_ROUTE}>
+//           <div style={{ fontSize: "25px" }}>КОРЗИНА</div>
+//         </Link>
+//         <div className="productPage__buttons">
+//           {isAuth ? (
+//             <button onClick={() => addAuthCart()}>В корзину</button>
+//           ) : (
+//             <p onClick={() => addItem(oneProduct, count)}>
+//               Дообавить
+//             </p>
+//           )}
+
+//           <button>Купить</button>
+//         </div>
+//       </div>
+//     </div>
+//   </div>
+// </div>
