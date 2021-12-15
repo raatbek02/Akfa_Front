@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { useCart } from "react-use-cart";
-import { login, registration } from "../../http/userApi";
+import { getUserData, login, registration } from "../../http/userApi";
 import { setIsAuth } from "../../store/isAuthStore";
 import { setIsUser } from "../../store/userStore";
 import { CART_ROUTE } from "../../utils/consts";
@@ -26,6 +26,7 @@ function AuthContent() {
       setPassword("");
 
       dispatch(setIsAuth(true));
+      getUserData(dispatch);
       navigate(CART_ROUTE);
 
       console.log("Registration response", data);
@@ -39,6 +40,8 @@ function AuthContent() {
       const data = await login(userName, password);
 
       dispatch(setIsAuth(true));
+      getUserData(dispatch);
+
       navigate(CART_ROUTE);
 
       console.log("Login response", data);
@@ -52,7 +55,7 @@ function AuthContent() {
     dispatch(setIsUser({}));
     localStorage.removeItem("token");
     localStorage.clear();
-     emptyCart();
+    emptyCart();
   };
 
   return (

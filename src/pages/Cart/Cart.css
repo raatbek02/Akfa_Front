@@ -1,0 +1,326 @@
+.cart__container {
+  padding: 50px 80px 160px 80px;
+}
+.cart__top {
+  display: flex;
+  justify-content: space-between;
+}
+.cart__top--left {
+  width: 65%;
+  background-color: #fff;
+  padding: 30px 40px;
+  box-shadow: 0px 10px 16px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+.cart__top--titles {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 30px;
+  border-bottom: 2px solid #d6d6d6;
+  margin-bottom: 20px;
+}
+.cart__top--titles span {
+  font-size: 24px;
+  font-weight: 700;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 72, 72, 1) 0%,
+    rgba(170, 39, 39, 1) 100%
+  );
+}
+.cart__top--radio {
+  display: flex;
+}
+.cart__top--radio p {
+  margin-left: 22px;
+  display: flex;
+  align-items: center;
+}
+.cart__top--radio p label {
+  color: #000;
+  font-weight: 500;
+  font-size: 14px;
+}
+.cart__top--radio p input {
+  margin-right: 18px;
+}
+.cart__item {
+  display: flex;
+  margin-bottom: 23px;
+  padding-bottom: 25px;
+  border-bottom: 2px solid #d6d6d6;
+}
+.cart__item > div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.cart__item--data {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cart__img {
+  max-width: 155px;
+  height: 149px;
+  margin-right: 35px;
+}
+.cart__img img {
+  width: 100%;
+  height: 100%;
+}
+.cart__name {
+  color: #344f77;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.cart__counter {
+  width: 64px;
+  display: flex;
+  /* align-items: center; */
+  border-radius: 5px;
+  justify-content: space-between;
+  background-color: #ededed;
+}
+.cart__counter span {
+  display: flex;
+  align-items: center;
+}
+.cart__counter button {
+  display: flex;
+  align-items: center;
+  padding: 2px 7px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.cart__price span {
+  font-size: 18px;
+  font-weight: 700;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 72, 72, 1) 0%,
+    rgba(170, 39, 39, 1) 100%
+  );
+}
+
+.cart__item--remove {
+  display: flex;
+  justify-content: flex-end;
+}
+.cart__item--remove span {
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.cart__item--bottomData {
+  display: flex;
+  justify-content: space-between;
+}
+.cart__item--bottomData p {
+  margin-bottom: 15px;
+  color: #000;
+  font-size: 14px;
+  font-weight: 500;
+}
+.cart__item--bottomData span {
+  margin-top: 15px;
+}
+
+/* CART__TOP--RIGHT */
+
+.cart__top--right {
+  width: 33%;
+}
+
+.cart__top--right > div {
+  background-color: #fff;
+  padding: 25px 10px;
+  box-shadow: 0px 10px 16px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+.cart__total ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  color: #000;
+  font-size: 14px;
+  font-weight: 700;
+}
+.cart__total ul li span {
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 72, 72, 1) 0%,
+    rgba(170, 39, 39, 1) 100%
+  );
+  font-size: 18px;
+}
+.cart__total ul li:first-child span {
+  color: #000;
+}
+.cart__total ul li:last-child {
+  margin-bottom: 0;
+}
+
+.cart__total--buttons {
+  margin-top: 60px;
+  display: flex;
+  justify-content: space-between;
+}
+.cart__total--buttons button {
+  padding: 9px 15px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.cart__total--buttons button:first-child {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 72, 72, 1) 0%,
+    rgba(206, 53, 53, 1) 61%,
+    rgba(170, 39, 75, 1) 100%
+  );
+  color: #fff;
+}
+.cart__total--buttons button:last-child {
+  background: #fff;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 72, 72, 1) 0%,
+    rgba(170, 39, 39, 1) 100%
+  );
+  border: 2px solid rgba(170, 39, 39, 1);
+}
+
+/* CART__CHECKOUT */
+
+.cart__checkout {
+  width: 65%;
+}
+.cart__checkout--pickup {
+  background-color: #fff;
+  margin: 45px 0;
+  padding: 30px 40px;
+  box-shadow: 0px 10px 16px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+.cart__checkout--title {
+  padding-bottom: 20px;
+  border-bottom: 2px solid #d6d6d6;
+  margin-bottom: 20px;
+}
+.cart__checkout--title span {
+  font-size: 24px;
+  font-weight: 700;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 72, 72, 1) 0%,
+    rgba(170, 39, 39, 1) 100%
+  );
+}
+
+.cart__checkout--fields {
+  width: 60%;
+}
+.cart__checkout--flex-fields {
+  display: flex;
+  justify-content: space-between;
+}
+.cart__checkout--label-1 {
+  font-size: 18px;
+  color: #344f77;
+  font-weight: 700;
+}
+.cart__checkout--label-2 {
+  font-size: 10px;
+  font-weight: 700;
+  color: #344f77;
+}
+
+.cart__checkout--input-1 {
+  display: block;
+  width: 100%;
+  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.25);
+  height: 35px;
+  background-color: unset;
+  margin-top: 12px;
+  margin-bottom: 10px;
+}
+.cart__checkout--input-2 {
+  display: block;
+  max-width: 115px;
+  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.25);
+  height: 35px;
+  background-color: unset;
+  margin-top: 12px;
+  margin-bottom: 10px;
+}
+.p-checkbox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.p-checkbox label {
+  margin-left: 15px;
+}
+.cart__checkout--button {
+  text-align: center;
+}
+.cart__checkout--button button {
+  padding: 9px 50px;
+  border-radius: 10px;
+  font-weight: 700;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 72, 72, 1) 0%,
+    rgba(206, 53, 53, 1) 61%,
+    rgba(170, 39, 75, 1) 100%
+  );
+  color: #fff;
+}
+.p-radio {
+  margin-bottom: 10px;
+}
+.p-radio label {
+  font-size: 14px;
+  color: #000;
+  font-weight: 500;
+  margin-left: 15px;
+}
+
+
+
+.cart__checkout--delivery {
+  background-color: #fff;
+  padding: 30px 40px;
+  box-shadow: 0px 10px 16px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+
+ /* <RadioGroup aria-label="quiz" name="quiz" value={value} onChange={handleRadioChange}>
+          <FormControlLabel value="best" control={<Radio />} label="The best!" />
+          <FormControlLabel value="worst" control={<Radio />} label="The worst." />
+        </RadioGroup> */

@@ -8,6 +8,9 @@ import productPage_star from "../../assets/images/productPage_star.png";
 import product_cart_logo from "../../assets/images/new_design/product_cart_logo.svg";
 import product_compare_logo from "../../assets/images/new_design/product_compare_logo.svg";
 import arrowBellow from "../../assets/images/new_design/arrowBellow.svg";
+import minus_cart from "../../assets/images/new_design/minus_cart.svg";
+import plus_cart from "../../assets/images/new_design/plus_cart.svg";
+import depp from "../../assets/images/new_design/depp.png";
 
 import "./ProductPage.css";
 import { $host } from "../../http";
@@ -15,6 +18,7 @@ import { Link } from "react-router-dom";
 import { CART_ROUTE } from "../../utils/consts";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuthCart } from "../../store/carts";
+import Description from "./Description";
 
 const restImages = [];
 for (let i = 0; i < 5; i++) {
@@ -22,7 +26,10 @@ for (let i = 0; i < 5; i++) {
 }
 
 function ProductPage(props) {
-  const [show, setShow] = useState(true);
+  const [description, setDescription] = useState(true);
+  const [characteristic, setСharacteristic] = useState(false);
+  const [kits, setKits] = useState(false);
+
   const [oneProduct, setOneProduct] = useState({});
   const [count, setCount] = useState(1);
   const { id } = useParams();
@@ -58,12 +65,12 @@ function ProductPage(props) {
       setCount(count - 1);
     }
   };
-  const showDescHandler = () => {
-    setShow(true);
-  };
-  const showReviewsHandler = () => {
-    setShow(false);
-  };
+  //   const showDescHandler = () => {
+  //     setShow(true);
+  //   };
+  //   const showReviewsHandler = () => {
+  //     setShow(false);
+  //   };
 
   const addAuthCart = async () => {
     const data = {
@@ -113,36 +120,56 @@ function ProductPage(props) {
                   <div>
                     <img src={oneProduct.image} alt="No img" />
                   </div>
-                  <span>Код товара: {oneProduct.title}</span>
                 </div>
               </div>
               <div className="productPage__top--data-right">
-                <div className="productPage__top--title">
-                  {oneProduct.title}
-                </div>
-                <div className="productPage__top--price">
-                  <span>{oneProduct.price}$</span>
-                </div>
-                <div className="productPage__top--availibility">
-                  <span style={{ color: "#343E63", fontWeight: "700" }}>
-                    Доступность
-                  </span>
-                  : На складе
-                </div>
-                <div className="productPage__top--additionalInfo">
-                  Доп информация
+                <div>
+                  {" "}
+                  <div className="productPage__top--title">
+                    {oneProduct.title}
+                  </div>
+                  <div className="productPage__top--price">
+                    <span>{oneProduct.price}$</span>
+                  </div>
+                  <div className="productPage__top--availibility">
+                    <span style={{ color: "#343E63", fontWeight: "700" }}>
+                      Доступность
+                    </span>
+                    : На складе
+                  </div>
+                  <div className="productPage__top--additionalInfo">
+                    Доп информация
+                  </div>
                 </div>
                 <div className="productPage__top--cartButtons">
+                  <span>Подробнее про условия доставки</span>
                   <div>
                     <div className="productPage__top--counter">
-                      <button>-</button>
-                      <span>1</span>
-                      <button>+</button>
+                      <button onClick={minusCount}>
+                        <img src={minus_cart} alt="No img" />
+                      </button>
+                      <span>{count}</span>
+                      <button onClick={plusCount}>
+                        <img src={plus_cart} alt="No img" />
+                      </button>
                     </div>
-                    <div className="productPage__top-addCart">
-                      <img src={product_cart_logo} alt="No img" />
-                      <span> В корзину</span>
-                    </div>
+                    {isAuth ? (
+                      <div
+                        onClick={() => addAuthCart()}
+                        className="productPage__top-addCart"
+                      >
+                        <img src={product_cart_logo} alt="No img" />
+                        <span> В корзину</span>
+                      </div>
+                    ) : (
+                      <div
+                        onClick={() => addItem(oneProduct, count)}
+                        className="productPage__top-addCart"
+                      >
+                        <img src={product_cart_logo} alt="No img" />
+                        <span> В корзину</span>
+                      </div>
+                    )}
                     <div className="productPage__top-compareBtn">
                       <img src={product_compare_logo} alt="No img" />
                     </div>
@@ -150,118 +177,84 @@ function ProductPage(props) {
                 </div>
               </div>
             </div>
+
+            <div className="productPage__top--contact">
+              <div>
+                <div className="productPage__top--contactInfo">
+                  <div className="productPage__top--contactImg">
+                    <img src={depp} alt="No img" />
+                  </div>
+                  <div className="productPage__top--contactTitle">
+                    Джони Депп
+                  </div>
+                  <ul>
+                    <li>Менеджер по консультацию</li>
+                    <li>+ 996 777 555 555</li>
+                    <li>Depp@gmail.com</li>
+                  </ul>
+                </div>
+                <span style={{ fontWeight: "500", color: "#000" }}>
+                  Доп информация
+                </span>
+              </div>
+              <div className="productPage__top--contactChat">
+                <p>
+                  Перейти на <span>Whatsapp</span>
+                </p>
+                <div className="productPage__top--contactButton">
+                  <button>Перейти в чат</button>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="productPage__bottom">
-            <div className="productPage__bottom--buttons">
-              <button onClick={showDescHandler}>Описание</button>
-              <button onClick={showReviewsHandler}>Отзывы</button>
+            <div className="productPage__bottom--toggles">
+              <ul>
+                <li
+                  onClick={() => {
+                    setDescription(true);
+                    setСharacteristic(false);
+                    setKits(false);
+                  }}
+                  className={description ? "active" : ""}
+                >
+                  О товаре
+                </li>
+                <li
+                  onClick={() => {
+                    setDescription(false);
+                    setСharacteristic(true);
+                    setKits(false);
+                  }}
+                  className={characteristic ? "active" : ""}
+                >
+                  Характеристики
+                </li>
+                <li
+                  onClick={() => {
+                    setDescription(false);
+                    setСharacteristic(false);
+                    setKits(true);
+                  }}
+                  className={kits ? "active" : ""}
+                >
+                  Комплекты
+                </li>
+              </ul>
             </div>
-          </div>
-          <div className="productPage__bottom--content">
-            {show ? (
-              <div className="productPage__description">
-                <p>
-                  Аппарат рентгеновский маммографический "AR-Mammo" –
-                  эффективное решение для рентгенографических исследований
-                  молочной железы с целью выявления онкологических заболеваний
-                  на ранних стадиях.
-                </p>
-                <span>Преимущества:</span>
-                <ul>
-                  <li>- Гибкая система автоконтроля экспозиции;</li>
-                  <li>
-                    - Дигрессивное сжатие (AR-Mammo имеет лучший механизм с
-                    целым рядом скоростных режимов для оптимального сжатия
-                    каждого типа плотности груди);
-                  </li>
-                  <li>
-                    - Высокоскоростной двухугловой вращающийся анод. Скорость
-                    вращения анода - 9700 об/мин;
-                  </li>
-                  <li>- Фокусное пятно 0,1/0,3 мм; 300 000 HU</li>
-                  <li>
-                    - Охлаждение воздухом и маслом. Постоянный мониторинг
-                    нагрузки трубки, контролируемый микропроцессором,
-                    предохраняет трубку от перегрузок.
-                  </li>
-                  <li>- Низкая доза облучения;</li>
-                  <li>- Фокусное расстояние – 65 см;</li>
-                  <li>
-                    - Две панели управления для удобства пользователя: левая и
-                    правая;
-                  </li>
-                  <li>
-                    - Улучшенный механизм вращения кронштейна для более быстрых
-                    и мягких движений;
-                  </li>
-                  <li>- Угол наклона кронштейна от -135˚ до +180˚;</li>
-                  <li>
-                    - Легкая и простая в обращении автозагрузочная решетка Баки
-                    с автоматизированной загрузкой и извлечением кассеты;
-                  </li>
-                  <li>
-                    - Специально разработанная решетка для лучшего контраста и
-                    разрешения. Точные движения благодаря микропроцессору 36
-                    линий на сантиметр; соотношение решетки - 5:1
-                  </li>
-                  <li>
-                    - Механизированная коллимация луча, регулирующийся размер
-                    радиационного поля с подсветкой после съемки.
-                  </li>
-                  <li>- Компактные размеры и небольшой вес;</li>
-                  <li>- Эргономичный и удобный для пациента дизайн</li>
-                </ul>
-                <p>
-                  Маммограф, имеющий модульную конструкцию, с широким выбором
-                  опций, оптимизирован для работы в самых востребованных
-                  условиях и является ценным приобретением для
-                  рентгенодиагностических кабинетов лечебно-профилактических
-                  учреждений, как для проведения массового скрининга, так и для
-                  проведения сложных диагностических процедур.
-                </p>
-              </div>
-            ) : (
-              <div className="productPage__reviews">
-                {restImages.map((_, index) => {
-                  return (
-                    <div key={index} className="productPage__reviews-item">
-                      <div className="productPage__reviews-left">
-                        <div className="productPage__review--profile">
-                          <img src={review_profile} alt="No img" />
-                          <span>Макс </span>
-                        </div>
-                        <div className="productPage__review--ratings">
-                          {restImages.map((_, index) => {
-                            return (
-                              <img
-                                key={index + 1}
-                                src={productPage_star}
-                                alt="No img"
-                              />
-                            );
-                          })}
-                        </div>
-                      </div>
-                      <div className="productPage__reviews-middle">
-                        <div className="productPage__review--message">
-                          то текст-"рыба", часто используемый в печати и
-                          вэб-дизайне. Lorem Ipsum является стандартной "рыбой"
-                          для текстов на латинице с начала XVI века. В то время
-                          некий безымянный печатник создал большую коллекцию
-                          размеров и форм шрифтов, используя Lorem Ipsum
-                        </div>
-                      </div>
-                      <div className="productPage__reviews-right">
-                        <div className="productPage__reviews--date">
-                          Вчера 15:46
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+
+            <div className="productPage__bottom--content">
+              {description ? (
+                <div className="productPage__description">
+                  <Description />
+                </div>
+              ) : characteristic ? (
+                <div>Характеристика</div>
+              ) : kits ? (
+                <div>Комплекты</div>
+              ) : null}
+            </div>
           </div>
         </div>
       </div>

@@ -38,9 +38,10 @@ export const getUserData = (dispatch) => {
         Authorization: "Token " + token,
       },
     })
-    .then(({data}) => {
+    .then(({ data }) => {
       dispatch(setIsAuth(true));
       dispatch(setIsUser(data));
+      localStorage.setItem("user_id", data.id);
     })
     .catch((e) => {
       dispatch(setIsAuth(false));
