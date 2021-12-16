@@ -6,9 +6,11 @@ import news_item_1 from "../../assets/images/news_item_1.png";
 function News() {
   return (
     <div className="news">
-      <h2 className="news__title">Новости</h2>
-
       <div className="news__container">
+        <h2 className="news__title">
+          <span>Новости</span>
+        </h2>
+
         <div className="news__content">
           <div className="news__left">
             <div className="news__item">

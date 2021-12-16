@@ -10,8 +10,10 @@ import contact_map from "../../assets/images/contact_map.png";
 function Contacts() {
   return (
     <div className="contacts">
-      <h2 className="contacts__title">Контакты</h2>
       <div className="contacts__container">
+        <h2 className="contacts__title">
+          <span>Контакты</span>
+        </h2>
         <div className="contacts__content">
           <div className="contacts__left">
             <ul>

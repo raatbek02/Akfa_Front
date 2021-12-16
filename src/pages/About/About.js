@@ -1,15 +1,18 @@
 import React from "react";
 import "./About.css";
 import about_img from "../../assets/images/about_img.png";
+import about_service from "../../assets/images/new_design/about_service.png";
 
 function About() {
   return (
     <div className="about">
       <div className="about__container">
         <div className="about__content">
-          <h2>О нас</h2>
+          <h2>
+            <span>О нас</span>
+          </h2>
           <div className="about__us">
-            <div className="about__us--left">
+            <div className="about__left">
               <div className="about__text">
                 <p>
                   {" "}
@@ -63,13 +66,15 @@ function About() {
                 </p>
               </div>
             </div>
-            <div className="about__us--right">
+            <div className="about__right">
               <img src={about_img} alt="No img" />
             </div>
           </div>
-          <div className="about__service">
-            <h2>Сервис</h2>
-            <div className="about__text">
+          <h2>
+            <span>Сервис</span>
+          </h2>
+          <div className="about__us">
+            <div className="about__left">
               {" "}
               <p>
                 Акфа Мед Фарм дает гарантию на все продукты и несет полную
@@ -123,6 +128,9 @@ function About() {
                 <span>Внимание:</span> условия гарантии различных аппаратов
                 могут очень сильно отличаться друг от друга!
               </p>
+            </div>
+            <div className="about__right">
+              <img src={about_service} alt="No img" />
             </div>
           </div>
         </div>
