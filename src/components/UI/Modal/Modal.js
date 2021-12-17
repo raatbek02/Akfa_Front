@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Modal.css";
 
 function Modal({ active, setActive, children }) {
+  useEffect(() => {
+    const body = document.querySelector("body");
+    body.style.overflow = active ? "hidden" : "auto";
+  }, [active]);
   return (
     <div
       className={active ? "modal active" : "modal"}

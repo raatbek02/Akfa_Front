@@ -212,7 +212,7 @@ function Cart() {
                               </button>
                             </div>
                             <div className="cart__price">
-                              <span>{obj.itemTotal}$</span>
+                              <span>{obj.itemTotal.toFixed(2)}$</span>
                             </div>
                           </div>
                           <div className="cart__item--remove">
@@ -247,7 +247,7 @@ function Cart() {
                     {isAuth ? (
                       <span>{totalAuthCartPrice.toFixed(2)}</span>
                     ) : (
-                      <span>{cartTotal}</span>
+                      <span>{cartTotal.toFixed(2)}</span>
                     )}
                   </li>
                   <li>
@@ -255,7 +255,7 @@ function Cart() {
                     {isAuth ? (
                       <span>{totalAuthCartPrice.toFixed(2)}</span>
                     ) : (
-                      <span>{cartTotal}</span>
+                      <span>{cartTotal.toFixed(2)}</span>
                     )}
                   </li>
                 </ul>

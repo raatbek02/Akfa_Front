@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+
 import "./Products.css";
 // import category_5 from "../../../assets/images/categories_img/category_5.png";
 // import star from "../../../assets/images/star.png";
 import product_cart_logo from "../../../assets/images/new_design/product_cart_logo.svg";
 import product_compare_logo from "../../../assets/images/new_design/product_compare_logo.svg";
-
 
 import { useNavigate } from "react-router";
 import { useCart } from "react-use-cart";
@@ -24,9 +25,15 @@ function Products() {
   const [product, setProduct] = useState([]);
   const [sort, setSort] = useState(null);
   const [type, setType] = useState("");
+  const [count, setCount] = useState(1);
+
+  const { addItem, items, totalItems, totalUniqueItems, emptyCart } = useCart();
+
   console.log(type);
 
   const navigate = useNavigate();
+  const token = JSON.parse(localStorage.getItem("token"));
+  const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -41,8 +48,38 @@ function Products() {
     getProducts();
   }, [type]);
 
-  const { items } = useCart();
   console.log(items);
+
+  const addAuthCart = async (e, id) => {
+    e.stopPropagation();
+    const data = {
+      product: id,
+      quantity: count,
+    };
+
+    await axios
+      .post(`http://127.0.0.1:8000/api/cart-item/`, data, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Token " + token,
+        },
+      })
+      .then((res) => {
+        setCount(count);
+
+        console.log("Success", res);
+      })
+      .catch((e) => {
+        console.log("Ошибка", e);
+      });
+    //  e.preventDefault();
+  };
+
+  const addLocalCart = (e, id, count) => {
+    e.stopPropagation();
+
+    addItem(id, count);
+  };
 
   // ${type}=${sort}
   return (
@@ -97,17 +134,35 @@ function Products() {
                       <span> есть</span>
                     </div>
 
-                    <div className="product__buttons">
-                      <div className="product__cart-button">
-                        <img src={product_cart_logo} alt="No img" />
-                        <span> В корзину</span>
-                      </div>
+                    <div
+                      onClick={(e) => addAuthCart(e, el.id)}
+                      className="product__buttons"
+                    >
+                      {isAuth ? (
+                        <div className="product__cart-button">
+                          <img src={product_cart_logo} alt="No img" />
+
+                          <span>В корзину</span>
+
+                        </div>
+                      ) : (
+                        <div
+                          onClick={(e) => addLocalCart(e, el, count)}
+                          className="product__cart-button"
+                        >
+                          <img src={product_cart_logo} alt="No img" />
+
+                      
+
+                          <span>В корзину</span>
+                        </div>
+                      )}
+
                       <div className="product__compare-button">
                         <img src={product_compare_logo} alt="No img" />
                       </div>
                     </div>
                   </div>
-
                   {/* <div className="product__rating">
                     {stars.map((star) => (
                       <img src={star} alt="No img" />

@@ -5,7 +5,6 @@ import compare_logo from "../../assets/images/compare_logo.svg";
 import login_logo from "../../assets/images/login_logo.svg";
 import red_dot from "../../assets/images/new_design/red_dot.svg";
 
-
 import catalog_logo from "../../assets/images/catalog_logo.svg";
 
 import { Link, NavLink } from "react-router-dom";
@@ -19,6 +18,10 @@ import {
   HOME_ROUTE,
   NEWS_ROUTE,
 } from "../../utils/consts";
+import CatalogModal from "../UI/Modal/CatalogModal";
+import Category from "../Main/Category/Category";
+import { useDispatch, useSelector } from "react-redux";
+import { setModalCatalog } from "../../store/modalCatalog";
 
 const list = [
   {
@@ -45,93 +48,76 @@ const list = [
 
 function Header() {
   const [modalAuth, setModalAuth] = useState(false);
+  //   const [modalCatalog, setModalCatalog] = useState(false);
+
+  const dispatch = useDispatch();
+  //   const modalCatalog = useSelector((s) => s.modalCatalog.modalCatalog);
+
   return (
     <header className="header">
-      <div className="header__container">
-        <div className="header__content">
-          <div className="header__left">
-            <ul>
-              {list.map((obj, index) => {
-                return (
-                  <li>
-                    <NavLink to={obj.path}>
-                      <li key={index}>{obj.name}</li>
-                    </NavLink>
-                  </li>
-                );
-              })}
-            </ul>
-            <div className="header__catalog">
-              Каталог{" "}
-              <svg
-                width="29"
-                height="29"
-                viewBox="0 0 29 29"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+      <div className="header__wrapper">
+        <div className="header__container">
+          <div className="header__content">
+            <div className="header__left">
+              <ul>
+                {list.map((obj, index) => {
+                  return (
+                    <li>
+                      <NavLink to={obj.path}>
+                        <li key={index}>{obj.name}</li>
+                      </NavLink>
+                    </li>
+                  );
+                })}
+              </ul>
+              <div
+                className="header__catalog"
+                onClick={() => dispatch(setModalCatalog(!false))}
               >
-                <path
-                  d="M11 11H21"
-                  stroke="white"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M11 15H21"
-                  stroke="white"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M11 19H21"
-                  stroke="white"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </div>
-          </div>
-          <div className="header__right">
-            <div className="header__logo">
-              <Link to="/">
-                <span>akfa</span>{" "}
-              </Link>
-            </div>
-            <div className="header__assets">
-              <div className="header__assets-top">
-                <div className="header__cart">
-                  <Link to={CART_ROUTE}>
-                    <img src={cart_logo} alt="No img" />
-                    <p>Корзина</p>
-                  </Link>
-                </div>
-
-                <div className="header__compare">
-                  <img src={compare_logo} alt="No img" />
-                  <p>Сравнения</p>
-                </div>
-
-                <div
-                  onClick={() => setModalAuth(true)}
-                  className="header__login"
-                >
-                  <img src={login_logo} alt="No img" />
-                  <p>Войти</p>
-                </div>
+                Каталог
+                <img src={catalog_logo} alt="No img" />
               </div>
-              <div className="header__assets-bottom">
-                <input type="search" />
+            </div>
+            <div className="header__right">
+              <div className="header__logo">
+                <Link to="/">
+                  <span>akfa</span>{" "}
+                </Link>
+              </div>
+              <div className="header__assets">
+                <div className="header__assets-top">
+                  <div className="header__cart">
+                    <Link to={CART_ROUTE}>
+                      <img src={cart_logo} alt="No img" />
+                      <p>Корзина</p>
+                    </Link>
+                  </div>
+
+                  <div className="header__compare">
+                    <img src={compare_logo} alt="No img" />
+                    <p>Сравнения</p>
+                  </div>
+
+                  <div
+                    onClick={() => setModalAuth(true)}
+                    className="header__login"
+                  >
+                    <img src={login_logo} alt="No img" />
+                    <p>Войти</p>
+                  </div>
+                </div>
+                <div className="header__assets-bottom">
+                  <input type="search" />
+                </div>
               </div>
             </div>
           </div>
         </div>
+        <Modal active={modalAuth} setActive={setModalAuth}>
+          <Auth />
+        </Modal>
+        <CatalogModal>{<Category />}</CatalogModal>
       </div>
-      <Modal active={modalAuth} setActive={setModalAuth}>
-        <Auth />
-      </Modal>
     </header>
   );
 }

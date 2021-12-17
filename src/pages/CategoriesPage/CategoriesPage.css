@@ -1,52 +1,78 @@
 .categoriesPage__container {
-  padding: 0 30px 130px 30px;
+  padding: 0 80px 130px 80px;
 }
 
-.categoriesPage__title {
-  max-width: 650px;
-  margin: 0px auto;
+/* .categoriesPage__title {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.categoriesPage__title--line {
+} */
+/* .categoriesPage__title--line {
   width: 220px;
   height: 2px;
   background-color: #777777;
-}
-.categoriesPage__title h2 {
+} */
+.categoriesPage__title h2 span {
   font-size: 24px;
-  font-family: Gilroy;
-  font-weight: 800;
-  color: #ff0000;
-  padding-top: 5px;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 72, 72, 1) 0%,
+    rgba(170, 39, 39, 1) 100%
+  );
+
+  font-family: Geometria;
+  font-weight: 700;
+  margin-top: 50px;
+}
+.categoriesPage__sorting {
+  display: inline-block;
+  background-color: #fff;
+  padding: 10px 30px;
+  border-radius: 5px;
+  box-shadow: 0px 10px 16px rgba(0, 0, 0, 0.05);
+  margin-bottom: 70px;
+}
+.categoriesPage__sorting ul {
+  display: flex;
+  /* margin-bottom: 40px; */
+}
+.categoriesPage__sorting ul li {
+  margin-right: 30px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #3f3d56;
+  cursor: pointer;
+  position: relative;
+}
+.categoriesPage__sorting ul .active {
+  margin-right: 30px;
+  font-size: 16px;
+  font-weight: 500;
+
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 72, 72, 1) 0%,
+    rgba(170, 39, 39, 1) 100%
+  );
+  cursor: pointer;
+}
+.categoriesPage__sorting ul .active::after {
+  content: url("../../assets/images/new_design/red_dot.svg");
+  display: block;
+  position: absolute;
+
+  transition: all 0.3s linear;
+  top: 13px;
+  left: 50%;
+  /* right: 50%; */
 }
 
-.categoriesPage__sorting {
-  display: flex;
-  margin-bottom: 40px;
-}
-.categoriesPage__sorting li{
-  padding: 6px 15px;
-  margin-right: 16px;
-  border: 2px solid #000;
-  border-radius: 5px;
-  font-family: Geometria;
-  font-size: 16px;
-  color: rgba(62, 62, 62, 0.9);
-  cursor: pointer;
-}
-.categoriesPage__sorting .active {
-  padding: 6px 15px;
-  margin-right: 16px;
-  border: 2px solid #000;
-  border-radius: 5px;
-  font-family: Geometria;
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.9);
-  cursor: pointer;
-  background-color: #3F3D56;
-}
 .categoriesPage--item:first-child {
   background-color: #3f3d56;
   color: #fff;
@@ -59,8 +85,7 @@
   flex-wrap: wrap;
 }
 .categoriesPage__item {
-  max-width: 200px;
-  text-align: center;
+  max-width: 280px;
   font-family: Geometria;
   font-weight: 500;
   color: #272626;
@@ -68,27 +93,78 @@
   margin-bottom: 40px;
   border-radius: 5px;
 
-  background-color: #f4feff;
+  background-color: #ffffff;
   cursor: pointer;
-}
 
+  filter: drop-shadow(0px 10px 16px rgba(0, 0, 0, 0.05));
+}
 .categoriesPage__img {
-  width: 200px;
+  width: 280px;
 }
 .categoriesPage__img img {
   width: 100%;
 }
+
+.categoriesPage__item--content {
+  padding: 20px;
+}
 .categoriesPage__name {
   font-size: 14px;
   font-weight: 500;
-  margin: 10px 0 5px;
+  margin: 10px 0;
+  color: #3e3e3e;
+  /* text-align: center; */
 }
+.categoriesPage__price {
+  text-align: left;
+}
+
 .categoriesPage__price span:first-child {
-  font-weight: 700;
+  font-size: 18px;
+  font-family: Gilroy;
+  font-weight: 900;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 72, 72, 1) 0%,
+    rgba(170, 39, 39, 1) 100%
+  );
+  margin-right: 12px;
 }
 .categoriesPage__price span:last-child {
-  color: #989898;
+  font-weight: 700;
+  color: #00a907;
 }
-.categoriesPage__rating {
-  margin: 5px 0;
+
+.categoriesPage__buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 35px;
+}
+.categoriesPage__cart-button {
+  padding: 8px 35px;
+
+  background: linear-gradient(
+    90deg,
+    rgba(255, 72, 72, 1) 0%,
+    rgba(206, 53, 53, 1) 61%,
+    rgba(170, 39, 75, 1) 100%
+  );
+  font-size: 14px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.categoriesPage__cart-button span {
+  margin-left: 15px;
+}
+.categoriesPage__compare-button {
+  border: 1px solid #aa2727;
+  border-radius: 10px;
+  padding: 3px 5px 1px;
 }
