@@ -69,7 +69,7 @@ function CategoriesPage() {
     };
 
     await axios
-      .post(`http://127.0.0.1:8000/api/cart-item/`, data, {
+      .post(`http://127.0.0.1:8000/api/cart-item_product/`, data, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Token " + token,
@@ -128,8 +128,8 @@ function CategoriesPage() {
         </div>
 
         <div className="categoriesPage__content">
-          {categoryProducts &&
-            categoryProducts.map((el) => {
+          {categoryProducts.results &&
+            categoryProducts.results.map((el) => {
               return (
                 <div
                   key={el._id}

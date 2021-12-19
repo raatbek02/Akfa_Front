@@ -43,27 +43,29 @@ function Cart() {
   //   const auth_items = useSelector((s) => s.cartSlice.auth_items);
 
   useEffect(() => {
-    const getAuthCart = async () => {
-      await axios
-        .get(`http://127.0.0.1:8000/api/carts/` + user_id, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Token " + token,
-          },
-        })
-        .then(({ data }) => {
-          dispatch(setAuthCart(data.items));
-          //   localStorage.setItem("auth_cart_items", JSON.stringify(data.items));
+    if (isAuth) {
+      const getAuthCart = async () => {
+        await axios
+          .get(`http://127.0.0.1:8000/api/carts/` + user_id, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Token " + token,
+            },
+          })
+          .then(({ data }) => {
+            dispatch(setAuthCart(data.items));
+            //   localStorage.setItem("auth_cart_items", JSON.stringify(data.items));
 
-          console.log("Успешно", data);
-          localStorage.setItem("cart_id", data.id);
-        })
-        .catch((e) => {
-          console.log("Ошибка", e);
-          //  navigate(HOME_ROUTE);
-        });
-    };
-    getAuthCart();
+            console.log("Успешно", data);
+            localStorage.setItem("cart_id", data.id);
+          })
+          .catch((e) => {
+            console.log("Ошибка", e);
+            //  navigate(HOME_ROUTE);
+          });
+      };
+      getAuthCart();
+    }
   }, []);
 
   const deleteCartItem = (e, cart_id) => {
@@ -83,295 +85,346 @@ function Cart() {
       .then((res) => {
         console.log("Товар удален", res);
         thisClicked.closest(".cart__item").remove();
+        console.log("authCaaaaaaaaaaaaaaaaaart", authCart);
       })
       .catch((e) => {
         alert("Ошибка,", e);
       });
   };
 
-  const ubdateCart = () => {
+  //   useEffect(() => {});
+
+  const plusUbdateCart = (id) => {
     const data = {
-      product: authCart.map((i) => i.product.id),
-      quantity: authCart.map((i) => i.quantity),
+      cart_item: id,
     };
     axios
-      .post(`http://127.0.0.1:8000/api/cart-item/`, data, {
+      .post(`http://127.0.0.1:8000/api/cart-update/`, data, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Token " + token,
         },
       })
       .then((res) => {
-        console.log("Успешно обновлено");
-
-        console.log("Success", res);
+        console.log("Успешно обновлено", res);
       })
       .catch((e) => {
         console.log("Ошибка при обновлении корзины", e);
       });
+    console.log("Отправлено");
   };
 
-  //   if (isEmpty) {
-  //     return <p>Ваша корзина пустая! </p>;
-  //   }
-  //   if (token && authCart.length <= 0) {
-  //     return <p>Ваша КОРЗИНА пустая!</p>;
+  const minusUbdateCart = (id) => {
+    const data = {
+      cart_item: id,
+    };
+    axios
+      .post(`http://127.0.0.1:8000/api/cart-update/?minus`, data, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Token " + token,
+        },
+      })
+      .then((res) => {
+        console.log("Успешно обновлено", res);
+      })
+      .catch((e) => {
+        console.log("Ошибка при обновлении корзины", e);
+      });
+    console.log("Отправлено");
+  };
+
+  //   if (isAuth) {
+  //     if (!authCart) {
+  //       return <p>Ваша КОРЗИНА пустая!</p>;
+  //     }
+  //   } else {
+  //     if (isEmpty) {
+  //       return <p>Ваша корзина пустая! </p>;
+  //     }
   //   }
   return (
     <div className="cart">
       <div className="cart__container">
-        <div className="cart__top">
-          <div className="cart__top--left">
-            <div className="cart__top--titles">
-              <span>Корзина</span>
-              <div className="cart__top--radio">
-                <p>
-                  <input type={"radio"} />
-                  <label>Доставка</label>
-                </p>
-                <p>
-                  <input type={"radio"} />
-                  <label>Самовывоз</label>
-                </p>
+        {items.length ? (
+          <>
+            <div className="cart__top">
+              <div className="cart__top--left">
+                <div className="cart__top--titles">
+                  <span>Корзина</span>
+                  <div className="cart__top--radio">
+                    <p>
+                      <input type={"radio"} />
+                      <label>Доставка</label>
+                    </p>
+                    <p>
+                      <input type={"radio"} />
+                      <label>Самовывоз</label>
+                    </p>
+                  </div>
+                </div>
+                <div className="cart__top--contents">
+                  {isAuth
+                    ? authCart &&
+                      authCart.map((obj) => {
+                        totalAuthCartPrice += obj.product.price * obj.quantity;
+                        return (
+                          <div className="cart__item">
+                            <div className="cart__img">
+                              <img src={obj.product.image} alt="No img" />
+                            </div>
+                            <div>
+                              <div className="cart__item--data">
+                                <div className="cart__name">
+                                  {obj.product.title}
+                                </div>
+                                <div className="cart__counter">
+                                  <button
+                                    onClick={() => {
+                                      dispatch(minusItem(obj.id));
+                                      minusUbdateCart(obj.id);
+                                    }}
+                                  >
+                                    <img src={minus_cart} alt="No img" />
+                                  </button>
+                                  <span>{obj.quantity}</span>
+                                  <button
+                                    onClick={() => {
+                                      dispatch(plusItem(obj.id));
+                                      plusUbdateCart(obj.id);
+                                    }}
+                                  >
+                                    <img src={plus_cart} alt="No img" />
+                                  </button>
+                                </div>
+                                <div className="cart__price">
+                                  <span>{obj.product.itemTotal}$</span>
+                                </div>
+                              </div>
+                              <div className="cart__item--remove">
+                                <span
+                                  onClick={(e) => {
+                                    deleteCartItem(e, obj.product.id);
+                                  }}
+                                >
+                                  <img src={cart_item_remove} alt="No img" />
+                                </span>
+                              </div>
+                              <div className="cart__item--bottomData">
+                                <p>Выберите способ получения товара:</p>
+                                <span>Код: 1701503</span>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })
+                    : items.map((obj) => {
+                        return (
+                          <div className="cart__item">
+                            <div className="cart__img">
+                              <img src={obj.image} alt="No img" />
+                            </div>
+                            <div>
+                              <div className="cart__item--data">
+                                <div className="cart__name">{obj.title}</div>
+                                <div className="cart__counter">
+                                  <button
+                                    onClick={() =>
+                                      updateItemQuantity(
+                                        obj.id,
+                                        obj.quantity -
+                                          (obj.quantity > 1 ? 1 : 0)
+                                      )
+                                    }
+                                  >
+                                    <img src={minus_cart} alt="No img" />
+                                  </button>
+                                  <span>{obj.quantity}</span>
+                                  <button
+                                    onClick={() =>
+                                      updateItemQuantity(
+                                        obj.id,
+                                        obj.quantity + 1
+                                      )
+                                    }
+                                  >
+                                    <img src={plus_cart} alt="No img" />
+                                  </button>
+                                </div>
+                                <div className="cart__price">
+                                  <span>{obj.itemTotal.toFixed(2)}$</span>
+                                </div>
+                              </div>
+                              <div className="cart__item--remove">
+                                <span onClick={() => removeItem(obj.id)}>
+                                  <img src={cart_item_remove} alt="No img" />
+                                </span>
+                              </div>
+                              <div className="cart__item--bottomData">
+                                <p>Выберите способ получения товара:</p>
+                                <span>Код: 1701503</span>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                </div>
+              </div>
+              <div className="cart__top--right">
+                <div>
+                  <div className="cart__total">
+                    <ul>
+                      <li>
+                        <p>Всего товаров</p>
+                        {isAuth ? (
+                          <span>{authCart && authCart.length}</span>
+                        ) : (
+                          <span>{totalUniqueItems}</span>
+                        )}
+                      </li>
+                      <li>
+                        <p>Cумма</p>
+                        {isAuth ? (
+                          <span>{totalAuthCartPrice.toFixed(2)}</span>
+                        ) : (
+                          <span>{cartTotal.toFixed(2)}</span>
+                        )}
+                      </li>
+                      <li>
+                        <p>Итого:</p>
+                        {isAuth ? (
+                          <span>{totalAuthCartPrice.toFixed(2)}</span>
+                        ) : (
+                          <span>{cartTotal.toFixed(2)}</span>
+                        )}
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="cart__total--buttons">
+                    <button>Перейти к оформлению</button>
+                    <button>Счет на оплату</button>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="cart__top--contents">
-              {token
-                ? authCart &&
-                  authCart.map((obj) => {
-                    totalAuthCartPrice += obj.product.price * obj.quantity;
-                    return (
-                      <div className="cart__item">
-                        <div className="cart__img">
-                          <img src={obj.product.image} alt="No img" />
-                        </div>
-                        <div>
-                          <div className="cart__item--data">
-                            <div className="cart__name">
-                              {obj.product.title}
-                            </div>
-                            <div className="cart__counter">
-                              <button
-                                onClick={() => dispatch(minusItem(obj.id))}
-                              >
-                                <img src={minus_cart} alt="No img" />
-                              </button>
-                              <span>{obj.quantity}</span>
-                              <button
-                                onClick={() => dispatch(plusItem(obj.id))}
-                              >
-                                <img src={plus_cart} alt="No img" />
-                              </button>
-                            </div>
-                            <div className="cart__price">
-                              <span>{obj.product.itemTotal}$</span>
-                            </div>
-                          </div>
-                          <div className="cart__item--remove">
-                            <span
-                              onClick={(e) => deleteCartItem(e, obj.product.id)}
-                            >
-                              <img src={cart_item_remove} alt="No img" />
-                            </span>
-                          </div>
-                          <div className="cart__item--bottomData">
-                            <p>Выберите способ получения товара:</p>
-                            <span>Код: 1701503</span>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })
-                : items.map((obj) => {
-                    return (
-                      <div className="cart__item">
-                        <div className="cart__img">
-                          <img src={obj.image} alt="No img" />
-                        </div>
-                        <div>
-                          <div className="cart__item--data">
-                            <div className="cart__name">{obj.title}</div>
-                            <div className="cart__counter">
-                              <button
-                                onClick={() =>
-                                  updateItemQuantity(
-                                    obj.id,
-                                    obj.quantity - (obj.quantity > 1 ? 1 : 0)
-                                  )
-                                }
-                              >
-                                <img src={minus_cart} alt="No img" />
-                              </button>
-                              <span>{obj.quantity}</span>
-                              <button
-                                onClick={() =>
-                                  updateItemQuantity(obj.id, obj.quantity + 1)
-                                }
-                              >
-                                <img src={plus_cart} alt="No img" />
-                              </button>
-                            </div>
-                            <div className="cart__price">
-                              <span>{obj.itemTotal.toFixed(2)}$</span>
-                            </div>
-                          </div>
-                          <div className="cart__item--remove">
-                            <span onClick={() => removeItem(obj.id)}>
-                              <img src={cart_item_remove} alt="No img" />
-                            </span>
-                          </div>
-                          <div className="cart__item--bottomData">
-                            <p>Выберите способ получения товара:</p>
-                            <span>Код: 1701503</span>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-            </div>
-          </div>
-          <div className="cart__top--right">
-            <div>
-              <div className="cart__total">
-                <ul>
-                  <li>
-                    <p>Всего товаров</p>
-                    {isAuth ? (
-                      <span>{authCart.length}</span>
-                    ) : (
-                      <span>{totalUniqueItems}</span>
-                    )}
-                  </li>
-                  <li>
-                    <p>Cумма</p>
-                    {isAuth ? (
-                      <span>{totalAuthCartPrice.toFixed(2)}</span>
-                    ) : (
-                      <span>{cartTotal.toFixed(2)}</span>
-                    )}
-                  </li>
-                  <li>
-                    <p>Итого:</p>
-                    {isAuth ? (
-                      <span>{totalAuthCartPrice.toFixed(2)}</span>
-                    ) : (
-                      <span>{cartTotal.toFixed(2)}</span>
-                    )}
-                  </li>
-                </ul>
-              </div>
-              <div className="cart__total--buttons">
-                <button>Перейти к оформлению</button>
-                <button>Счет на оплату</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="cart__bottom">
-          <div className="cart__checkout">
-            <div className="cart__checkout--pickup">
-              <div className="cart__checkout--title">
-                <span>Контактное лицо</span>
-              </div>
-              <div className="cart__checkout--fields">
-                <p>
-                  <label className="cart__checkout--label-1">ФИО</label>
-                  <input className="cart__checkout--input-1" type="text" />
-                  <p className="p-checkbox">
-                    <input type="checkbox" />
-                    <label className="cart__checkout--label-2">
-                      Требуется подтверждение с оператором
-                    </label>
-                  </p>
-                </p>
-                <p>
-                  <label className="cart__checkout--label-1">Телефон</label>
-                  <input className="cart__checkout--input-1" type="text" />
-                </p>
-                <p>
-                  <label className="cart__checkout--label-1">E-mail</label>
-                  <input className="cart__checkout--input-1" type="text" />
+            <div className="cart__bottom">
+              <div className="cart__checkout">
+                <div className="cart__checkout--pickup">
+                  <div className="cart__checkout--title">
+                    <span>Контактное лицо</span>
+                  </div>
+                  <div className="cart__checkout--fields">
+                    <p>
+                      <label className="cart__checkout--label-1">ФИО</label>
+                      <input className="cart__checkout--input-1" type="text" />
+                      <p className="p-checkbox">
+                        <input type="checkbox" />
+                        <label className="cart__checkout--label-2">
+                          Требуется подтверждение с оператором
+                        </label>
+                      </p>
+                    </p>
+                    <p>
+                      <label className="cart__checkout--label-1">Телефон</label>
+                      <input className="cart__checkout--input-1" type="text" />
+                    </p>
+                    <p>
+                      <label className="cart__checkout--label-1">E-mail</label>
+                      <input className="cart__checkout--input-1" type="text" />
 
-                  <p className="p-checkbox">
-                    <input type="checkbox" />
-                    <label className="cart__checkout--label-2">
-                      Юридическое лицо
-                    </label>
-                  </p>
-                  <p className="p-checkbox">
-                    <input type="checkbox" />
-                    <label className="cart__checkout--label-2">
-                      Зарегистрировать меня как пользователя сайта при создании
-                      заказа
-                    </label>
-                  </p>
-                </p>
-              </div>
-              <div className="cart__checkout--button">
-                <button>Отправить</button>
-              </div>
-            </div>
-            <div className="cart__checkout--delivery">
-              <div className="cart__checkout--title">
-                <span>Оформление заказа (Доставка)</span>
-              </div>
-              <div className="cart__checkout--fields">
-                <p>
-                  <label className="cart__checkout--label-1">Адрес:</label>
-                  <input className="cart__checkout--input-1" type="text" />
-                </p>
-                <p className="cart__checkout--flex-fields">
-                  <p>
-                    <label className="cart__checkout--label-1">Подъезд</label>
-                    <input className="cart__checkout--input-2" type="text" />
-                  </p>
-                  <p>
-                    <label className="cart__checkout--label-1">Этаж</label>
-                    <input className="cart__checkout--input-2" type="text" />
-                  </p>{" "}
-                  <p>
-                    <label className="cart__checkout--label-1">Домофон</label>
-                    <input className="cart__checkout--input-2" type="text" />
-                  </p>
-                </p>
-                <p>
-                  <label className="cart__checkout--label-1">
-                    Комментарий к заказу:
-                  </label>
-                  <input className="cart__checkout--input-1" type="text" />
-                </p>
-                <p>
-                  <label className="cart__checkout--label-1">
-                    Выберите дату доставки:
-                  </label>
-                  <input className="cart__checkout--input-1" type="text" />
-                </p>
-                <p>
-                  <label className="cart__checkout--label-1">
-                    Наличие лифта
-                  </label>
-                  <RadioGroup>
-                    <FormControlLabel
-                      value="not"
-                      control={<Radio />}
-                      label="Нет"
-                    />
-                    <FormControlLabel
-                      value="p"
-                      control={<Radio />}
-                      label="Пассажирский"
-                    />
-                    <FormControlLabel
-                      value="g"
-                      control={<Radio />}
-                      label="Грузовой"
-                    />
-                    <FormControlLabel
-                      value="pg"
-                      control={<Radio />}
-                      label="Пассажирский и грузовой"
-                    />
-                    {/* <p className="p-radio">
+                      <p className="p-checkbox">
+                        <input type="checkbox" />
+                        <label className="cart__checkout--label-2">
+                          Юридическое лицо
+                        </label>
+                      </p>
+                      <p className="p-checkbox">
+                        <input type="checkbox" />
+                        <label className="cart__checkout--label-2">
+                          Зарегистрировать меня как пользователя сайта при
+                          создании заказа
+                        </label>
+                      </p>
+                    </p>
+                  </div>
+                  <div className="cart__checkout--button">
+                    <button>Отправить</button>
+                  </div>
+                </div>
+                <div className="cart__checkout--delivery">
+                  <div className="cart__checkout--title">
+                    <span>Оформление заказа (Доставка)</span>
+                  </div>
+                  <div className="cart__checkout--fields">
+                    <p>
+                      <label className="cart__checkout--label-1">Адрес:</label>
+                      <input className="cart__checkout--input-1" type="text" />
+                    </p>
+                    <p className="cart__checkout--flex-fields">
+                      <p>
+                        <label className="cart__checkout--label-1">
+                          Подъезд
+                        </label>
+                        <input
+                          className="cart__checkout--input-2"
+                          type="text"
+                        />
+                      </p>
+                      <p>
+                        <label className="cart__checkout--label-1">Этаж</label>
+                        <input
+                          className="cart__checkout--input-2"
+                          type="text"
+                        />
+                      </p>{" "}
+                      <p>
+                        <label className="cart__checkout--label-1">
+                          Домофон
+                        </label>
+                        <input
+                          className="cart__checkout--input-2"
+                          type="text"
+                        />
+                      </p>
+                    </p>
+                    <p>
+                      <label className="cart__checkout--label-1">
+                        Комментарий к заказу:
+                      </label>
+                      <input className="cart__checkout--input-1" type="text" />
+                    </p>
+                    <p>
+                      <label className="cart__checkout--label-1">
+                        Выберите дату доставки:
+                      </label>
+                      <input className="cart__checkout--input-1" type="text" />
+                    </p>
+                    <p>
+                      <label className="cart__checkout--label-1">
+                        Наличие лифта
+                      </label>
+                      <RadioGroup>
+                        <FormControlLabel
+                          value="not"
+                          control={<Radio />}
+                          label="Нет"
+                        />
+                        <FormControlLabel
+                          value="p"
+                          control={<Radio />}
+                          label="Пассажирский"
+                        />
+                        <FormControlLabel
+                          value="g"
+                          control={<Radio />}
+                          label="Грузовой"
+                        />
+                        <FormControlLabel
+                          value="pg"
+                          control={<Radio />}
+                          label="Пассажирский и грузовой"
+                        />
+                        {/* <p className="p-radio">
                       <input type="radio" />
                       <label>Нет</label>
                     </p>
@@ -387,15 +440,19 @@ function Cart() {
                       <input type="radio" />
                       <label>Пассажирский и грузовой</label>
                     </p> */}
-                  </RadioGroup>
-                </p>
-              </div>
-              <div className="cart__checkout--button">
-                <button>Отправить</button>
+                      </RadioGroup>
+                    </p>
+                  </div>
+                  <div className="cart__checkout--button">
+                    <button>Отправить</button>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+          </>
+        ) : (
+          <p>Пустая корзина</p>
+        )}
       </div>
     </div>
   );

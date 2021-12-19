@@ -19,6 +19,7 @@ import { CART_ROUTE } from "../../utils/consts";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuthCart } from "../../store/carts";
 import Description from "./Description";
+import Kits from "./Kits";
 
 const restImages = [];
 for (let i = 0; i < 5; i++) {
@@ -28,10 +29,10 @@ for (let i = 0; i < 5; i++) {
 function ProductPage(props) {
   const [description, setDescription] = useState(true);
   const [characteristic, setСharacteristic] = useState(false);
-  const [kits, setKits] = useState(false);
-
   const [oneProduct, setOneProduct] = useState({});
   const [count, setCount] = useState(1);
+  const [kits, setKits] = useState(false);
+
   const { id } = useParams();
   const { addItem, items, totalItems, totalUniqueItems, emptyCart } = useCart();
 
@@ -47,6 +48,8 @@ function ProductPage(props) {
   console.log("items", items);
   console.log("totalItems", totalItems);
   console.log("totalUniqueItems", totalUniqueItems);
+  console.log("oneProduct", oneProduct);
+  console.log("kits", kits);
 
   useEffect(() => {
     const getOneProduct = async () => {
@@ -79,7 +82,7 @@ function ProductPage(props) {
     };
 
     await axios
-      .post(`http://127.0.0.1:8000/api/cart-item/`, data, {
+      .post(`http://127.0.0.1:8000/api/cart-item_product/`, data, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Token " + token,
@@ -252,7 +255,9 @@ function ProductPage(props) {
               ) : characteristic ? (
                 <div>Характеристика</div>
               ) : kits ? (
-                <div>Комплекты</div>
+                <div>
+                  {<Kits  oneProduct={oneProduct} />}
+                </div>
               ) : null}
             </div>
           </div>

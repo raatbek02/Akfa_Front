@@ -16,11 +16,11 @@ function AppRouter() {
       <Routes>
         {isAuth &&
           authRoutes.map(({ path, Component }) => (
-            <Route key={path} path={path} element={Component} />
+            <Route primary={false} key={path} path={path} element={Component} />
           ))}
 
         {publicRoutes.map(({ path, Component }) => (
-          <Route key={path} path={path} element={Component} />
+          <Route primary={false} key={path} path={path} element={Component} />
         ))}
       </Routes>
     </div>

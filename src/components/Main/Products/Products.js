@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import ReactPaginate from "react-paginate";
+
+// import Pagination from "@mui/material/Pagination";
+// import Stack from "@mui/material/Stack";
+// import { Stack,Pagination } from "@material-ui/core";
 
 import "./Products.css";
 // import category_5 from "../../../assets/images/categories_img/category_5.png";
@@ -26,6 +31,9 @@ function Products() {
   const [sort, setSort] = useState(null);
   const [type, setType] = useState("");
   const [count, setCount] = useState(1);
+  const [pageCount, setPageCount] = useState(0);
+  console.log(pageCount);
+  console.log("product", product);
 
   const { addItem, items, totalItems, totalUniqueItems, emptyCart } = useCart();
 
@@ -37,18 +45,35 @@ function Products() {
 
   useEffect(() => {
     const getProducts = async () => {
-      await axios
-        .get(
-          `http://127.0.0.1:8000/api/products?${
-            type !== null ? `${type}=${sort}` : ""
-          }`
-        )
-        .then(({ data }) => setProduct(data));
+      const res = await axios.get(
+        `http://127.0.0.1:8000/api/products?page=1&${
+          type !== null ? `${type}=${sort}` : ""
+        }`
+      );
+      setProduct(res.data);
+      const total = res.data.count;
+      setPageCount(Math.ceil(total / 12));
     };
     getProducts();
   }, [type]);
 
-  console.log(items);
+  const paginateProducts = async (currentPage) => {
+    const res = await axios.get(
+      `http://127.0.0.1:8000/api/products?page=${currentPage}&${
+        type !== null ? `${type}=${sort}` : ""
+      }`
+    );
+    return res.data;
+  };
+
+  const handlePageClick = async (data) => {
+    let currentPage = data.selected + 1;
+
+    const getPaginatedProducts = await paginateProducts(currentPage);
+    setProduct(getPaginatedProducts);
+  };
+
+  //   console.log(items);
 
   const addAuthCart = async (e, id) => {
     e.stopPropagation();
@@ -58,7 +83,7 @@ function Products() {
     };
 
     await axios
-      .post(`http://127.0.0.1:8000/api/cart-item/`, data, {
+      .post(`http://127.0.0.1:8000/api/cart-item_product/`, data, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Token " + token,
@@ -117,8 +142,8 @@ function Products() {
           })}
         </ul>
         <div className="product__content">
-          {product &&
-            product.map((el) => {
+          {product.results &&
+            product.results.map((el) => {
               return (
                 <div
                   onClick={() => navigate(`${PRODUCT_PAGE_ROUTE}/${el.id}`)}
@@ -134,25 +159,22 @@ function Products() {
                       <span> есть</span>
                     </div>
 
-                    <div
-                      onClick={(e) => addAuthCart(e, el.id)}
-                      className="product__buttons"
-                    >
+                    <div className="product__buttons">
                       {isAuth ? (
-                        <div className="product__cart-button">
-                          <img src={product_cart_logo} alt="No img" />
-
-                          <span>В корзину</span>
-
-                        </div>
-                      ) : (
                         <div
-                          onClick={(e) => addLocalCart(e, el, count)}
+                          onClick={(e) => addAuthCart(e, el.id)}
                           className="product__cart-button"
                         >
                           <img src={product_cart_logo} alt="No img" />
 
-                      
+                          <span>В корзину</span>
+                        </div>
+                      ) : (
+                        <div
+                          onClick={(e) => addLocalCart(e, el)}
+                          className="product__cart-button"
+                        >
+                          <img src={product_cart_logo} alt="No img" />
 
                           <span>В корзину</span>
                         </div>
@@ -163,14 +185,31 @@ function Products() {
                       </div>
                     </div>
                   </div>
-                  {/* <div className="product__rating">
-                    {stars.map((star) => (
-                      <img src={star} alt="No img" />
-                    ))}
-                  </div> */}
                 </div>
               );
             })}
+        </div>
+
+        <div className="product__pagination">
+          <ReactPaginate
+            previousLabel={<i class="fas fa-chevron-left"></i>}
+            nextLabel={<i class="fas fa-chevron-right"></i>}
+            breakLabel={"..."}
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={3}
+            onPageChange={handlePageClick}
+            containerClassName={"product__pagination--container"}
+            pageClassName={"product__pagination--item"}
+            pageLinkClassName={"product__pagination--link"}
+            previousClassName={""}
+            previousLinkClassName={"product__pagination--previous"}
+            nextClassName={""}
+            nextLinkClassName={"product__pagination--next"}
+            breakClassName={"product__pagination--item"}
+            breakLinkClassName={"product__pagination--link"}
+            activeClassName={"active"}
+          />
         </div>
       </div>
     </div>

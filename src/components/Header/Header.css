@@ -1,6 +1,7 @@
 @import url("../../assets/fonts/fonts.css");
 
 .header {
+	width: 100%;
 }
 .header__wrapper {
   font-family: Geometria;
