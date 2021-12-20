@@ -98,7 +98,9 @@ function CategoriesPage() {
       <div className="categoriesPage__container">
         <div className="categoriesPage__title">
           <h2>
-            <span>{categoryProducts[0] && categoryProducts[0].category}</span>
+            <span>
+              {categoryProducts.results && categoryProducts.results[0].category}
+            </span>
           </h2>
         </div>
         <div className="categoriesPage__sorting">

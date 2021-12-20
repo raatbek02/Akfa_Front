@@ -53,7 +53,7 @@ function Category() {
                     getSubcategories(obj.id);
                     setActiveCategory(obj.id);
                   }}
-                  className={obj.id === activeCategory ? "active" : ""}
+                  className={obj.id === activeCategory ? "" : ""}
                 >
                   {obj.title}
                 </li>
@@ -74,7 +74,7 @@ function Category() {
                     localStorage.setItem("subCategory_ID", obj.id);
                   }}
                   key={Date.now() * obj.id}
-                  className={activeSubCategory === obj.id ? "active" : ""}
+                  className={activeSubCategory === obj.id ? "" : ""}
                 >
                   {obj.title}
                 </li>

@@ -13,7 +13,7 @@ function AppRouter() {
         background: "#FAFAF2",
       }}
     >
-      <Routes>
+      <Routes primary={false}>
         {isAuth &&
           authRoutes.map(({ path, Component }) => (
             <Route primary={false} key={path} path={path} element={Component} />
