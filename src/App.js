@@ -9,6 +9,8 @@ import { getUserData } from "./http/userApi";
 import axios from "axios";
 import { addProducts } from "./store/productSlice";
 import { setSubCategory_id } from "./store/modalCatalog";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -46,6 +48,7 @@ function App() {
         <Header />
         <AppRouter />
         <Footer />
+        <ToastContainer />
       </CartProvider>
     </div>
   );

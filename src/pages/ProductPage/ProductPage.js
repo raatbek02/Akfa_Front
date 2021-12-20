@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAuthCart } from "../../store/carts";
 import Description from "./Description";
 import Kits from "./Kits";
+import { toast } from "react-toastify";
 
 const restImages = [];
 for (let i = 0; i < 5; i++) {
@@ -41,6 +42,8 @@ function ProductPage(props) {
   const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
 
   const token = JSON.parse(localStorage.getItem("token"));
+
+  const successAdded = () => toast.success("Товар добавлен в корзину!");
 
   //   const id2 = props.match.params.id;
   //   console.log("id2", id2);
@@ -89,7 +92,7 @@ function ProductPage(props) {
         },
       })
       .then((res) => {
-        setCount(count);
+        successAdded();
 
         console.log("Success", res);
       })
@@ -166,7 +169,10 @@ function ProductPage(props) {
                       </div>
                     ) : (
                       <div
-                        onClick={() => addItem(oneProduct, count)}
+                        onClick={() => {
+                          addItem(oneProduct, count);
+                          successAdded();
+                        }}
                         className="productPage__top-addCart"
                       >
                         <img src={product_cart_logo} alt="No img" />
@@ -255,9 +261,7 @@ function ProductPage(props) {
               ) : characteristic ? (
                 <div>Характеристика</div>
               ) : kits ? (
-                <div>
-                  {<Kits  oneProduct={oneProduct} />}
-                </div>
+                <div>{<Kits oneProduct={oneProduct} />}</div>
               ) : null}
             </div>
           </div>

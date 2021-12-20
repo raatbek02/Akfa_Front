@@ -34,6 +34,7 @@
 }
 .cart__top--radio {
   display: flex;
+  align-items: center;
 }
 .cart__top--radio p {
   margin-left: 22px;
@@ -44,10 +45,13 @@
   color: #000;
   font-weight: 500;
   font-size: 14px;
+  cursor: pointer;
+  padding-left: 19px;
 }
-.cart__top--radio p input {
-  margin-right: 18px;
+.cart__top--radio p input[type="radio"] {
+  margin-top: 2px;
 }
+
 .cart__item {
   display: flex;
   margin-bottom: 23px;
@@ -210,117 +214,3 @@
   );
   border: 2px solid rgba(170, 39, 39, 1);
 }
-
-/* CART__CHECKOUT */
-
-.cart__checkout {
-  width: 65%;
-}
-.cart__checkout--pickup {
-  background-color: #fff;
-  margin: 45px 0;
-  padding: 30px 40px;
-  box-shadow: 0px 10px 16px rgba(0, 0, 0, 0.05);
-  border-radius: 10px;
-}
-.cart__checkout--title {
-  padding-bottom: 20px;
-  border-bottom: 2px solid #d6d6d6;
-  margin-bottom: 20px;
-}
-.cart__checkout--title span {
-  font-size: 24px;
-  font-weight: 700;
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-  background-image: linear-gradient(
-    90deg,
-    rgba(255, 72, 72, 1) 0%,
-    rgba(170, 39, 39, 1) 100%
-  );
-}
-
-.cart__checkout--fields {
-  width: 60%;
-}
-.cart__checkout--flex-fields {
-  display: flex;
-  justify-content: space-between;
-}
-.cart__checkout--label-1 {
-  font-size: 18px;
-  color: #344f77;
-  font-weight: 700;
-}
-.cart__checkout--label-2 {
-  font-size: 10px;
-  font-weight: 700;
-  color: #344f77;
-}
-
-.cart__checkout--input-1 {
-  display: block;
-  width: 100%;
-  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.25);
-  height: 35px;
-  background-color: unset;
-  margin-top: 12px;
-  margin-bottom: 10px;
-}
-.cart__checkout--input-2 {
-  display: block;
-  max-width: 115px;
-  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.25);
-  height: 35px;
-  background-color: unset;
-  margin-top: 12px;
-  margin-bottom: 10px;
-}
-.p-checkbox {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-}
-.p-checkbox label {
-  margin-left: 15px;
-}
-.cart__checkout--button {
-  text-align: center;
-}
-.cart__checkout--button button {
-  padding: 9px 50px;
-  border-radius: 10px;
-  font-weight: 700;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 72, 72, 1) 0%,
-    rgba(206, 53, 53, 1) 61%,
-    rgba(170, 39, 75, 1) 100%
-  );
-  color: #fff;
-}
-.p-radio {
-  margin-bottom: 10px;
-}
-.p-radio label {
-  font-size: 14px;
-  color: #000;
-  font-weight: 500;
-  margin-left: 15px;
-}
-
-
-
-.cart__checkout--delivery {
-  background-color: #fff;
-  padding: 30px 40px;
-  box-shadow: 0px 10px 16px rgba(0, 0, 0, 0.05);
-  border-radius: 10px;
-}
-
-
- /* <RadioGroup aria-label="quiz" name="quiz" value={value} onChange={handleRadioChange}>
-          <FormControlLabel value="best" control={<Radio />} label="The best!" />
-          <FormControlLabel value="worst" control={<Radio />} label="The worst." />
-        </RadioGroup> */

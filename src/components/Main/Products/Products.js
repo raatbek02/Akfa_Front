@@ -2,20 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
-
-// import Pagination from "@mui/material/Pagination";
-// import Stack from "@mui/material/Stack";
-// import { Stack,Pagination } from "@material-ui/core";
-
 import "./Products.css";
-// import category_5 from "../../../assets/images/categories_img/category_5.png";
-// import star from "../../../assets/images/star.png";
 import product_cart_logo from "../../../assets/images/new_design/product_cart_logo.svg";
 import product_compare_logo from "../../../assets/images/new_design/product_compare_logo.svg";
 
 import { useNavigate } from "react-router";
 import { useCart } from "react-use-cart";
 import { PRODUCT_PAGE_ROUTE } from "../../../utils/consts";
+import { toast } from "react-toastify";
 
 const product_filter = [
   { id: 1, name: " Популярные", type: "popular" },
@@ -42,6 +36,8 @@ function Products() {
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
   const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
+
+  const successAdded = () => toast.success("Товар добавлен в корзину!");
 
   useEffect(() => {
     const getProducts = async () => {
@@ -90,7 +86,7 @@ function Products() {
         },
       })
       .then((res) => {
-        setCount(count);
+        successAdded();
 
         console.log("Success", res);
       })
@@ -102,6 +98,7 @@ function Products() {
 
   const addLocalCart = (e, id, count) => {
     e.stopPropagation();
+    successAdded();
 
     addItem(id, count);
   };
