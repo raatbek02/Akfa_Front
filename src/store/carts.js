@@ -23,11 +23,11 @@ const cartSlice = createSlice({
           : item
       );
     },
-   //  removeAuthCartItem(state, action) {
-   //    state.authCart = state.authCart.filter(
-   //      (item) => item.id !== action.payload
-   //    );
-   //  },
+    removeAuthCartItem(state, action) {
+      state.authCart = state.authCart.filter(
+        (item) => item.id !== action.payload
+      );
+    },
   },
 });
 

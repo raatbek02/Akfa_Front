@@ -23,9 +23,7 @@ import Kits from "./Kits";
 import { toast } from "react-toastify";
 
 const restImages = [];
-for (let i = 0; i < 5; i++) {
-  restImages.push(productRest);
-}
+for (let i = 0; i < 5; i++) {}
 
 function ProductPage(props) {
   const [description, setDescription] = useState(true);
@@ -114,9 +112,11 @@ function ProductPage(props) {
               <div className="productPage__top--data-left">
                 <div className="productPage__top--restImages">
                   <div>
-                    {restImages.map((el) => {
-                      return <img src={oneProduct.image} alt="No img" />;
-                    })}
+                    <img src={oneProduct.photo_1} alt="No img" />
+                    <img src={oneProduct.photo_2} alt="No img" />
+                    <img src={oneProduct.photo_3} alt="No img" />
+                    <img src={oneProduct.photo_4} alt="No img" />
+                    <img src={oneProduct.photo_5} alt="No img" />
                   </div>
                   <span style={{ marginLeft: "5px" }}>
                     <img src={arrowBellow} alt="No img" />
@@ -124,7 +124,7 @@ function ProductPage(props) {
                 </div>
                 <div className="productPage__top--mainImage">
                   <div>
-                    <img src={oneProduct.image} alt="No img" />
+                    <img src={oneProduct.main_photo} alt="No img" />
                   </div>
                 </div>
               </div>

@@ -77,12 +77,12 @@ function Cart() {
     //  }
   }, []);
 
-  const deleteCartItem = (e, cart_id) => {
-    const thisClicked = e.currentTarget;
+  const deleteCartItem = (e, product_id, card_id) => {
+    //  const thisClicked = e.currentTarget;
 
     const data = {
       quantity: 0,
-      product: cart_id,
+      product: product_id,
     };
     axios
       .post(`http://127.0.0.1:8000/api/destroy-cart/`, data, {
@@ -93,7 +93,8 @@ function Cart() {
       })
       .then((res) => {
         console.log("Товар удален", res);
-        thisClicked.closest(".cart__item").remove();
+        //   thisClicked.closest(".cart__item").remove();
+        dispatch(removeAuthCartItem(card_id));
       })
       .catch((e) => {
         alert("Ошибка,", e);
@@ -229,7 +230,7 @@ function Cart() {
                               <div className="cart__item--remove">
                                 <span
                                   onClick={(e) => {
-                                    deleteCartItem(e, obj.product.id);
+                                    deleteCartItem(e, obj.product.id, obj.id);
                                     // dispatch(
                                     //   removeAuthCartItem(obj.id)
                                     // );
