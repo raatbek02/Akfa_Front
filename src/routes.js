@@ -2,6 +2,7 @@ import About from "./pages/About/About";
 import Cart from "./pages/Cart/Cart";
 import CategoriesPage from "./pages/CategoriesPage/CategoriesPage";
 import Checkout from "./pages/Checkout/Checkout";
+import Compare from "./pages/Compare/Compare";
 import Contacts from "./pages/Contacts/Contacts";
 import Delivery from "./pages/Delivery/Delivery";
 import Home from "./pages/Home";
@@ -12,6 +13,7 @@ import {
   CART_ROUTE,
   CATEGORIES_PAGE_ROUTE,
   CHECKOUT__ROUTE,
+  COMPARE__ROUTE,
   CONTACTS_ROUTE,
   DELIVERY_ROUTE,
   HOME_ROUTE,
@@ -63,5 +65,9 @@ export const publicRoutes = [
   {
     path: CHECKOUT__ROUTE,
     Component: <Checkout />,
+  },
+  {
+    path: COMPARE__ROUTE,
+    Component: <Compare />,
   },
 ];

@@ -3,7 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "react-use-cart";
-import { minusItem, plusItem, setAuthCart } from "../../store/carts";
+import {
+  minusItem,
+  plusItem,
+  removeAuthCartItem,
+  setAuthCart,
+} from "../../store/carts";
 // import { setAuthCart } from "../../store/carts";
 import minus_cart from "../../assets/images/new_design/minus_cart.svg";
 import plus_cart from "../../assets/images/new_design/plus_cart.svg";
@@ -89,7 +94,7 @@ function Cart() {
       .then((res) => {
         console.log("Товар удален", res);
         thisClicked.closest(".cart__item").remove();
-        console.log("authCaaaaaaaaaaaaaaaaaart", authCart);
+        dispatch(removeAuthCartItem(cart_id));
       })
       .catch((e) => {
         alert("Ошибка,", e);

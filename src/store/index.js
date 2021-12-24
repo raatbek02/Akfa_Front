@@ -4,6 +4,7 @@ import userSlice from "./userStore";
 import isAuthSlice from "./isAuthStore";
 import cartSlice from "./carts";
 import modalCatalog from "./modalCatalog";
+import compareSlice from "./compare";
 
 export default configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export default configureStore({
     isAuthSlice,
     cartSlice,
     modalCatalog,
+    compareSlice,
   },
 });

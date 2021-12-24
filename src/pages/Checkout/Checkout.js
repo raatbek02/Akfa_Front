@@ -17,13 +17,16 @@ function Checkout({ isDelivery }) {
     intercom: "",
     note: "",
     date: "",
-    radio: 1,
+    radio: "",
   });
+  console.log("checkoutInput.radio", checkoutInput.radio);
   // const [checkboxes, setCheckboxes] = useState({
   //    is_conf_required: false,
   //    is_entity: false,
   //  });
   const [checkboxes, setCheckboxes] = useState([]);
+  //   const [radio, setRadio] = useState(1);
+  //   console.log("radio", radio);
   console.log(checkboxes);
   console.log(checkboxes.is_conf_required);
 
@@ -57,6 +60,11 @@ function Checkout({ isDelivery }) {
 
     setCheckboxes({ ...checkboxes, [e.target.name]: e.target.checked });
   };
+  const handleRadios = (e) => {
+    e.persist();
+
+    setCheckoutInput({ ...checkoutInput, radio: e.target.value });
+  };
 
   const submitAuthOrder = async (e) => {
     const auth_items = [];
@@ -83,10 +91,11 @@ function Checkout({ isDelivery }) {
       floor: checkoutInput.floor,
       intercom: checkoutInput.intercom,
       note: checkoutInput.note,
-      date: checkoutInput.date,
+      // date: checkoutInput.date,
 
       is_conf_required: checkboxes.is_conf_required,
       is_entity: checkboxes.is_entity,
+      radio: checkoutInput.radio,
 
       items: auth_items,
     };
@@ -223,6 +232,7 @@ function Checkout({ isDelivery }) {
 
             <p className="p-checkbox">
               <input
+                onChange={handleCheckbox}
                 type="checkbox"
                 name="is_entity"
                 defaultChecked={checkboxes.is_entity === 1 ? true : false}
@@ -319,16 +329,17 @@ function Checkout({ isDelivery }) {
               <label className="checkout--label-1">Наличие лифта</label>
               <p className="p-radio">
                 <input
+                  onChange={handleRadios}
                   type="radio"
                   id="radio-1"
                   name="p-radio-inputs"
-                  defaultChecked
                   value={4}
                 />
                 <label for="radio-1">Нет</label>
               </p>
               <p className="p-radio">
                 <input
+                  onChange={handleRadios}
                   type="radio"
                   id="radio-2"
                   name="p-radio-inputs"
@@ -338,6 +349,7 @@ function Checkout({ isDelivery }) {
               </p>
               <p className="p-radio">
                 <input
+                  onChange={handleRadios}
                   type="radio"
                   id="radio-3"
                   name="p-radio-inputs"
@@ -347,6 +359,7 @@ function Checkout({ isDelivery }) {
               </p>
               <p className="p-radio">
                 <input
+                  onChange={handleRadios}
                   type="radio"
                   id="radio-4"
                   name="p-radio-inputs"
@@ -367,94 +380,6 @@ function Checkout({ isDelivery }) {
       ) : null}
     </div>
   );
-
-  //   return (
-  //     <div className="checkout">
-  //       <div className="checkout__container">
-  //         <div
-  //           className="checkout__content"
-  //           style={{
-  //             display: "flex",
-  //             justifyContent: "space-between",
-  //             padding: 30,
-  //           }}
-  //         >
-  //           <div className="checkout__fields">
-  //             <form>
-  //               <p>
-  //                 <label>FirstName:</label>
-  //                 <input
-  //                   onChange={handleInput}
-  //                   value={checkoutInput.firstName}
-  //                   type="text"
-  //                   name="firstName"
-  //                   placeholder="FirstName"
-  //                 />
-  //                 <small>{error.firstName}</small>
-  //               </p>
-  //               <p>
-  //                 <label>PhoneNumber:</label>
-  //                 <input
-  //                   onChange={handleInput}
-  //                   value={checkoutInput.phoneNumber}
-  //                   type="text"
-  //                   name="phoneNumber"
-  //                   placeholder="PhoneNumber"
-  //                 />
-  //                 <small>{error.phoneNumber}</small>
-  //               </p>{" "}
-  //               <p>
-  //                 <label>Address:</label>
-  //                 <input
-  //                   onChange={handleInput}
-  //                   value={checkoutInput.address}
-  //                   type="text"
-  //                   name="address"
-  //                   placeholder="Address"
-  //                 />
-  //                 <small>{error.address}</small>
-  //               </p>
-  //             </form>
-  //           </div>
-  //           <div className="checkout__cartInfo">
-  //             <table>
-  //               <thead>
-  //                 <tr>
-  //                   <th>Product</th>
-  //                   <th>Price</th>
-  //                   <th>Qty</th>
-  //                   <th>Total</th>
-  //                 </tr>
-  //               </thead>
-  //               <tbody>
-  //                 {items.map((obj) => {
-  //                   return (
-  //                     <tr>
-  //                       <td>{obj.title}</td>
-  //                       <td>{obj.price}</td>
-  //                       <td>{obj.quantity}</td>
-  //                       <td>{obj.itemTotal}</td>
-  //                     </tr>
-  //                   );
-  //                 })}
-  //               </tbody>
-  //             </table>
-  //             <div>
-  //               <p style={{ textAlign: "center" }}>Итого: {cartTotal} $</p>
-  //               <p style={{ textAlign: "center" }}>Количества: {totalItems}</p>
-  //             </div>
-  //           </div>
-  //           <div>
-  //             {isAuth ? (
-  //               <button onClick={submitAuthOrder}>Оформить заказ</button>
-  //             ) : (
-  //               <button onClick={submitLocalOrder}>Оформить заказ</button>
-  //             )}
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
 }
 
 export default Checkout;

@@ -10,6 +10,7 @@ import { useNavigate } from "react-router";
 import { useCart } from "react-use-cart";
 import { PRODUCT_PAGE_ROUTE } from "../../../utils/consts";
 import { toast } from "react-toastify";
+import { getCompareProducts } from "../../../store/compare";
 
 const product_filter = [
   { id: 1, name: " Популярные", type: "popular" },
@@ -26,6 +27,13 @@ function Products() {
   const [type, setType] = useState("");
   const [count, setCount] = useState(1);
   const [pageCount, setPageCount] = useState(0);
+
+  const compare_products_local = JSON.parse(
+    localStorage.getItem("compare_products")
+  );
+  console.log("compare_products local", compare_products_local);
+
+  const dispatch = useDispatch();
   console.log(pageCount);
   console.log("product", product);
 
@@ -35,7 +43,13 @@ function Products() {
 
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
+
   const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
+
+  const compare_products = useSelector(
+    (state) => state.compareSlice.compare_products
+  );
+  console.log("compareProducts", compare_products);
 
   const successAdded = () => toast.success("Товар добавлен в корзину!");
 
@@ -52,6 +66,17 @@ function Products() {
     };
     getProducts();
   }, [type]);
+
+  //   const handleCompare = async (id) => {
+  //     const res = await axios.get(
+  //       `http://127.0.0.1:8000/api/products?results/id=${id}`
+  //     );
+
+  //     if (compareProducts.length <= 4) {
+  // 		 dispatch(getComapreProducts(res.data));
+
+  //     }
+  //   };
 
   const paginateProducts = async (currentPage) => {
     const res = await axios.get(
@@ -101,6 +126,11 @@ function Products() {
     successAdded();
 
     addItem(id, count);
+  };
+
+  const addCompareProducts = (e, el, id) => {
+    e.stopPropagation();
+    dispatch(getCompareProducts({ el, id }));
   };
 
   // ${type}=${sort}
@@ -177,7 +207,10 @@ function Products() {
                         </div>
                       )}
 
-                      <div className="product__compare-button">
+                      <div
+                        onClick={(e) => addCompareProducts(e, el, el.id)}
+                        className="product__compare-button"
+                      >
                         <img src={product_compare_logo} alt="No img" />
                       </div>
                     </div>

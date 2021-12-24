@@ -13,6 +13,7 @@ import Auth from "../Auth/Auth";
 import {
   ABOUT_ROUTE,
   CART_ROUTE,
+  COMPARE__ROUTE,
   CONTACTS_ROUTE,
   DELIVERY_ROUTE,
   HOME_ROUTE,
@@ -94,8 +95,10 @@ function Header() {
                   </div>
 
                   <div className="header__compare">
-                    <img src={compare_logo} alt="No img" />
-                    <p>Сравнения</p>
+                    <Link to={COMPARE__ROUTE}>
+                      <img src={compare_logo} alt="No img" />
+                      <p>Сравнения</p>
+                    </Link>
                   </div>
 
                   <div
