@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const products = localStorage.getItem("compare_products");
+
 const compareSlice = createSlice({
   name: "compare",
   initialState: {
-    compare_products: [],
+    compare_products: (products && JSON.parse(products)) || [],
   },
   reducers: {
     getCompareProducts(state, action) {
@@ -19,8 +21,17 @@ const compareSlice = createSlice({
         JSON.stringify(state.compare_products)
       );
     },
+    removeCompareItem(state, action) {
+      state.compare_products = state.compare_products.filter(
+        (item) => item.id !== action.payload
+      );
+      localStorage.setItem(
+        "compare_products",
+        JSON.stringify(state.compare_products)
+      );
+    },
   },
 });
 
-export const { getCompareProducts } = compareSlice.actions;
+export const { getCompareProducts, removeCompareItem } = compareSlice.actions;
 export default compareSlice.reducer;

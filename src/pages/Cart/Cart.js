@@ -52,29 +52,29 @@ function Cart() {
   //   const auth_items = useSelector((s) => s.cartSlice.auth_items);
 
   useEffect(() => {
-    if (isAuth) {
-      const getAuthCart = async () => {
-        await axios
-          .get(`http://127.0.0.1:8000/api/carts/` + user_id, {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Token " + token,
-            },
-          })
-          .then(({ data }) => {
-            dispatch(setAuthCart(data.items));
-            //   localStorage.setItem("auth_cart_items", JSON.stringify(data.items));
+    //  if (isAuth) {
+    const getAuthCart = async () => {
+      await axios
+        .get(`http://127.0.0.1:8000/api/carts/` + user_id, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Token " + token,
+          },
+        })
+        .then(({ data }) => {
+          dispatch(setAuthCart(data.items));
+          //   localStorage.setItem("auth_cart_items", JSON.stringify(data.items));
 
-            console.log("Успешно", data);
-            localStorage.setItem("cart_id", data.id);
-          })
-          .catch((e) => {
-            console.log("Ошибка", e);
-            //  navigate(HOME_ROUTE);
-          });
-      };
-      getAuthCart();
-    }
+          console.log("Успешно", data);
+          localStorage.setItem("cart_id", data.id);
+        })
+        .catch((e) => {
+          console.log("Ошибка", e);
+          //  navigate(HOME_ROUTE);
+        });
+    };
+    getAuthCart();
+    //  }
   }, []);
 
   const deleteCartItem = (e, cart_id) => {
@@ -94,7 +94,6 @@ function Cart() {
       .then((res) => {
         console.log("Товар удален", res);
         thisClicked.closest(".cart__item").remove();
-        dispatch(removeAuthCartItem(cart_id));
       })
       .catch((e) => {
         alert("Ошибка,", e);
@@ -231,6 +230,9 @@ function Cart() {
                                 <span
                                   onClick={(e) => {
                                     deleteCartItem(e, obj.product.id);
+                                    // dispatch(
+                                    //   removeAuthCartItem(obj.id)
+                                    // );
                                   }}
                                 >
                                   <img src={cart_item_remove} alt="No img" />

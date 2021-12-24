@@ -7,9 +7,7 @@ const cartSlice = createSlice({
   },
   reducers: {
     setAuthCart(state, action) {
-      return {
-        authCart: action.payload,
-      };
+      state.authCart = action.payload;
     },
     minusItem(state, action) {
       state.authCart = state.authCart.map((item) =>
@@ -25,11 +23,11 @@ const cartSlice = createSlice({
           : item
       );
     },
-    removeAuthCartItem(state, action) {
-      state.authCart = state.authCart.filter(
-        (item) => item.id !== action.payload
-      );
-    },
+   //  removeAuthCartItem(state, action) {
+   //    state.authCart = state.authCart.filter(
+   //      (item) => item.id !== action.payload
+   //    );
+   //  },
   },
 });
 

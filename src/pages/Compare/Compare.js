@@ -3,15 +3,15 @@ import "./Compare.css";
 
 import product_cart_logo from "../../assets/images/new_design/product_cart_logo.svg";
 import product_compare_logo from "../../assets/images/new_design/product_compare_logo.svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { removeCompareItem } from "../../store/compare";
 
 function Compare() {
-  //   const compare_products = useSelector(
-  //     (state) => state.compareSlice.compare_products
-  //   );
-  const compare_products_local = JSON.parse(
-    localStorage.getItem("compare_products")
+  const compare_products_local = useSelector(
+    (state) => state.compareSlice.compare_products
   );
+  //   const compare_products_local = useSelector
+  const dispatch = useDispatch();
 
   return (
     <div className="compare">
@@ -49,7 +49,12 @@ function Compare() {
                         <img src={el.image} alt="No img" />
                       </div>
                       <div className="compare__item--content">
-                        <div className="compare__name">{el.title}</div>
+                        <div
+                          onClick={() => dispatch(removeCompareItem(el.id))}
+                          className="compare__name"
+                        >
+                          {el.title}
+                        </div>
                         <div className="compare__price">
                           <span>{el.price} $</span>
                           {/* <span> есть</span> */}

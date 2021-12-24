@@ -11,12 +11,14 @@ import { addProducts } from "./store/productSlice";
 import { setSubCategory_id } from "./store/modalCatalog";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { setAuthCart } from "./store/carts";
 
 function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userSlice.user);
   const subCategory_id = localStorage.getItem("subCategory_ID");
+
   //   console.log(" App subCategory_id", typeof Number(subCategory_id));
 
   useEffect(() => {
