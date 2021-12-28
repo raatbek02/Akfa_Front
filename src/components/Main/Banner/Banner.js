@@ -24,10 +24,10 @@ function Banner() {
                    delay: 5000,
                    disableOnInteraction: false,
                  }}
-                centeredSlides={false}
+                centeredSlides={true}
                 loop={true}
                 speed={900}
-                //   spaceBetween={20}
+                  spaceBetween={0}
                 slidesPerView={1}
               >
                 <SwiperSlide>

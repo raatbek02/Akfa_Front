@@ -3,17 +3,26 @@ import "./Kits.css";
 import product_cart_logo from "../../assets/images/new_design/product_cart_logo.svg";
 import product_compare_logo from "../../assets/images/new_design/product_compare_logo.svg";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useCart } from "react-use-cart";
-
-
+import { getCompareProducts } from "../../store/compare";
+import { toast } from "react-toastify";
 
 function Kits({ oneProduct }) {
   const [kitsProducts, setKitsProducts] = useState([]);
   const [count, setCount] = useState(1);
   const { addItem, items, totalItems, totalUniqueItems, emptyCart } = useCart();
+  const dispatch = useDispatch();
   const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
   const token = JSON.parse(localStorage.getItem("token"));
+  const compare_products_local = useSelector(
+    (state) => state.compareSlice.compare_products
+  );
+
+  const successCompareAdded = () =>
+    toast.success("Товар добавлен в сравнения!");
+  const warnCompareAdded = () =>
+    toast.warn("Максимальное количество товаров для сравнения-4!");
 
   console.log("kitsProducts", kitsProducts);
 
@@ -55,6 +64,17 @@ function Kits({ oneProduct }) {
     e.stopPropagation();
 
     addItem(id, count);
+  };
+
+  const addCompareProducts = (e, el, id) => {
+    e.stopPropagation();
+    dispatch(getCompareProducts({ el, id }));
+
+    if (compare_products_local.length < 4) {
+      successCompareAdded();
+    } else {
+      warnCompareAdded();
+    }
   };
 
   return (
@@ -99,7 +119,10 @@ function Kits({ oneProduct }) {
                         </div>
                       )}
 
-                      <div className="product__compare-button">
+                      <div
+                        onClick={(e) => addCompareProducts(e, el, el.id)}
+                        className="product__compare-button"
+                      >
                         <img src={product_compare_logo} alt="No img" />
                       </div>
                     </div>

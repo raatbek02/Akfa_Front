@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router";
-
-import "./CategoriesPage.css";
-
-// import star from "../../assets/images/star.png";
 import product_cart_logo from "../../assets/images/new_design/product_cart_logo.svg";
 import product_compare_logo from "../../assets/images/new_design/product_compare_logo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { setSubCategory_id } from "../../store/modalCatalog";
 import { useCart } from "react-use-cart";
+import { getCompareProducts } from "../../store/compare";
+import { toast } from "react-toastify";
+
+import "./CategoriesPage.css";
 
 function CategoriesPage() {
   const { id } = useParams();
-  console.log(typeof id);
-
   const [activeItem, setActiveItem] = useState(null);
   const [subcategory, setSubCategory] = useState([]);
   const [categoryProducts, setSubCategoryProducts] = useState([]);
@@ -28,12 +26,14 @@ function CategoriesPage() {
   const subCategory_id = useSelector((s) => s.modalCatalog.subCategory_id);
   const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
   const token = JSON.parse(localStorage.getItem("token"));
+  const compare_products_local = useSelector(
+    (state) => state.compareSlice.compare_products
+  );
 
-  //   let subCategory_id = localStorage.getItem("subCategory_ID");
-
-  console.log("categoryProducts", categoryProducts);
-  console.log("activeItem", activeItem);
-  console.log("subcategory", subcategory);
+  const successCompareAdded = () =>
+    toast.success("Товар добавлен в сравнения!");
+  const warnCompareAdded = () =>
+    toast.warn("Максимальное количество товаров для сравнения-4!");
 
   useEffect(() => {
     const getSubcategories = async () => {
@@ -91,6 +91,17 @@ function CategoriesPage() {
     e.preventDefault();
 
     addItem(id, count);
+  };
+
+  const addCompareProducts = (e, el, id) => {
+    e.stopPropagation();
+    dispatch(getCompareProducts({ el, id }));
+
+    if (compare_products_local.length < 4) {
+      successCompareAdded();
+    } else {
+      warnCompareAdded();
+    }
   };
 
   return (
@@ -161,7 +172,10 @@ function CategoriesPage() {
                           </span>
                         )}
                       </div>
-                      <div className="product__compare-button">
+                      <div
+                        onClick={(e) => addCompareProducts(e, el, el.id)}
+                        className="product__compare-button"
+                      >
                         <img src={product_compare_logo} alt="No img" />
                       </div>
                     </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Header.css";
 import cart_logo from "../../assets/images/cart_logo.svg";
 import compare_logo from "../../assets/images/compare_logo.svg";
@@ -23,6 +23,7 @@ import CatalogModal from "../UI/Modal/CatalogModal";
 import Category from "../Main/Category/Category";
 import { useDispatch, useSelector } from "react-redux";
 import { setModalCatalog } from "../../store/modalCatalog";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const list = [
   {
@@ -49,28 +50,86 @@ const list = [
 
 function Header() {
   const [modalAuth, setModalAuth] = useState(false);
+  const [activeMobileMenu, setActiveMobileMenu] = useState(false);
   //   const [modalCatalog, setModalCatalog] = useState(false);
 
   const dispatch = useDispatch();
   //   const modalCatalog = useSelector((s) => s.modalCatalog.modalCatalog);
 
+  document.body.style.overflow = activeMobileMenu ? "hidden " : "auto ";
+
   return (
     <header className="header">
-      <div className="header__wrapper">
-        <div className="header__container">
-          <div className="header__content">
-            <div className="header__left">
-              <ul>
-                {list.map((obj, index) => {
-                  return (
-                    <li>
-                      <NavLink to={obj.path}>
-                        <li key={index}>{obj.name}</li>
-                      </NavLink>
-                    </li>
-                  );
-                })}
-              </ul>
+      <div className="header__container">
+        <div className="header__content computer">
+          <div className="header__left">
+            <ul>
+              {list.map((obj, index) => {
+                return (
+                  <li key={index + 1}>
+                    <NavLink to={obj.path}>
+                      <li key={index}>{obj.name}</li>
+                    </NavLink>
+                  </li>
+                );
+              })}
+            </ul>
+            <div
+              className="header__catalog"
+              onClick={() => dispatch(setModalCatalog(!false))}
+            >
+              Каталог
+              <img src={catalog_logo} alt="No img" />
+            </div>
+          </div>
+          <div className="header__right">
+            <div className="header__logo">
+              <Link to="/">
+                <span>akfa</span>{" "}
+              </Link>
+            </div>
+            <div className="header__assets">
+              <div className="header__assets-top">
+                <div className="header__cart">
+                  <Link to={CART_ROUTE}>
+                    <img src={cart_logo} alt="No img" />
+                    <p>Корзина</p>
+                  </Link>
+                </div>
+
+                <div className="header__compare">
+                  <Link to={COMPARE__ROUTE}>
+                    <img src={compare_logo} alt="No img" />
+                    <p>Сравнения</p>
+                  </Link>
+                </div>
+
+                <div
+                  onClick={() => setModalAuth(true)}
+                  className="header__login"
+                >
+                  <img src={login_logo} alt="No img" />
+                  <p>Войти</p>
+                </div>
+              </div>
+              <div className="header__assets-bottom">
+                <input type="search" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="header__content mobile">
+          <div className="header__mobile--top">
+            <div className="header__logo">
+              <Link to="/">
+                <span>akfa</span>{" "}
+              </Link>
+            </div>
+            <div className="header__mobile--middle">
+              <div className="header__assets-bottom">
+                <input type="search" />
+              </div>
               <div
                 className="header__catalog"
                 onClick={() => dispatch(setModalCatalog(!false))}
@@ -79,48 +138,76 @@ function Header() {
                 <img src={catalog_logo} alt="No img" />
               </div>
             </div>
-            <div className="header__right">
-              <div className="header__logo">
-                <Link to="/">
-                  <span>akfa</span>{" "}
-                </Link>
-              </div>
-              <div className="header__assets">
-                <div className="header__assets-top">
-                  <div className="header__cart">
-                    <Link to={CART_ROUTE}>
-                      <img src={cart_logo} alt="No img" />
-                      <p>Корзина</p>
-                    </Link>
-                  </div>
+            <nav
+              className={
+                activeMobileMenu
+                  ? "header__mobile--menu _active"
+                  : "header__mobile--menu"
+              }
+            >
+              <ul>
+                {list.map((obj, index) => {
+                  return (
+                    <li
+                      onClick={() => setActiveMobileMenu(false)}
+                      key={index + 3}
+                    >
+                      <NavLink to={obj.path}>
+                        <li key={index}>{obj.name}</li>
+                      </NavLink>
+                    </li>
+                  );
+                })}
+              </ul>
 
-                  <div className="header__compare">
-                    <Link to={COMPARE__ROUTE}>
-                      <img src={compare_logo} alt="No img" />
-                      <p>Сравнения</p>
-                    </Link>
-                  </div>
-
-                  <div
-                    onClick={() => setModalAuth(true)}
-                    className="header__login"
+              <div className="header__assets ">
+                <div className="header__cart item">
+                  <Link
+                    to={CART_ROUTE}
+                    onClick={() => setActiveMobileMenu(false)}
                   >
-                    <img src={login_logo} alt="No img" />
-                    <p>Войти</p>
-                  </div>
+                    <span>Корзина</span>
+                    <img src={cart_logo} alt="No img" />
+                  </Link>
                 </div>
-                <div className="header__assets-bottom">
-                  <input type="search" />
+
+                <div className="header__compare item">
+                  <Link
+                    to={COMPARE__ROUTE}
+                    onClick={() => setActiveMobileMenu(false)}
+                  >
+                    <span>Сравнения</span>
+                    <img src={compare_logo} alt="No img" />
+                  </Link>
+                </div>
+
+                <div
+                  onClick={() => setModalAuth(true)}
+                  className="header__login item"
+                >
+                  <span>Войти</span>
+                  <img src={login_logo} alt="No img" />
                 </div>
               </div>
+            </nav>
+            <div
+              onClick={() => setActiveMobileMenu(!activeMobileMenu)}
+              className={
+                activeMobileMenu
+                  ? "header__mobile--button _active"
+                  : "header__mobile--button"
+              }
+            >
+              <span></span>
             </div>
           </div>
+          <div className="header__mobile--bottom"></div>
         </div>
-        <Modal active={modalAuth} setActive={setModalAuth}>
-          <Auth />
-        </Modal>
-        <CatalogModal>{<Category />}</CatalogModal>
       </div>
+      <Modal active={modalAuth} setActive={setModalAuth}>
+        <Auth />
+      </Modal>
+      <CatalogModal>{<Category />}</CatalogModal>
     </header>
   );
 }

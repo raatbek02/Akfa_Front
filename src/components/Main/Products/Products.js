@@ -18,8 +18,6 @@ const product_filter = [
   { id: 3, name: " Хит продаж", type: "actual" },
 ];
 
-// const stars = [star, star, star, star, star];
-
 function Products() {
   const [activeItem, setActiveItem] = useState(null);
   const [product, setProduct] = useState([]);
@@ -27,31 +25,21 @@ function Products() {
   const [type, setType] = useState("");
   const [count, setCount] = useState(1);
   const [pageCount, setPageCount] = useState(0);
-
-  const compare_products_local = JSON.parse(
-    localStorage.getItem("compare_products")
-  );
-  console.log("compare_products local", compare_products_local);
-
-  const dispatch = useDispatch();
-  console.log(pageCount);
-  console.log("product", product);
-
   const { addItem, items, totalItems, totalUniqueItems, emptyCart } = useCart();
-
-  console.log(type);
-
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const token = JSON.parse(localStorage.getItem("token"));
-
   const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
-
-  const compare_products = useSelector(
+  const compare_products_local = useSelector(
     (state) => state.compareSlice.compare_products
   );
-  console.log("compareProducts", compare_products);
 
   const successAdded = () => toast.success("Товар добавлен в корзину!");
+  const successCompareAdded = () =>
+    toast.success("Товар добавлен в сравнения!");
+  const warnCompareAdded = () =>
+    toast.warn("Максимальное количество товаров для сравнения-4!");
 
   useEffect(() => {
     const getProducts = async () => {
@@ -66,17 +54,6 @@ function Products() {
     };
     getProducts();
   }, [type]);
-
-  //   const handleCompare = async (id) => {
-  //     const res = await axios.get(
-  //       `http://127.0.0.1:8000/api/products?results/id=${id}`
-  //     );
-
-  //     if (compareProducts.length <= 4) {
-  // 		 dispatch(getComapreProducts(res.data));
-
-  //     }
-  //   };
 
   const paginateProducts = async (currentPage) => {
     const res = await axios.get(
@@ -93,8 +70,6 @@ function Products() {
     const getPaginatedProducts = await paginateProducts(currentPage);
     setProduct(getPaginatedProducts);
   };
-
-  //   console.log(items);
 
   const addAuthCart = async (e, id) => {
     e.stopPropagation();
@@ -131,6 +106,12 @@ function Products() {
   const addCompareProducts = (e, el, id) => {
     e.stopPropagation();
     dispatch(getCompareProducts({ el, id }));
+
+    if (compare_products_local.length < 4) {
+      successCompareAdded();
+    } else {
+      warnCompareAdded();
+    }
   };
 
   // ${type}=${sort}

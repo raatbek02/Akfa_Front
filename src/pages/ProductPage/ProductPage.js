@@ -21,6 +21,7 @@ import { setAuthCart } from "../../store/carts";
 import Description from "./Description";
 import Kits from "./Kits";
 import { toast } from "react-toastify";
+import { getCompareProducts } from "../../store/compare";
 
 const restImages = [];
 for (let i = 0; i < 5; i++) {}
@@ -38,19 +39,19 @@ function ProductPage(props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userSlice.user);
   const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
-
   const token = JSON.parse(localStorage.getItem("token"));
 
-  const successAdded = () => toast.success("Товар добавлен в корзину!");
+  const compare_products_local = useSelector(
+    (state) => state.compareSlice.compare_products
+  );
 
-  //   const id2 = props.match.params.id;
-  //   console.log("id2", id2);
-  // console.log(oneProduct);
-  console.log("items", items);
-  console.log("totalItems", totalItems);
-  console.log("totalUniqueItems", totalUniqueItems);
+  const successAdded = () => toast.success("Товар добавлен в корзину!");
+  const successCompareAdded = () =>
+    toast.success("Товар добавлен в сравнения!");
+  const warnCompareAdded = () =>
+    toast.warn("Максимальное количество товаров для сравнения-4!");
+
   console.log("oneProduct", oneProduct);
-  console.log("kits", kits);
 
   useEffect(() => {
     const getOneProduct = async () => {
@@ -69,13 +70,6 @@ function ProductPage(props) {
       setCount(count - 1);
     }
   };
-  //   const showDescHandler = () => {
-  //     setShow(true);
-  //   };
-  //   const showReviewsHandler = () => {
-  //     setShow(false);
-  //   };
-
   const addAuthCart = async () => {
     const data = {
       product: id,
@@ -98,6 +92,17 @@ function ProductPage(props) {
         console.log("Ошибка", e);
       });
     //  e.preventDefault();
+  };
+
+  const addCompareProducts = (e, el, id) => {
+    e.stopPropagation();
+    dispatch(getCompareProducts({ el, id }));
+
+    if (compare_products_local.length < 4) {
+      successCompareAdded();
+    } else {
+      warnCompareAdded();
+    }
   };
 
   return (
@@ -179,7 +184,12 @@ function ProductPage(props) {
                         <span> В корзину</span>
                       </div>
                     )}
-                    <div className="productPage__top-compareBtn">
+                    <div
+                      onClick={(e) =>
+                        addCompareProducts(e, oneProduct, oneProduct.id)
+                      }
+                      className="productPage__top-compareBtn"
+                    >
                       <img src={product_compare_logo} alt="No img" />
                     </div>
                   </div>
@@ -272,98 +282,3 @@ function ProductPage(props) {
 }
 
 export default ProductPage;
-
-// <div className="productPage__left">
-//   <p className="productPage__name">{oneProduct.title}</p>
-
-//   <span>Код товара: {oneProduct.title}</span>
-
-//   <div className="productPage__img">
-//     <img src={oneProduct.image} alt="No img" />
-//   </div>
-//   <div className="productPage__restImg">
-//     {restImages.map((el) => {
-//       return <img src={oneProduct.image} alt="No img" />;
-//     })}
-//   </div>
-// </div>
-// <div className="productPage__right">
-//   <div className="productPage__right--block">
-//     <div className="productPage__price">{oneProduct.price} $</div>
-//     <div className="productPage__right--content">
-//       <div className="productPage__right--left">
-//         <p>Доступность: На складе</p>
-//         <p>Доступность: На складе</p>
-//         <div className="productPage__rating">Rating</div>
-//       </div>
-//       <div className="productPage__right--right">
-//         <div className="productPage__quantity">
-//           <span>кол-во</span>
-//           <div className="productPage__counter">
-//             <div className="productPage__counter--num">{count}</div>
-//             <div className="productPage__counter--buttons">
-//               <button onClick={plusCount}>
-//                 <svg
-//                   width="10"
-//                   height="11"
-//                   viewBox="0 0 10 11"
-//                   fill="none"
-//                   xmlns="http://www.w3.org/2000/svg"
-//                 >
-//                   <line
-//                     x1="4.95459"
-//                     y1="1.40918"
-//                     x2="4.95459"
-//                     y2="9.90918"
-//                     stroke="#3F3D56"
-//                     stroke-linecap="round"
-//                   />
-//                   <line
-//                     x1="9.13623"
-//                     y1="5.72742"
-//                     x2="0.63623"
-//                     y2="5.72742"
-//                     stroke="#3F3D56"
-//                     stroke-linecap="round"
-//                   />
-//                 </svg>
-//               </button>
-//               <button onClick={minusCount}>
-//                 <svg
-//                   width="10"
-//                   height="2"
-//                   viewBox="0 0 10 2"
-//                   fill="none"
-//                   xmlns="http://www.w3.org/2000/svg"
-//                 >
-//                   <line
-//                     x1="9.13623"
-//                     y1="1"
-//                     x2="0.63623"
-//                     y2="0.999999"
-//                     stroke="#3F3D56"
-//                     stroke-linecap="round"
-//                   />
-//                 </svg>
-//               </button>
-//             </div>
-//           </div>
-//         </div>
-//         <Link to={CART_ROUTE}>
-//           <div style={{ fontSize: "25px" }}>КОРЗИНА</div>
-//         </Link>
-//         <div className="productPage__buttons">
-//           {isAuth ? (
-//             <button onClick={() => addAuthCart()}>В корзину</button>
-//           ) : (
-//             <p onClick={() => addItem(oneProduct, count)}>
-//               Дообавить
-//             </p>
-//           )}
-
-//           <button>Купить</button>
-//         </div>
-//       </div>
-//     </div>
-//   </div>
-// </div>

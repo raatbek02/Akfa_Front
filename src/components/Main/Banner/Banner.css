@@ -5,14 +5,14 @@
   /* height: 100vh; */
 }
 .banner__container {
-  padding: 0 80px;
+  padding: 0 120px;
   filter: drop-shadow(0px 10px 16px rgba(0, 0, 0, 0.05));
 }
 .banner__content {
   display: flex;
   /* align-items: center; */
   justify-content: space-between;
-  margin: 50px 0 30px 0;
+  margin: 150px 0 30px 0;
 }
 .banner__left {
   width: 65%;
@@ -104,4 +104,13 @@
   height: 15px;
   padding: 2px;
   border: 2px solid #000;
+}
+/* ******************************************MEDIA QUERY***************************************************** */
+
+/* ****************************************** @media max-width:1200px ***************************************************** */
+
+@media (max-width: 1200px) {
+  .banner__container {
+    padding: 0 50px;
+  }
 }
