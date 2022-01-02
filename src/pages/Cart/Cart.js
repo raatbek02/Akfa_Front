@@ -231,9 +231,6 @@ function Cart() {
                                 <span
                                   onClick={(e) => {
                                     deleteCartItem(e, obj.product.id, obj.id);
-                                    // dispatch(
-                                    //   removeAuthCartItem(obj.id)
-                                    // );
                                   }}
                                 >
                                   <img src={cart_item_remove} alt="No img" />
@@ -249,52 +246,106 @@ function Cart() {
                       })
                     : items.map((obj) => {
                         return (
-                          <div className="cart__item">
-                            <div className="cart__img">
-                              <img src={obj.image} alt="No img" />
-                            </div>
-                            <div>
-                              <div className="cart__item--data">
-                                <div className="cart__name">{obj.title}</div>
-                                <div className="cart__counter">
-                                  <button
-                                    onClick={() =>
-                                      updateItemQuantity(
-                                        obj.id,
-                                        obj.quantity -
-                                          (obj.quantity > 1 ? 1 : 0)
-                                      )
-                                    }
-                                  >
-                                    <img src={minus_cart} alt="No img" />
-                                  </button>
-                                  <span>{obj.quantity}</span>
-                                  <button
-                                    onClick={() =>
-                                      updateItemQuantity(
-                                        obj.id,
-                                        obj.quantity + 1
-                                      )
-                                    }
-                                  >
-                                    <img src={plus_cart} alt="No img" />
-                                  </button>
+                          <>
+                            <div className="cart__item desktop">
+                              <div className="cart__img">
+                                <img src={obj.image} alt="No img" />
+                              </div>
+                              <div>
+                                <div className="cart__item--data">
+                                  <div className="cart__name">{obj.title}</div>
+                                  <div className="cart__counter">
+                                    <button
+                                      onClick={() =>
+                                        updateItemQuantity(
+                                          obj.id,
+                                          obj.quantity -
+                                            (obj.quantity > 1 ? 1 : 0)
+                                        )
+                                      }
+                                    >
+                                      <img src={minus_cart} alt="No img" />
+                                    </button>
+                                    <span>{obj.quantity}</span>
+                                    <button
+                                      onClick={() =>
+                                        updateItemQuantity(
+                                          obj.id,
+                                          obj.quantity + 1
+                                        )
+                                      }
+                                    >
+                                      <img src={plus_cart} alt="No img" />
+                                    </button>
+                                  </div>
+                                  <div className="cart__price">
+                                    <span>{obj.itemTotal.toFixed(2)}$</span>
+                                  </div>
                                 </div>
-                                <div className="cart__price">
-                                  <span>{obj.itemTotal.toFixed(2)}$</span>
+                                <div className="cart__item--remove">
+                                  <span onClick={() => removeItem(obj.id)}>
+                                    <img src={cart_item_remove} alt="No img" />
+                                  </span>
+                                </div>
+                                <div className="cart__item--bottomData">
+                                  <p>Выберите способ получения товара:</p>
+                                  <span>Код: 1701503</span>
                                 </div>
                               </div>
-                              <div className="cart__item--remove">
-                                <span onClick={() => removeItem(obj.id)}>
-                                  <img src={cart_item_remove} alt="No img" />
-                                </span>
+                            </div>
+
+                            <div className="cart__item mobile">
+                              <div className="cart__img">
+                                <img src={obj.image} alt="No img" />
                               </div>
-                              <div className="cart__item--bottomData">
-                                <p>Выберите способ получения товара:</p>
-                                <span>Код: 1701503</span>
+                              <div>
+                                <div className="cart__item--data">
+                                  <div className="cart__name">{obj.title}</div>
+                                  <div className="cart__item--remove">
+                                    <span onClick={() => removeItem(obj.id)}>
+                                      <img
+                                        src={cart_item_remove}
+                                        alt="No img"
+                                      />
+                                    </span>
+                                  </div>
+                                </div>
+                                <div className="cart__item--middleData">
+                                  <div className="cart__counter">
+                                    <button
+                                      onClick={() =>
+                                        updateItemQuantity(
+                                          obj.id,
+                                          obj.quantity -
+                                            (obj.quantity > 1 ? 1 : 0)
+                                        )
+                                      }
+                                    >
+                                      <img src={minus_cart} alt="No img" />
+                                    </button>
+                                    <span>{obj.quantity}</span>
+                                    <button
+                                      onClick={() =>
+                                        updateItemQuantity(
+                                          obj.id,
+                                          obj.quantity + 1
+                                        )
+                                      }
+                                    >
+                                      <img src={plus_cart} alt="No img" />
+                                    </button>
+                                  </div>
+                                  <div className="cart__price">
+                                    <span>{obj.itemTotal.toFixed(2)}$</span>
+                                  </div>
+                                </div>
+                                <div className="cart__item--bottomData">
+                                  <p>Выберите способ получения товара:</p>
+                                  <span>Код: 1701503</span>
+                                </div>
                               </div>
                             </div>
-                          </div>
+                          </>
                         );
                       })}
                 </div>

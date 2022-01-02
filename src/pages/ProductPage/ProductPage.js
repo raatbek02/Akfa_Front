@@ -1,10 +1,12 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router";
 import { useCart } from "react-use-cart";
-import productRest from "../../assets/images/productPage_rest.png";
-import review_profile from "../../assets/images/review_profile.png";
-import productPage_star from "../../assets/images/productPage_star.png";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Thumbs } from "swiper";
+
 import product_cart_logo from "../../assets/images/new_design/product_cart_logo.svg";
 import product_compare_logo from "../../assets/images/new_design/product_compare_logo.svg";
 import arrowBellow from "../../assets/images/new_design/arrowBellow.svg";
@@ -23,8 +25,7 @@ import Kits from "./Kits";
 import { toast } from "react-toastify";
 import { getCompareProducts } from "../../store/compare";
 
-const restImages = [];
-for (let i = 0; i < 5; i++) {}
+SwiperCore.use([Thumbs]);
 
 function ProductPage(props) {
   const [description, setDescription] = useState(true);
@@ -32,6 +33,13 @@ function ProductPage(props) {
   const [oneProduct, setOneProduct] = useState({});
   const [count, setCount] = useState(1);
   const [kits, setKits] = useState(false);
+  const [sorting, setSorting] = React.useState("");
+
+  const handleChange = (event) => {
+    setSorting(event.target.value);
+  };
+
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   const { id } = useParams();
   const { addItem, items, totalItems, totalUniqueItems, emptyCart } = useCart();
@@ -113,26 +121,68 @@ function ProductPage(props) {
         </div>
         <div className="productPage__content">
           <div className="productPage__top">
-            <div className="productPage__top--data">
-              <div className="productPage__top--data-left">
+            <div className="productPage__top--data desktop">
+              <div className="productPage__top--data-left ">
                 <div className="productPage__top--restImages">
+                  {/* <Swiper
+                    className="x1"
+                    modules={[Thumbs]}
+                    watchSlidesProgress
+                    onSwiper={setThumbsSwiper}
+                  >
+                    <SwiperSlide>
+                      <div className="restimage">
+                        <img src={oneProduct.main_photo} alt="No img" />
+                      </div>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      <div className="restimage">
+                        <img src={oneProduct.main_photo} alt="No img" />
+                      </div>
+                    </SwiperSlide>{" "}
+                    <SwiperSlide>
+                      <div className="restimage">
+                        <img src={oneProduct.main_photo} alt="No img" />
+                      </div>
+                    </SwiperSlide>
+                  </Swiper> */}
+
                   <div>
-                    <img src={oneProduct.photo_1} alt="No img" />
-                    <img src={oneProduct.photo_2} alt="No img" />
-                    <img src={oneProduct.photo_3} alt="No img" />
-                    <img src={oneProduct.photo_4} alt="No img" />
-                    <img src={oneProduct.photo_5} alt="No img" />
+                    <div className="restimage">
+                      <img src={oneProduct.main_photo} alt="No img" />
+                    </div>
+                    <div className="restimage">
+                      <img src={oneProduct.main_photo} alt="No img" />
+                    </div>{" "}
+                    <div className="restimage">
+                      <img src={oneProduct.main_photo} alt="No img" />
+                    </div>{" "}
+                    <div className="restimage">
+                      <img src={oneProduct.main_photo} alt="No img" />
+                    </div>{" "}
+                    <div className="restimage">
+                      <img src={oneProduct.main_photo} alt="No img" />
+                    </div>
                   </div>
-                  <span style={{ marginLeft: "5px" }}>
+
+								              <span>
                     <img src={arrowBellow} alt="No img" />
                   </span>
                 </div>
                 <div className="productPage__top--mainImage">
-                  <div>
-                    <img src={oneProduct.main_photo} alt="No img" />
-                  </div>
+                  <Swiper>
+                    <SwiperSlide
+                      modules={[Thumbs]}
+                      thumbs={{ swiper: thumbsSwiper }}
+                    >
+                      <div>
+                        <img src={oneProduct.main_photo} alt="No img" />
+                      </div>
+                    </SwiperSlide>
+                  </Swiper>
                 </div>
               </div>
+
               <div className="productPage__top--data-right">
                 <div>
                   {" "}
@@ -197,6 +247,103 @@ function ProductPage(props) {
               </div>
             </div>
 
+            <div className="productPage__top--data mobile">
+              <div className="productPage__top--data-left">
+                <div className="productPage__top--mainImage">
+                  <div>
+                    <img src={oneProduct.main_photo} alt="No img" />
+                  </div>
+                  <p>Код товара: AR-Mammo</p>
+                </div>
+
+                <div className="productPage__top--restImages">
+                  <div>
+                    <div className="restimage">
+                      <img src={oneProduct.main_photo} alt="No img" />
+                    </div>
+                    <div className="restimage">
+                      <img src={oneProduct.main_photo} alt="No img" />
+                    </div>{" "}
+                    <div className="restimage">
+                      <img src={oneProduct.main_photo} alt="No img" />
+                    </div>{" "}
+                    {/* <div className="restimage">
+                      <img src={oneProduct.main_photo} alt="No img" />
+                    </div>{" "} */}
+                  </div>
+                  <span>
+                    <img src={arrowBellow} alt="No img" />
+                  </span>
+                </div>
+              </div>
+
+              <div className="productPage__top--data-right">
+                <div className="mid">
+                  {" "}
+                  <div className="productPage__top--title">
+                    {oneProduct.title}
+                  </div>
+                  <div className="productPage__top--price">
+                    <span>{oneProduct.price}$</span>
+                  </div>
+                  <div className="productPage__top--availibility">
+                    <span style={{ color: "#343E63", fontWeight: "700" }}>
+                      Доступность
+                    </span>
+                    : На складе
+                  </div>
+                  <div className="productPage__top--additionalInfo">
+                    Доп информация
+                  </div>
+                  <div className="productPage__top--deliveryInfo">
+                    Подробнее про условия доставки
+                  </div>
+                  <div>
+                    <div className="productPage__top--counter">
+                      <button onClick={minusCount}>
+                        <img src={minus_cart} alt="No img" />
+                      </button>
+                      <span>{count}</span>
+                      <button onClick={plusCount}>
+                        <img src={plus_cart} alt="No img" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="productPage__top--cartButtons">
+                  {isAuth ? (
+                    <div
+                      onClick={() => addAuthCart()}
+                      className="productPage__top-addCart"
+                    >
+                      <img src={product_cart_logo} alt="No img" />
+                      <span> В корзину</span>
+                    </div>
+                  ) : (
+                    <div
+                      onClick={() => {
+                        addItem(oneProduct, count);
+                        successAdded();
+                      }}
+                      className="productPage__top-addCart"
+                    >
+                      <img src={product_cart_logo} alt="No img" />
+                      <span> В корзину</span>
+                    </div>
+                  )}
+                  <div
+                    onClick={(e) =>
+                      addCompareProducts(e, oneProduct, oneProduct.id)
+                    }
+                    className="productPage__top-compareBtn"
+                  >
+                    <img src={product_compare_logo} alt="No img" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="productPage__top--contact">
               <div>
                 <div className="productPage__top--contactInfo">
@@ -228,7 +375,7 @@ function ProductPage(props) {
           </div>
 
           <div className="productPage__bottom">
-            <div className="productPage__bottom--toggles">
+            <div className="productPage__bottom--toggles desktop">
               <ul>
                 <li
                   onClick={() => {
@@ -261,6 +408,56 @@ function ProductPage(props) {
                   Комплекты
                 </li>
               </ul>
+            </div>
+
+            <div className="productPage__bottom--toggles mobile">
+              <FormControl sx={{ m: 1, minWidth: 150 }}>
+                <InputLabel id="demo-simple-select-autowidth-label">
+                  О товаре
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-autowidth-label"
+                  id="demo-simple-select-autowidth"
+                  value={sorting}
+                  onChange={handleChange}
+                  autoWidth
+                  label=" О товаре"
+                >
+                  <MenuItem
+                    value={1}
+                    onClick={() => {
+                      setDescription(true);
+                      setСharacteristic(false);
+                      setKits(false);
+                    }}
+                    className={description ? "active" : ""}
+                  >
+                    О товаре
+                  </MenuItem>
+                  <MenuItem
+                    value={2}
+                    onClick={() => {
+                      setDescription(false);
+                      setСharacteristic(true);
+                      setKits(false);
+                    }}
+                    className={characteristic ? "active" : ""}
+                  >
+                    Характеристики
+                  </MenuItem>{" "}
+                  <MenuItem
+                    value={3}
+                    onClick={() => {
+                      setDescription(false);
+                      setСharacteristic(false);
+                      setKits(true);
+                    }}
+                    className={kits ? "active" : ""}
+                  >
+                    Комплекты
+                  </MenuItem>
+                </Select>
+              </FormControl>
             </div>
 
             <div className="productPage__bottom--content">

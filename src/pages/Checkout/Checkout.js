@@ -307,13 +307,15 @@ function Checkout({ isDelivery }) {
             </p>
             <p>
               <label className="checkout--label-1">Комментарий к заказу:</label>
-              <input
-                onChange={handleInput}
-                className="checkout--input-1"
-                type="text"
-                value={checkoutInput.note}
-                name="note"
-              />
+              <div className="checkout__textArea-p">
+                <textarea
+                  onChange={handleInput}
+                  className="checkout__textArea"
+                  type=""
+                  value={checkoutInput.note}
+                  name="note"
+                />
+              </div>
             </p>
             <p>
               <label className="checkout--label-1">

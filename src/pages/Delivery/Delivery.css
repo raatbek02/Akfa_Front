@@ -1,12 +1,16 @@
-.delivery__container {
-  padding: 0 120px 120px 120px;
+.delivery {
 }
-h2 {
+.delivery__container {
+  padding: 100px 120px 80px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.delivery__title {
   margin: 70px 0 35px;
   text-align: left;
 }
 
-h2 span {
+.delivery__title span {
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
@@ -21,15 +25,16 @@ h2 span {
   font-size: 40px;
 }
 .delivery__content {
+  width: 100%;
   display: flex;
+  justify-content: space-between;
 }
 .delivery__left {
   width: 50%;
-    padding: 30px;
+  padding: 30px;
   background-color: #fff;
   box-shadow: 0px 10px 16px rgba(0, 0, 0, 0.05);
   border-radius: 10px;
-
 }
 .delivery__text p {
   margin-bottom: 15px;
@@ -50,7 +55,64 @@ h2 span {
   margin-right: 15px;
 }
 .delivery__right {
-  width: 50%;
+  width: 48%;
   display: flex;
   justify-content: flex-end;
+}
+.delivery__right--img {
+  width: 100%;
+}
+.delivery__right--img img {
+  width: 100%;
+}
+/* *********************************  MEDIA QUERY  *************************************** */
+/* *********************************  max-width: 1400px  *************************************** */
+@media (max-width: 1400px) {
+  .delivery__container {
+    padding: 100px 50px 80px;
+  }
+}
+
+/* *********************************  max-width: 1200px  *************************************** */
+@media (max-width: 1200px) {
+  .delivery__content {
+    flex-direction: column;
+  }
+  .delivery__title {
+    text-align: center;
+  }
+
+  .delivery__left {
+    width: 70%;
+    margin: 0 auto 30px;
+  }
+  .delivery__right {
+    width: 50%;
+    margin: 0 auto;
+  }
+}
+
+/* *********************************  max-width: 768px  *************************************** */
+
+@media (max-width: 768px) {
+  .delivery__container {
+    padding: 100px 20px 80px;
+  }
+  .delivery__left {
+    width: 100%;
+  }
+  .delivery__title span {
+    font-size: 24px;
+  }
+}
+
+/* *********************************  max-width: 575px  *************************************** */
+
+@media (max-width: 575px) {
+  .delivery__left {
+    padding: 10px;
+  }
+  .delivery__text {
+    font-size: 12px;
+  }
 }

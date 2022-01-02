@@ -4,6 +4,7 @@ import cart_logo from "../../assets/images/cart_logo.svg";
 import compare_logo from "../../assets/images/compare_logo.svg";
 import login_logo from "../../assets/images/login_logo.svg";
 import red_dot from "../../assets/images/new_design/red_dot.svg";
+import lupa from "../../assets/images/new_design/lupa.svg";
 
 import catalog_logo from "../../assets/images/catalog_logo.svg";
 
@@ -51,10 +52,12 @@ const list = [
 function Header() {
   const [modalAuth, setModalAuth] = useState(false);
   const [activeMobileMenu, setActiveMobileMenu] = useState(false);
+  const [activeCatalog, setActiveCatalog] = useState();
   //   const [modalCatalog, setModalCatalog] = useState(false);
+  console.log("activeCatalog", activeCatalog);
 
   const dispatch = useDispatch();
-  //   const modalCatalog = useSelector((s) => s.modalCatalog.modalCatalog);
+  const modalCatalog = useSelector((s) => s.modalCatalog.modalCatalog);
 
   document.body.style.overflow = activeMobileMenu ? "hidden " : "auto ";
 
@@ -76,10 +79,21 @@ function Header() {
             </ul>
             <div
               className="header__catalog"
-              onClick={() => dispatch(setModalCatalog(!false))}
+              onClick={() => {
+                dispatch(setModalCatalog(!false));
+              }}
             >
-              Каталог
-              <img src={catalog_logo} alt="No img" />
+              <span>Каталог</span>
+
+              <div
+                className={
+                  modalCatalog
+                    ? "header__catalog--icon _active"
+                    : "header__catalog--icon"
+                }
+              >
+                <span></span>
+              </div>
             </div>
           </div>
           <div className="header__right">
@@ -113,7 +127,8 @@ function Header() {
                 </div>
               </div>
               <div className="header__assets-bottom">
-                <input type="search" />
+                <input type="text" />
+                <img src={lupa} alt="No img" />
               </div>
             </div>
           </div>
@@ -128,14 +143,19 @@ function Header() {
             </div>
             <div className="header__mobile--middle">
               <div className="header__assets-bottom">
-                <input type="search" />
+                <input type="text" />
+                <img src={lupa} alt="No img" />
               </div>
               <div
                 className="header__catalog"
                 onClick={() => dispatch(setModalCatalog(!false))}
               >
                 Каталог
-                <img src={catalog_logo} alt="No img" />
+                {modalCatalog ? (
+                  <i class="far fa-times-circle"></i>
+                ) : (
+                  <img src={catalog_logo} alt="No img" />
+                )}
               </div>
             </div>
             <nav

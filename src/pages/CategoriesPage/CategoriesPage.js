@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { toast } from "react-toastify";
+
 import product_cart_logo from "../../assets/images/new_design/product_cart_logo.svg";
 import product_compare_logo from "../../assets/images/new_design/product_compare_logo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { setSubCategory_id } from "../../store/modalCatalog";
 import { useCart } from "react-use-cart";
 import { getCompareProducts } from "../../store/compare";
-import { toast } from "react-toastify";
 
 import "./CategoriesPage.css";
 
@@ -17,8 +19,13 @@ function CategoriesPage() {
   const [subcategory, setSubCategory] = useState([]);
   const [categoryProducts, setSubCategoryProducts] = useState([]);
   const [count, setCount] = useState(1);
-
   const { addItem, items, totalItems, totalUniqueItems, emptyCart } = useCart();
+  const [sorting, setSorting] = React.useState("");
+
+  const handleChange = (event) => {
+    setSorting(event.target.value);
+  };
+
   console.log("CategoryPage added items ", items);
 
   const navigate = useNavigate();
@@ -138,6 +145,39 @@ function CategoriesPage() {
               );
             })}
           </ul>
+        </div>
+
+        <div className="categoriesPage__sorting--mobile">
+          <FormControl sx={{ m: 1, minWidth: 150 }}>
+            <InputLabel id="demo-simple-select-autowidth-label">
+              Подкатегории
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-autowidth-label"
+              id="demo-simple-select-autowidth"
+              value={sorting}
+              onChange={handleChange}
+              autoWidth
+              label="Подкатегории"
+            >
+              {subcategory.map((obj) => {
+                console.log("obj.id ,subCategory_id", obj.id, subCategory_id);
+                return (
+                  <MenuItem
+                    value={obj.id}
+                    key={obj.id}
+                    onClick={() => {
+                      dispatch(setSubCategory_id(obj.id));
+                      localStorage.setItem("subCategory_ID", obj.id);
+                    }}
+                    className={subCategory_id === obj.id ? "active" : ""}
+                  >
+                    {obj.title}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
         </div>
 
         <div className="categoriesPage__content">

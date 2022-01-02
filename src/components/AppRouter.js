@@ -11,6 +11,7 @@ function AppRouter() {
     <div
       style={{
         background: "#FAFAF2",
+       
       }}
     >
       <Routes primary={false}>

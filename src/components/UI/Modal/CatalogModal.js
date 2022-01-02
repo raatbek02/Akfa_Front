@@ -13,7 +13,7 @@ function CatalogModal({ active, setActive, children }) {
   return (
     <div
       className={modalCatalog ? "catalogModal active" : "catalogModal"}
-      onClick={() => dispatch(setModalCatalog(false))}
+      onClick={() => dispatch(setModalCatalog(!modalCatalog))}
     >
       <div
         className={

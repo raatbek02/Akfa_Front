@@ -27,7 +27,7 @@ function Banner() {
                 centeredSlides={true}
                 loop={true}
                 speed={900}
-                  spaceBetween={0}
+                  spaceBetween={20}
                 slidesPerView={1}
               >
                 <SwiperSlide>
@@ -60,13 +60,13 @@ function Banner() {
             <div className="banner__right">
               <div className="banner__right--img">
                 <img src={banner_img} alt="No img" />
-                <div className="banner__btn">
+                <div className="banner__btn--right">
                   <button>Узнать больше</button>
                 </div>
               </div>
               <div className="banner__right--img">
                 <img src={banner_img} alt="No img" />
-                <div className="banner__btn">
+                <div className="banner__btn--right">
                   <button>Узнать больше</button>
                 </div>
               </div>

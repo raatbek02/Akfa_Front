@@ -1,5 +1,5 @@
 .footer {
-   background: linear-gradient(
+  background: linear-gradient(
     90deg,
     rgba(255, 72, 72, 1) 0%,
     rgba(206, 53, 53, 1) 61%,
@@ -7,8 +7,11 @@
   );
   position: sticky;
   top: 100vh;
+  /* padding-top: 40px; */
 }
 .footer__container {
+  max-width: 1440px;
+  margin: 0 auto;
   padding: 35px 120px;
 }
 .footer__content {
@@ -41,9 +44,11 @@ h3 {
   display: flex;
   align-items: center;
 }
-.footer__map img {
-  display: block;
+.footer__map--img {
   max-width: 340px;
+}
+.footer__map img {
+  width: 100%;
 }
 .footer__form {
   width: 32%;
@@ -76,4 +81,102 @@ h3 {
   color: #fff;
   border-radius: 5px;
   margin-top: 15px;
+  cursor: pointer;
+}
+
+.footer__form form button:hover {
+  background: linear-gradient(90deg, rgb(7, 202, 63) 0%, rgb(14, 124, 45) 100%);
+  transition: all 0.3s linear;
+}
+.footer__form form button:active {
+	border: 2px solid green;
+}
+
+/* ******************************************MEDIA QUERY***************************************************** */
+
+/* *********************************  max-width: 1400px  *************************************** */
+@media (max-width: 1400px) {
+  .footer__container {
+    padding: 35px 50px;
+  }
+}
+
+/* *********************************  max-width: 992px  *************************************** */
+
+@media (max-width: 992px) {
+  .banner__container {
+    padding: 20px 30px;
+  }
+}
+
+/* *********************************  max-width: 768px  *************************************** */
+
+@media (max-width: 768px) {
+  .footer__content {
+    flex-direction: column;
+  }
+  .footer__contact {
+    width: 85%;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .footer__contact ul {
+    width: 55%;
+    margin: 0 auto;
+  }
+  .footer__contact ul li {
+    margin-bottom: 10px;
+    font-size: 12px;
+  }
+  .footer__contact ul li span {
+    margin-left: 10px;
+  }
+  .footer__map {
+    width: 50%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+  .footer__map--img {
+    margin: 0 auto;
+  }
+  .footer__form {
+    width: 50%;
+    margin: 0 auto;
+  }
+  .footer__form form button {
+    width: 100%;
+  }
+}
+
+/* *********************************  max-width: 575px  *************************************** */
+
+@media (max-width: 575px) {
+  .footer__container {
+    padding: 10px 20px;
+  }
+}
+
+/* *********************************  max-width: 575px  *************************************** */
+
+@media (max-width: 575px) {
+  .footer__contact ul {
+    width: 70%;
+  }
+  .footer__map {
+    width: 90%;
+  }
+  .footer__form {
+    width: 90%;
+  }
+  .footer__form form {
+    max-width: 340px;
+    margin: 0 auto;
+  }
+  h3 {
+    font-size: 14px;
+  }
+  .footer__contact ul li span {
+    font-size: 12px;
+  }
 }

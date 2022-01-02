@@ -2,6 +2,8 @@
   height: 100vh;
   width: 100vw;
   padding: 30px 120px;
+  max-width: 1440px;
+  margin: 0 auto;
   /* background-color: #fff; */
 
   position: absolute;
@@ -37,4 +39,36 @@
 .catalogModal__content.active {
   transform: scale(1);
   overflow: hidden;
+}
+
+/* *********************************  MEDIA QUERY  ************************************* */
+
+/* *********************************  max-width: 1400px  *************************************** */
+@media (max-width: 1400px) {
+  .catalogModal.active {
+    padding: 30px 50px;
+  }
+}
+/* *********************************  max-width: 1200px  *************************************** */
+@media (max-width: 1400px) {
+  .categoriesPage__content {
+    justify-content: space-around;
+  }
+}
+
+/* *********************************  max-width: 992px  *************************************** */
+@media (max-width: 992px) {
+  .catalogModal.active {
+    padding: 30px 30px;
+  }
+  .catalogModal__content {
+    padding: 10px;
+  }
+}
+
+/* *********************************  max-width: 768px  *************************************** */
+@media (max-width: 768px) {
+  .catalogModal.active {
+    padding: 30px 20px;
+  }
 }

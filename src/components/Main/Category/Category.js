@@ -83,7 +83,9 @@ function Category() {
           </ul>
         </div>
         <div className="category__right">
-          <img src={modalCatalog_img} alt="No img" />;
+          <div className="category__right--img">
+            <img src={modalCatalog_img} alt="No img" />;
+          </div>
         </div>
       </div>
     </div>

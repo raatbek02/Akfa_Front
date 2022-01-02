@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
@@ -11,6 +12,11 @@ import { useCart } from "react-use-cart";
 import { PRODUCT_PAGE_ROUTE } from "../../../utils/consts";
 import { toast } from "react-toastify";
 import { getCompareProducts } from "../../../store/compare";
+
+// import InputLabel from "@mui/material/InputLabel";
+// import MenuItem from "@mui/material/MenuItem";
+// import FormControl from "@mui/material/FormControl";
+// import Select from "@mui/material/Select";
 
 const product_filter = [
   { id: 1, name: " Популярные", type: "popular" },
@@ -28,6 +34,15 @@ function Products() {
   const { addItem, items, totalItems, totalUniqueItems, emptyCart } = useCart();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  console.log(product, sort, type);
+
+  const [sorting, setSorting] = React.useState("");
+
+  const handleChange = (event) => {
+    setSorting(event.target.value);
+  };
+  console.log("age", sorting);
 
   const token = JSON.parse(localStorage.getItem("token"));
   const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
@@ -149,6 +164,49 @@ function Products() {
             );
           })}
         </ul>
+        <div className="product__sorting--mobile">
+          <FormControl sx={{ m: 1, minWidth: 150 }}>
+            <InputLabel id="demo-simple-select-autowidth-label">
+              Сортировка
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-autowidth-label"
+              id="demo-simple-select-autowidth"
+              value={sorting}
+              onChange={handleChange}
+              autoWidth
+              label="Сортировка"
+            >
+              <MenuItem
+                value={4}
+                onClick={() => {
+                  setActiveItem(null);
+                  setType(null);
+                }}
+                className={activeItem === null ? "active" : ""}
+              >
+                <em>Все</em>
+              </MenuItem>
+              {product_filter.map((obj) => {
+                return (
+                  <MenuItem
+                    value={obj.id}
+                    key={obj.id}
+                    onClick={() => {
+                      setActiveItem(obj.id);
+                      setSort(true);
+                      setType(obj.type);
+                    }}
+                    className={activeItem === obj.id ? "active" : ""}
+                  >
+                    {obj.name}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+        </div>
+
         <div className="product__content">
           {product.results &&
             product.results.map((el) => {

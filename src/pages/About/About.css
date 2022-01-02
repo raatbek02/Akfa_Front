@@ -1,15 +1,15 @@
 .about {
-  padding-bottom: 120px;
 }
 .about__container {
-  padding: 0 120px;
+  padding: 100px 120px 80px;
+  max-width: 1440px;
+  margin: 0 auto;
 }
-h2 {
+.about h2 {
   margin: 70px 0 35px;
-  text-align: left;
 }
 
-h2 span {
+.about h2 span {
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
@@ -41,7 +41,6 @@ h2 span {
   width: 100%;
 }
 .about__text {
-	
 }
 .about__text p {
   margin-bottom: 15px;
@@ -61,4 +60,55 @@ h2 span {
 }
 .about__text ul li span {
   margin-right: 15px;
+}
+
+/* *********************************  MEDIA QUERY  *************************************** */
+/* *********************************  max-width: 1400px  *************************************** */
+@media (max-width: 1400px) {
+  .about__container {
+    padding: 100px 50px;
+  }
+}
+
+/* *********************************  max-width: 1200px  *************************************** */
+@media (max-width: 1200px) {
+  .about__us {
+    flex-direction: column;
+  }
+  .about__left {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  .about__right {
+    width: 50%;
+    margin: 0 auto;
+  }
+  .about h2 {
+    text-align: center;
+    margin: 50px 0 20px;
+  }
+}
+
+/* *********************************  max-width: 768px  *************************************** */
+@media (max-width: 768px) {
+  .about h2 span {
+    font-size: 24px;
+  }
+}
+
+/* *********************************  max-width: 575px  *************************************** */
+
+@media (max-width: 575px) {
+  .about__container {
+    padding: 100px 20px;
+  }
+  .about__left {
+    padding: 10px;
+  }
+  .about__text {
+    font-size: 12px;
+  }
+  .about__text ul li {
+    margin-bottom: 20px;
+  }
 }

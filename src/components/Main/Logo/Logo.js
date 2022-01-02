@@ -27,20 +27,31 @@ function Logo() {
         >
           <div className="logo__content">
             <SwiperSlide>
-              <img className="logo__img" src={visa_logo} alt="No img" />
+              <div className="logo__img">
+                <img src={visa_logo} alt="No img" />
+              </div>
             </SwiperSlide>
 
             <SwiperSlide>
-              <img className="logo__img" src={visa_logo} alt="No img" />
+              <div className="logo__img">
+                <img src={visa_logo} alt="No img" />
+              </div>
             </SwiperSlide>
             <SwiperSlide>
-              <img className="logo__img" src={visa_logo} alt="No img" />
+              <div className="logo__img">
+                <img src={visa_logo} alt="No img" />
+              </div>
             </SwiperSlide>
             <SwiperSlide>
-              <img className="logo__img" src={visa_logo} alt="No img" />
+              <div className="logo__img">
+                <img src={visa_logo} alt="No img" />
+              </div>
             </SwiperSlide>
             <SwiperSlide>
-              <img className="logo__img" src={visa_logo} alt="No img" />
+              {" "}
+              <div className="logo__img">
+                <img src={visa_logo} alt="No img" />
+              </div>
             </SwiperSlide>
           </div>
         </Swiper>

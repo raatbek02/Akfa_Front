@@ -29,7 +29,9 @@ function Delivery() {
             </div>
           </div>
           <div className="delivery__right">
-            <img src={delivery} alt="No img" />
+            <div className="delivery__right--img">
+              <img src={delivery} alt="No img" />
+            </div>
           </div>
         </div>
       </div>
