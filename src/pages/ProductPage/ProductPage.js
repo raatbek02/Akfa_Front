@@ -34,6 +34,8 @@ function ProductPage(props) {
   const [count, setCount] = useState(1);
   const [kits, setKits] = useState(false);
   const [sorting, setSorting] = React.useState("");
+  const [mainImg, setMainImg] = useState("");
+  console.log("mainImg", mainImg);
 
   const handleChange = (event) => {
     setSorting(event.target.value);
@@ -65,7 +67,7 @@ function ProductPage(props) {
     const getOneProduct = async () => {
       await axios
         .get(`http://127.0.0.1:8000/api/products/${id}`)
-        .then(({ data }) => setOneProduct(data));
+        .then(({ data }) => setOneProduct(data, setMainImg(data.main_photo)));
     };
     getOneProduct();
   }, []);
@@ -148,38 +150,37 @@ function ProductPage(props) {
                   </Swiper> */}
 
                   <div>
-                    <div className="restimage">
-                      <img src={oneProduct.main_photo} alt="No img" />
+                    <div onClick={() => setMainImg(depp)} className="restimage">
+                      <img src={depp} alt="No img" />
                     </div>
-                    <div className="restimage">
+                    <div
+                      onClick={() => setMainImg(oneProduct.main_photo)}
+                      className="restimage"
+                    >
                       <img src={oneProduct.main_photo} alt="No img" />
                     </div>{" "}
-                    <div className="restimage">
+                    <div onClick={() => setMainImg(depp)} className="restimage">
+                      <img src={depp} alt="No img" />
+                    </div>{" "}
+                    <div
+                      onClick={() => setMainImg(oneProduct.main_photo)}
+                      className="restimage"
+                    >
                       <img src={oneProduct.main_photo} alt="No img" />
                     </div>{" "}
-                    <div className="restimage">
-                      <img src={oneProduct.main_photo} alt="No img" />
-                    </div>{" "}
-                    <div className="restimage">
-                      <img src={oneProduct.main_photo} alt="No img" />
+                    <div onClick={() => setMainImg(depp)} className="restimage">
+                      <img src={depp} alt="No img" />
                     </div>
                   </div>
 
-								              <span>
+                  <span>
                     <img src={arrowBellow} alt="No img" />
                   </span>
                 </div>
                 <div className="productPage__top--mainImage">
-                  <Swiper>
-                    <SwiperSlide
-                      modules={[Thumbs]}
-                      thumbs={{ swiper: thumbsSwiper }}
-                    >
-                      <div>
-                        <img src={oneProduct.main_photo} alt="No img" />
-                      </div>
-                    </SwiperSlide>
-                  </Swiper>
+                  <div>
+                    <img src={mainImg} alt="No img" />
+                  </div>
                 </div>
               </div>
 
