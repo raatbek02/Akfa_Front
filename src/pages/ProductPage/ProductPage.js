@@ -126,59 +126,38 @@ function ProductPage(props) {
             <div className="productPage__top--data desktop">
               <div className="productPage__top--data-left ">
                 <div className="productPage__top--restImages">
-                  {/* <Swiper
-                    className="x1"
-                    modules={[Thumbs]}
-                    watchSlidesProgress
-                    onSwiper={setThumbsSwiper}
-                  >
-                    <SwiperSlide>
-                      <div className="restimage">
-                        <img src={oneProduct.main_photo} alt="No img" />
-                      </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                      <div className="restimage">
-                        <img src={oneProduct.main_photo} alt="No img" />
-                      </div>
-                    </SwiperSlide>{" "}
-                    <SwiperSlide>
-                      <div className="restimage">
-                        <img src={oneProduct.main_photo} alt="No img" />
-                      </div>
-                    </SwiperSlide>
-                  </Swiper> */}
-
                   <div>
                     <div
                       onClick={() => setMainImg(oneProduct.main_photo)}
                       className="restimage"
                     >
-                      <img src={depp} alt="No img" />
+                      <img src={mainImg} alt="No img" />
                     </div>
-                    <div onClick={() => setMainImg(depp)} className="restimage">
-                      <img src={oneProduct.main_photo} alt="No img" />
-                    </div>{" "}
                     <div
-                      onClick={() => setMainImg(oneProduct.main_photo)}
+                      onClick={() => setMainImg(oneProduct.photo_1)}
                       className="restimage"
                     >
-                      <img src={depp} alt="No img" />
-                    </div>{" "}
-                    <div onClick={() => setMainImg(depp)} className="restimage">
-                      <img src={oneProduct.main_photo} alt="No img" />
+                      <img src={oneProduct.photo_1} alt="No img" />
                     </div>{" "}
                     <div
-                      onClick={() => setMainImg(oneProduct.main_photo)}
+                      onClick={() => setMainImg(oneProduct.photo_2)}
                       className="restimage"
                     >
-                      <img src={depp} alt="No img" />
+                      <img src={oneProduct.photo_2} alt="No img" />
+                    </div>{" "}
+                    <div
+                      onClick={() => setMainImg(oneProduct.photo_3)}
+                      className="restimage"
+                    >
+                      <img src={oneProduct.photo_3} alt="No img" />
+                    </div>{" "}
+                    <div
+                      onClick={() => setMainImg(oneProduct.photo_4)}
+                      className="restimage"
+                    >
+                      <img src={oneProduct.photo_4} alt="No img" />
                     </div>
                   </div>
-
-                  <span>
-                    <img src={arrowBellow} alt="No img" />
-                  </span>
                 </div>
                 <div className="productPage__top--mainImage">
                   <div>
@@ -271,13 +250,10 @@ function ProductPage(props) {
                     <div className="restimage">
                       <img src={oneProduct.main_photo} alt="No img" />
                     </div>{" "}
-                    {/* <div className="restimage">
+                    <div className="restimage">
                       <img src={oneProduct.main_photo} alt="No img" />
-                    </div>{" "} */}
+                    </div>
                   </div>
-                  <span>
-                    <img src={arrowBellow} alt="No img" />
-                  </span>
                 </div>
               </div>
 

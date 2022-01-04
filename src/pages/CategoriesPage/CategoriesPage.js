@@ -37,6 +37,8 @@ function CategoriesPage() {
     (state) => state.compareSlice.compare_products
   );
 
+  const successAdded = () => toast.success("Товар добавлен в корзину!");
+
   const successCompareAdded = () =>
     toast.success("Товар добавлен в сравнения!");
   const warnCompareAdded = () =>
@@ -96,6 +98,8 @@ function CategoriesPage() {
   const addLocalCart = (e, id, count) => {
     e.stopPropagation();
     e.preventDefault();
+
+    successAdded();
 
     addItem(id, count);
   };
@@ -198,20 +202,27 @@ function CategoriesPage() {
                       <span>{el.price} $</span>
                       <span> есть</span>
                     </div>
-
                     <div className="product__buttons">
-                      <div className="product__cart-button">
-                        <img src={product_cart_logo} alt="No img" />
-                        {isAuth ? (
-                          <span onClick={(e) => addAuthCart(e, el.id)}>
-                            В корзину
-                          </span>
-                        ) : (
-                          <span onClick={(e) => addLocalCart(e, el, count)}>
-                            В корзину
-                          </span>
-                        )}
-                      </div>
+                      {isAuth ? (
+                        <div
+                          onClick={(e) => addAuthCart(e, el.id)}
+                          className="product__cart-button"
+                        >
+                          <img src={product_cart_logo} alt="No img" />
+
+                          <span>В корзину</span>
+                        </div>
+                      ) : (
+                        <div
+                          onClick={(e) => addLocalCart(e, el)}
+                          className="product__cart-button"
+                        >
+                          <img src={product_cart_logo} alt="No img" />
+
+                          <span>В корзину</span>
+                        </div>
+                      )}
+
                       <div
                         onClick={(e) => addCompareProducts(e, el, el.id)}
                         className="product__compare-button"
@@ -230,6 +241,23 @@ function CategoriesPage() {
 }
 
 export default CategoriesPage;
+
+//   <div className="product__buttons">
+//     <div className="product__cart-button">
+//       <img src={product_cart_logo} alt="No img" />
+//       {isAuth ? (
+//         <span onClick={(e) => addAuthCart(e, el.id)}>В корзину</span>
+//       ) : (
+//         <span onClick={(e) => addLocalCart(e, el, count)}>В корзину</span>
+//       )}
+//     </div>
+//     <div
+//       onClick={(e) => addCompareProducts(e, el, el.id)}
+//       className="product__compare-button"
+//     >
+//       <img src={product_compare_logo} alt="No img" />
+//     </div>
+//   </div>;
 
 // const data = [];
 // for (let i = 0; i < 18; i++) {

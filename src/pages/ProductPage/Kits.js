@@ -19,6 +19,8 @@ function Kits({ oneProduct }) {
     (state) => state.compareSlice.compare_products
   );
 
+  const successAdded = () => toast.success("Товар добавлен в корзину!");
+
   const successCompareAdded = () =>
     toast.success("Товар добавлен в сравнения!");
   const warnCompareAdded = () =>
@@ -62,6 +64,7 @@ function Kits({ oneProduct }) {
 
   const addLocalCart = (e, id, count) => {
     e.stopPropagation();
+    successAdded();
 
     addItem(id, count);
   };

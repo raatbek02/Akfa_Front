@@ -5,6 +5,7 @@ import { useCart } from "react-use-cart";
 import { $host } from "../../http";
 import { setAuthCart } from "../../store/carts";
 import "./Checkout.css";
+import { toast } from "react-toastify";
 
 function Checkout({ isDelivery }) {
   const [checkoutInput, setCheckoutInput] = useState({
@@ -20,15 +21,7 @@ function Checkout({ isDelivery }) {
     radio: "",
   });
   console.log("checkoutInput.radio", checkoutInput.radio);
-  // const [checkboxes, setCheckboxes] = useState({
-  //    is_conf_required: false,
-  //    is_entity: false,
-  //  });
   const [checkboxes, setCheckboxes] = useState([]);
-  //   const [radio, setRadio] = useState(1);
-  //   console.log("radio", radio);
-  console.log(checkboxes);
-  console.log(checkboxes.is_conf_required);
 
   const [error, setError] = useState([]);
   const token = JSON.parse(localStorage.getItem("token"));
@@ -37,6 +30,8 @@ function Checkout({ isDelivery }) {
   const user = useSelector((s) => s.userSlice.user);
   const authCart = useSelector((s) => s.cartSlice.authCart);
   const isAuth = useSelector((s) => s.isAuthSlice.isAuth);
+
+  const successSubmited = () => toast.success("Ваш заказ успешно отправлен!");
 
   console.log("authCart checkout", authCart);
 
@@ -173,6 +168,8 @@ function Checkout({ isDelivery }) {
       })
       .then((res) => {
         console.log("Успешно", res);
+        successSubmited();
+        emptyCart();
         //   emptyCart();
       })
       .catch((e) => {

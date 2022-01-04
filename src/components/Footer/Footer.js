@@ -7,6 +7,7 @@ import contact_3 from "../../assets/images/footer_contact_3.png";
 import contact_4 from "../../assets/images/footer_contact_4.png";
 
 import footer_map from "../../assets/images/footer_map.png";
+import { toast } from "react-toastify";
 
 function Footer() {
   const [expanded, setExpanded] = React.useState(false);
@@ -37,12 +38,18 @@ function Footer() {
         },
       })
       .then((res) => {
+        successSubmited();
+        setBackCallInput({ name: "", phone: "" });
+
         console.log("Обратный звонок успешно отправлен", res);
       })
       .catch((e) => {
         console.log("Ошибка обратного звонка ", e);
       });
   };
+
+  const successSubmited = () =>
+    toast.success("Форма связи успешно отправлено!");
 
   return (
     <footer className="footer">
