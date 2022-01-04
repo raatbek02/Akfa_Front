@@ -150,25 +150,28 @@ function ProductPage(props) {
                   </Swiper> */}
 
                   <div>
-                    <div onClick={() => setMainImg(depp)} className="restimage">
+                    <div
+                      onClick={() => setMainImg(oneProduct.main_photo)}
+                      className="restimage"
+                    >
                       <img src={depp} alt="No img" />
                     </div>
+                    <div onClick={() => setMainImg(depp)} className="restimage">
+                      <img src={oneProduct.main_photo} alt="No img" />
+                    </div>{" "}
                     <div
                       onClick={() => setMainImg(oneProduct.main_photo)}
                       className="restimage"
                     >
-                      <img src={oneProduct.main_photo} alt="No img" />
-                    </div>{" "}
-                    <div onClick={() => setMainImg(depp)} className="restimage">
                       <img src={depp} alt="No img" />
                     </div>{" "}
+                    <div onClick={() => setMainImg(depp)} className="restimage">
+                      <img src={oneProduct.main_photo} alt="No img" />
+                    </div>{" "}
                     <div
                       onClick={() => setMainImg(oneProduct.main_photo)}
                       className="restimage"
                     >
-                      <img src={oneProduct.main_photo} alt="No img" />
-                    </div>{" "}
-                    <div onClick={() => setMainImg(depp)} className="restimage">
                       <img src={depp} alt="No img" />
                     </div>
                   </div>

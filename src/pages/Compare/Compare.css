@@ -84,6 +84,7 @@
 }
 .compare__products {
   display: flex;
+  border-radius: 10px;
 }
 
 .compare__compare--buttons {
@@ -99,7 +100,7 @@
   font-family: Geometria;
   font-weight: 500;
   color: #272626;
-  font-size: 14px;
+  font-size: 12px;
   /* padding-right: 10px; */
   cursor: pointer;
   text-align: center;
@@ -117,15 +118,19 @@
   background-color: #c9c1c1;
 }
 .compare__item--field {
-  padding: 20px;
+  /* padding: 20px; */
+  height: 60px;
   max-width: 300px;
   font-family: Geometria;
   font-weight: 500;
   color: #272626;
-  font-size: 14px;
+  font-size: 12px;
   /* padding-right: 10px; */
   cursor: pointer;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   /* filter: drop-shadow(0px 10px 16px rgba(0, 0, 0, 0.05)); */
   border-bottom: 1px solid #272626;
@@ -157,7 +162,7 @@
   text-align: center;
 }
 .compare__name {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   margin: 10px 0;
   color: #3e3e3e;
@@ -168,7 +173,7 @@
   margin-bottom: 10px;
 }
 .compare__price span {
-  font-size: 18px;
+  font-size: 16px;
   font-family: Gilroy;
   font-weight: 900;
   color: transparent;

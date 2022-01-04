@@ -15,6 +15,8 @@ function Category() {
   const [subCategory, setSubCategory] = useState([]);
   const [activeCategory, setActiveCategory] = useState("");
   const [activeSubCategory, setActiveSubCategory] = useState("");
+  const [onMouse_id, setOnMouse_id] = useState(null);
+  const [onMouse_categoryImage, setOnMouse_categoryImage] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -32,13 +34,16 @@ function Category() {
     getCategories();
   }, []);
 
-  const getSubcategories = async (id) => {
-    await axios
-      .get(`http://127.0.0.1:8000/api/subcategory?categories=${id}`)
-      .then(({ data }) => {
-        setSubCategory(data);
-      });
-  };
+  useEffect(() => {
+    const getSubcategories = async () => {
+      await axios
+        .get(`http://127.0.0.1:8000/api/subcategory?categories=${onMouse_id}`)
+        .then(({ data }) => {
+          setSubCategory(data);
+        });
+    };
+    getSubcategories();
+  }, [onMouse_id]);
 
   return (
     <div className="category">
@@ -49,11 +54,15 @@ function Category() {
               return (
                 <li
                   key={Date.now() * obj.id}
-                  onClick={() => {
-                    getSubcategories(obj.id);
-                    setActiveCategory(obj.id);
+                  onMouseOver={() => {
+                    setOnMouse_id(obj.id);
+                    setOnMouse_categoryImage(obj.image);
                   }}
-                  className={obj.id === activeCategory ? "" : ""}
+                  onClick={() => {
+                    setOnMouse_id(obj.id);
+                    //   setActiveCategory(obj.id);
+                  }}
+                  // className={obj.id === activeCategory ? "" : ""}
                 >
                   {obj.title}
                 </li>
@@ -84,7 +93,7 @@ function Category() {
         </div>
         <div className="category__right">
           <div className="category__right--img">
-            <img src={modalCatalog_img} alt="No img" />;
+            <img src={onMouse_categoryImage} alt="No img" />;
           </div>
         </div>
       </div>
