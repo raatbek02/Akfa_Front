@@ -9,7 +9,7 @@ import banner_img from "../../../assets/images/new_design/banner_main.png";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { BANNERDETAIL__ROUTE, BANNER_DETAIL__ROUTE, NEWS_DETAIL__ROUTE } from "../../../utils/consts";
+import { BANNER_DETAIL__ROUTE } from "../../../utils/consts";
 
 SwiperCore.use([Autoplay, Pagination]);
 
@@ -18,6 +18,8 @@ SwiperCore.use([Autoplay, Pagination]);
 function Banner() {
   const [bannerData, setBannerData] = useState([]);
   const navigate = useNavigate();
+
+  console.log("bannerData", bannerData);
 
   useEffect(() => {
     const getBannerData = async () => {
@@ -71,15 +73,35 @@ function Banner() {
 
             <div className="banner__right">
               <div className="banner__right--img">
-                <img src={banner_img} alt="No img" />
+                <img src={bannerData[1] && bannerData[1].image} alt="No img" />
                 <div className="banner__btn--right">
-                  <button>Узнать больше</button>
+                  <button
+                    onClick={() =>
+                      navigate(
+                        `${BANNER_DETAIL__ROUTE}/${
+                          bannerData[1] && bannerData[1].id
+                        }`
+                      )
+                    }
+                  >
+                    Узнать больше
+                  </button>
                 </div>
               </div>
               <div className="banner__right--img">
-                <img src={banner_img} alt="No img" />
+                <img src={bannerData[2] && bannerData[2].image} alt="No img" />
                 <div className="banner__btn--right">
-                  <button>Узнать больше</button>
+                  <button
+                    onClick={() =>
+                      navigate(
+                        `${BANNER_DETAIL__ROUTE}/${
+                          bannerData[2] && bannerData[2].id
+                        }`
+                      )
+                    }
+                  >
+                    Узнать больше
+                  </button>
                 </div>
               </div>
 
