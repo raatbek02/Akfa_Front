@@ -10,15 +10,11 @@ import footer_map from "../../assets/images/footer_map.png";
 import { toast } from "react-toastify";
 
 function Footer() {
-  const [expanded, setExpanded] = React.useState(false);
   const [backCallInput, setBackCallInput] = React.useState({
     name: "",
     phone: "",
   });
 
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
-  };
 
   const handleInput = (e) => {
     e.persist();

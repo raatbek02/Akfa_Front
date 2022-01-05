@@ -7,20 +7,30 @@ import Contacts from "./pages/Contacts/Contacts";
 import Delivery from "./pages/Delivery/Delivery";
 import Home from "./pages/Home";
 import News from "./pages/News/News";
+import NewsDetail from "./pages/NewsDetail/NewsDetail";
+import CategoryBannerDetail from "./pages/NewsDetail/CategoryBannerDetail";
 import ProductPage from "./pages/ProductPage/ProductPage";
+import SearchPage from "./pages/SearchPage/SearchPage";
 import {
   ABOUT_ROUTE,
+  BANNERDETAIL__ROUTE,
+  BANNER_DETAIL__ROUTE,
   CART_ROUTE,
   CATEGORIES_PAGE_ROUTE,
+  CATEGORY_BANNER_DETAIL__ROUTE,
   CHECKOUT__ROUTE,
   COMPARE__ROUTE,
   CONTACTS_ROUTE,
   DELIVERY_ROUTE,
   HOME_ROUTE,
+  NEWSDETAIL__ROUTE,
+  NEWS_DETAIL__ROUTE,
   NEWS_ROUTE,
   PRIVATE__ROUTE,
   PRODUCT_PAGE_ROUTE,
+  SEARCH__ROUTE,
 } from "./utils/consts";
+import BannerDetail from "./pages/NewsDetail/BannerDetail";
 
 export const authRoutes = [
   {
@@ -69,5 +79,21 @@ export const publicRoutes = [
   {
     path: COMPARE__ROUTE,
     Component: <Compare />,
+  },
+  {
+    path: SEARCH__ROUTE,
+    Component: <SearchPage />,
+  },
+  {
+    path: NEWS_DETAIL__ROUTE + "/:id",
+    Component: <NewsDetail />,
+  },
+  {
+    path: CATEGORY_BANNER_DETAIL__ROUTE + "/:id",
+    Component: <CategoryBannerDetail />,
+  },
+  {
+    path: BANNER_DETAIL__ROUTE + "/:id",
+    Component: <BannerDetail />,
   },
 ];

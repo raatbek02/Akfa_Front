@@ -8,5 +8,11 @@ export const PRODUCT_PAGE_ROUTE = "/productPage";
 export const CART_ROUTE = "/cart";
 export const CHECKOUT__ROUTE = "/checkout";
 export const COMPARE__ROUTE = "/compare";
+export const SEARCH__ROUTE = "/search";
+export const NEWS_DETAIL__ROUTE = "/newsDetail";
+export const CATEGORY_BANNER_DETAIL__ROUTE = "/categoryBannerDetail";
+export const BANNER_DETAIL__ROUTE = "/bannerDetail";
+
+
 
 export const PRIVATE__ROUTE = "/private";

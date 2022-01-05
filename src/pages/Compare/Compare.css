@@ -187,6 +187,28 @@
   margin-right: 12px;
 }
 
+.compare__empty h2 {
+  text-align: center;
+}
+.compare__empty h2 span {
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 72, 72, 1) 0%,
+    rgba(170, 39, 39, 1) 100%
+  );
+  font-size: 28px;
+}
+.compare__empty--img {
+  max-width: 200px;
+  margin: 20px auto;
+}
+.compare__empty--img img {
+  width: 100%;
+}
+
 /* *********************************  MEDIA QUERY  *************************************** */
 /* *********************************  max-width: 1400px  *************************************** */
 @media (max-width: 1400px) {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Pagination } from "swiper";
 import "swiper/swiper-bundle.min.css";
@@ -6,12 +6,30 @@ import "swiper/swiper.min.css";
 
 import "./Banner.css";
 import banner_img from "../../../assets/images/new_design/banner_main.png";
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { BANNERDETAIL__ROUTE, BANNER_DETAIL__ROUTE, NEWS_DETAIL__ROUTE } from "../../../utils/consts";
 
 SwiperCore.use([Autoplay, Pagination]);
 
-const arr = [1, 2, 3];
+// const arr = [1, 2, 3];
 
 function Banner() {
+  const [bannerData, setBannerData] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const getBannerData = async () => {
+      await axios
+        .get(`http://localhost:8000/api/banner-news/`)
+        .then(({ data }) => {
+          setBannerData(data);
+        });
+    };
+    getBannerData();
+  }, []);
+
   return (
     <div className="wrapper">
       <div className="banner">
@@ -20,40 +38,34 @@ function Banner() {
             <div className="banner__left">
               <Swiper
                 pagination={{ clickable: true }}
-                 autoplay={{
-                   delay: 5000,
-                   disableOnInteraction: false,
-                 }}
+                autoplay={{
+                  delay: 5000,
+                  disableOnInteraction: false,
+                }}
                 centeredSlides={true}
                 loop={true}
                 speed={900}
-                  spaceBetween={20}
+                spaceBetween={50}
                 slidesPerView={1}
               >
-                <SwiperSlide>
-                  <div className="banner__left--img">
-                    <img src={banner_img} alt="No img" />
-                    <div className="banner__btn">
-                      <button>Узнать больше</button>
-                    </div>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <div className="banner__left--img">
-                    <img src={banner_img} alt="No img" />
-                    <div className="banner__btn">
-                      <button>Узнать больше</button>
-                    </div>
-                  </div>
-                </SwiperSlide>{" "}
-                <SwiperSlide>
-                  <div className="banner__left--img">
-                    <img src={banner_img} alt="No img" />
-                    <div className="banner__btn">
-                      <button>Узнать больше</button>
-                    </div>
-                  </div>
-                </SwiperSlide>
+                {bannerData.map((el) => {
+                  return (
+                    <SwiperSlide key={el.id}>
+                      <div className="banner__left--img">
+                        <img src={el.image} alt="No img" />
+                        <div className="banner__btn">
+                          <button
+                            onClick={() =>
+                              navigate(`${BANNER_DETAIL__ROUTE}/${el.id}`)
+                            }
+                          >
+                            Узнать больше
+                          </button>
+                        </div>
+                      </div>
+                    </SwiperSlide>
+                  );
+                })}
               </Swiper>
             </div>
 

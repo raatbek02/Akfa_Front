@@ -18,7 +18,7 @@ function Logo() {
     axios.get("http://localhost:8000/api/main-logo/").then(({ data }) => {
       setLogoData(data);
     });
-  });
+  }, []);
 
   return (
     <div className="logo">

@@ -1,0 +1,43 @@
+.searchPage__container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 150px 120px 80px 120px;
+}
+
+.searchPage__title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+.searchPage__title h2 {
+}
+
+.searchPage__title h2 span {
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 72, 72, 1) 0%,
+    rgba(170, 39, 39, 1) 100%
+  );
+  font-size: 36px;
+}
+
+.searchPage__title--img {
+  max-width: 60px;
+}
+.searchPage__title--img img {
+  width: 100%;
+  object-fit: contain;
+}
+
+/* *********************************  MEDIA QUERY  *************************************** */
+
+/* *********************************  max-width: 1200px  *************************************** */
+@media (max-width: 1400px) {
+  .searchPage__container {
+    padding: 150px 50px 80px;
+  }
+}

@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-// import product_cart_logo from "../../assets/images/new_design/product_cart_logo.svg";
-// import product_compare_logo from "../../assets/images/new_design/product_compare_logo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { removeCompareItem } from "../../store/compare";
+// import product_cart_logo from "../../assets/images/new_design/product_cart_logo.svg";
+// import product_compare_logo from "../../assets/images/new_design/product_compare_logo.svg";
+import empty_compare from "../../assets/images/new_design/empty_compare.png";
 import "./Compare.css";
 
 function Compare() {
@@ -36,106 +37,69 @@ function Compare() {
   return (
     <div className="compare">
       <div className="compare__container">
-        <div className="compare__title">
-          <h2>
-            <span>Сравнение товаров</span>
-          </h2>
-        </div>
-
-        <div className="compare__content">
-          <div className="compare__products">
-            <div className="compare__item">
-              <div className="compare__item--card ">Товар</div>
-              {characteristicData.map((item) => {
-                return <div className="compare__item--field">{item.title}</div>;
-              })}
+        {compare_products_local.length > 0 ? (
+          <>
+            <div className="compare__title">
+              <h2>
+                <span>Сравнение товаров</span>
+              </h2>
             </div>
-            {compare_products_local.map((el) => {
-              return (
-                <div className="compare__item">
-                  <div className="compare__item--card">
-                    <div className="compare__img">
-                      <img src={el.image} alt="No img" />
-                    </div>
-                    <div className="compare__item--content">
-                      <div className="compare__name">{el.title}</div>
-                      <div className="compare__price">
-                        <span>{el.price} $</span>
-                      </div>
-                      <i
-                        onClick={() => dispatch(removeCompareItem(el.id))}
-                        class="far fa-trash-alt"
-                      ></i>
-                    </div>
-                  </div>
 
-                  {el.chars.map((item) => {
+            <div className="compare__content">
+              <div className="compare__products">
+                <div className="compare__item">
+                  <div className="compare__item--card ">Товар</div>
+                  {characteristicData.map((item) => {
                     return (
-                      <div className="compare__item--field">{item.value}</div>
+                      <div className="compare__item--field">{item.title}</div>
                     );
                   })}
                 </div>
-              );
-            })}
+                {compare_products_local.map((el) => {
+                  return (
+                    <div className="compare__item">
+                      <div className="compare__item--card">
+                        <div className="compare__img">
+                          <img src={el.image} alt="No img" />
+                        </div>
+                        <div className="compare__item--content">
+                          <div className="compare__name">{el.title}</div>
+                          <div className="compare__price">
+                            <span>{el.price} $</span>
+                          </div>
+                          <i
+                            onClick={() => dispatch(removeCompareItem(el.id))}
+                            class="far fa-trash-alt"
+                          ></i>
+                        </div>
+                      </div>
+
+                      {el.chars.map((item) => {
+                        return (
+                          <div className="compare__item--field">
+                            {item.value}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className="compare__empty">
+            <h2>
+              <span>Товары для сравнения отсутствуют</span>
+            </h2>
+            <div className="compare__empty--img">
+              <img src={empty_compare} alt="No img" />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
 }
 
 export default Compare;
-
-//  <table>
-//    <thead>
-//      <tr>Описание</tr>
-//    </thead>
-//    <tbody>
-//      <tr>
-//        <td>Товар</td>
-
-//        {compare_products_local.map((el) => {
-//          return (
-//            <td>
-//              <div className="compare__item--card">
-//                <div className="compare__img">
-//                  <img src={el.image} alt="No img" />
-//                </div>
-//                <div className="compare__item--content">
-//                  <div className="compare__name">{el.title}</div>
-//                  <div className="compare__price">
-//                    <span>{el.price} $</span>
-//                    {/* <span> есть</span> */}
-//                  </div>
-//                  <i
-//                    onClick={() => dispatch(removeCompareItem(el.id))}
-//                    class="far fa-trash-alt"
-//                  ></i>
-//                </div>
-//              </div>
-//            </td>
-//          );
-//        })}
-//      </tr>
-
-//      {compare_products_local.map((item, index) => {
-//        return (
-//          <tr>
-//            {item.chars.map((el) => (
-//              <>
-//                <td>{el.title}</td>
-//                <td>{el.value}</td>
-//              </>
-//            ))}
-//          </tr>
-//        );
-//      })}
-//      {/* {arr.map((el) => {
-//        return el.map((o) => (
-//          <td className="compare__item--field">{o.meaning} </td>
-//        ));
-//      })} */}
-
-//      {/* <tr></tr> */}
-//    </tbody>
-//  </table>;

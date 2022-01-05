@@ -11,7 +11,18 @@ import { setSubCategory_id } from "../../store/modalCatalog";
 import { useCart } from "react-use-cart";
 import { getCompareProducts } from "../../store/compare";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Autoplay, Pagination } from "swiper";
+import "swiper/swiper-bundle.min.css";
+import "swiper/swiper.min.css";
+
 import "./CategoriesPage.css";
+import {
+  CATEGORY_BANNER_DETAIL__ROUTE,
+  NEWSDETAIL__ROUTE,
+} from "../../utils/consts";
+
+SwiperCore.use([Autoplay, Pagination]);
 
 function CategoriesPage() {
   const { id } = useParams();
@@ -19,6 +30,8 @@ function CategoriesPage() {
   const [subcategory, setSubCategory] = useState([]);
   const [categoryProducts, setSubCategoryProducts] = useState([]);
   const [count, setCount] = useState(1);
+  const [bannerData, setBannerData] = useState([]);
+
   const { addItem, items, totalItems, totalUniqueItems, emptyCart } = useCart();
   const [sorting, setSorting] = React.useState("");
 
@@ -43,6 +56,17 @@ function CategoriesPage() {
     toast.success("Товар добавлен в сравнения!");
   const warnCompareAdded = () =>
     toast.warn("Максимальное количество товаров для сравнения-4!");
+
+  useEffect(() => {
+    const getBannerData = async () => {
+      await axios
+        .get(`http://localhost:8000/api/category-news/`)
+        .then(({ data }) => {
+          setBannerData(data);
+        });
+    };
+    getBannerData();
+  }, []);
 
   useEffect(() => {
     const getSubcategories = async () => {
@@ -118,6 +142,40 @@ function CategoriesPage() {
   return (
     <div className="categoriesPage">
       <div className="categoriesPage__container">
+        <div className="banner__left ">
+          <Swiper
+            pagination={{ clickable: true }}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+            centeredSlides={true}
+            loop={true}
+            speed={900}
+            spaceBetween={20}
+            slidesPerView={1}
+          >
+            {bannerData.map((el) => {
+              return (
+                <SwiperSlide key={el.id}>
+                  <div className="banner__left--img">
+                    <img src={el.image} alt="No img" />
+                    <div className="banner__btn">
+                      <button
+                        onClick={() =>
+                          navigate(`${CATEGORY_BANNER_DETAIL__ROUTE}/${el.id}`)
+                        }
+                      >
+                        Узнать больше
+                      </button>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        </div>
+
         <div className="categoriesPage__title">
           <h2>
             <span>

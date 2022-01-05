@@ -13,6 +13,7 @@ import {
 import minus_cart from "../../assets/images/new_design/minus_cart.svg";
 import plus_cart from "../../assets/images/new_design/plus_cart.svg";
 import cart_item_remove from "../../assets/images/new_design/cart_item_remove.svg";
+import empty_cart_logo from "../../assets/images/new_design/empty_cart.png";
 
 import "./Cart.css";
 import Checkout from "../Checkout/Checkout";
@@ -392,7 +393,12 @@ function Cart() {
             </div>
           </>
         ) : (
-          <p>Пустая корзина</p>
+          <div className="cart__empty">
+            <h2><span>У вас пустая корзина</span></h2>
+            <div className="cart__empty--img">
+              <img src={empty_cart_logo} alt="No img" />
+            </div>
+          </div>
         )}
       </div>
     </div>

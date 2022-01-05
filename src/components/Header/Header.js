@@ -8,7 +8,7 @@ import lupa from "../../assets/images/new_design/lupa.svg";
 
 import catalog_logo from "../../assets/images/catalog_logo.svg";
 
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Modal from "../UI/Modal/Modal";
 import Auth from "../Auth/Auth";
 import {
@@ -19,12 +19,15 @@ import {
   DELIVERY_ROUTE,
   HOME_ROUTE,
   NEWS_ROUTE,
+  SEARCH__ROUTE,
 } from "../../utils/consts";
 import CatalogModal from "../UI/Modal/CatalogModal";
 import Category from "../Main/Category/Category";
 import { useDispatch, useSelector } from "react-redux";
 import { setModalCatalog } from "../../store/modalCatalog";
 import { GiHamburgerMenu } from "react-icons/gi";
+import axios from "axios";
+import { addSearchProducts } from "../../store/searchData";
 
 const list = [
   {
@@ -53,6 +56,11 @@ function Header() {
   const [modalAuth, setModalAuth] = useState(false);
   const [activeMobileMenu, setActiveMobileMenu] = useState(false);
   const [activeCatalog, setActiveCatalog] = useState();
+  const [search, setSearch] = useState("");
+  const [searchData, setSearchData] = useState([]);
+
+  const navigate = useNavigate();
+  console.log("searchData", searchData);
   //   const [modalCatalog, setModalCatalog] = useState(false);
   console.log("activeCatalog", activeCatalog);
 
@@ -60,6 +68,30 @@ function Header() {
   const modalCatalog = useSelector((s) => s.modalCatalog.modalCatalog);
 
   document.body.style.overflow = activeMobileMenu ? "hidden " : "auto ";
+
+  //   const getSearchData = async () => {
+  //     await
+  //   }
+  const searchHandler = async (e) => {
+    if (search && e.key === "Enter") {
+      await axios
+        .get(`http://localhost:8000/api/products/?search=${search}`)
+        .then(({ data }) => {
+          setSearchData(data);
+          dispatch(addSearchProducts(data.results));
+          setSearch("");
+          navigate(SEARCH__ROUTE);
+        });
+    }
+  };
+
+  //   const searchHandler_2 = async (e) => {
+  //     await axios
+  //       .get(`http://localhost:8000/api/products/?search=${encodeURI(search)}`)
+  //       .then(({ data }) => {
+  //         setSearchData(data);
+  //       });
+  //   };
 
   return (
     <header className="header">
@@ -127,8 +159,17 @@ function Header() {
                 </div>
               </div>
               <div className="header__assets-bottom">
-                <input type="text" />
-                <img src={lupa} alt="No img" />
+                <input
+                  type="text"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  onKeyDown={(e) => searchHandler(e)}
+                />
+                <img
+                  // onClick={() => searchHandler_2()}
+                  src={lupa}
+                  alt="No img"
+                />
               </div>
             </div>
           </div>

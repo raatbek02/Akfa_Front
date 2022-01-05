@@ -4,7 +4,13 @@
   padding: 150px 120px 130px 120px;
 }
 
+.categoriesPage .banner__left {
+  width: 80%;
+  margin: 0 auto;
+}
+
 .categoriesPage__title {
+  margin-top: 40px;
   margin-bottom: 20px;
 }
 .categoriesPage__title h2 span {
