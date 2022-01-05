@@ -92,7 +92,7 @@
   /* position: absolute; */
   height: 100%;
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 .banner__btn--right {
   padding: 20px;
