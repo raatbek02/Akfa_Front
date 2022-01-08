@@ -63,6 +63,7 @@
     rgba(255, 72, 72, 1) 0%,
     rgba(170, 39, 39, 1) 100%
   );
+  cursor: pointer;
 }
 .news_blog__blogItem {
   display: flex;

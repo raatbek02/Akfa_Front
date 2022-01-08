@@ -15,6 +15,7 @@ import lupa_page from "../../assets/images/new_design/lupa_page.png";
 
 function SearchPage() {
   const [count, setCount] = useState(1);
+  const [loading, setLoading] = useState(true);
   const { addItem, items, totalItems, totalUniqueItems, emptyCart } = useCart();
   const navigate = useNavigate();
   const dispatch = useDispatch();

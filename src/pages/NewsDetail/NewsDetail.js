@@ -3,19 +3,32 @@ import "./NewsDetail.css";
 import delivery from "../../assets/images/delivery.png";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { CircularProgress } from "@mui/material";
 
 function NewsDetail() {
   const [oneNews, setOneNews] = useState({});
+  const [loading, setLoading] = useState(true);
   const { id } = useParams();
 
   useEffect(() => {
     const getOneProduct = async () => {
       await axios
         .get(`http://localhost:8000/api/news/${id}`)
-        .then(({ data }) => setOneNews(data));
+        .then(({ data }) => setOneNews(data))
+        .finally(() => {
+          setLoading(false);
+        });
     };
     getOneProduct();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="loading--banner">
+        <CircularProgress color="secondary" />
+      </div>
+    );
+  }
 
   return (
     <div className="newsDetail">

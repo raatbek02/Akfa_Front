@@ -118,3 +118,8 @@
     font-size: 12px;
   }
 }
+
+.loading--banner {
+  text-align: center;
+  margin-top: 200px;
+}

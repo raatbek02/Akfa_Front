@@ -1,15 +1,18 @@
 import React from "react";
 import "./News_blog.css";
 import news_item_1 from "../../../assets/images/news_item_1.png";
+import { useNavigate } from "react-router-dom";
+import { NEWS_ROUTE } from "../../../utils/consts";
 
 function News_blog() {
+  const navigate = useNavigate();
   return (
     <div className="news_blog">
       <div className="news_blog__container">
         <div className="news_blog__item">
           <div className="news_blog__titles">
             <h3>Новости</h3>
-            <span>Все новости</span>
+            <span onClick={() => navigate(NEWS_ROUTE)}>Все новости</span>
           </div>
           <div className="news_blog__blogItem">
             <div className="news_blog__item--img">

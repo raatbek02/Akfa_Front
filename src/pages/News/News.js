@@ -5,19 +5,34 @@ import news_item_1 from "../../assets/images/news_item_1.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { NEWS_DETAIL__ROUTE } from "../../utils/consts";
+import { CircularProgress } from "@mui/material";
 
 function News() {
   const [newsData, setNewsData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const getNewsData = async () => {
-      await axios.get(`http://localhost:8000/api/news/`).then(({ data }) => {
-        setNewsData(data);
-      });
+      await axios
+        .get(`http://localhost:8000/api/news/`)
+        .then(({ data }) => {
+          setNewsData(data);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     };
     getNewsData();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="loading--banner">
+        <CircularProgress color="secondary" />
+      </div>
+    );
+  }
 
   return (
     <div className="news">

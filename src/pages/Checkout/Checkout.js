@@ -6,6 +6,7 @@ import { $host } from "../../http";
 import { setAuthCart } from "../../store/carts";
 import "./Checkout.css";
 import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
 
 function Checkout({ isDelivery }) {
   const [checkoutInput, setCheckoutInput] = useState({
@@ -24,6 +25,16 @@ function Checkout({ isDelivery }) {
   const [checkboxes, setCheckboxes] = useState([]);
 
   const [error, setError] = useState([]);
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
+    mode: "onSubmit",
+  });
+  //   const onSubmit = (data) => {};
+
   const token = JSON.parse(localStorage.getItem("token"));
   const cart_id = localStorage.getItem("cart_id");
   const dispatch = useDispatch();
@@ -119,8 +130,8 @@ function Checkout({ isDelivery }) {
       });
   };
 
-  const submitLocalOrder = async (e) => {
-    e.preventDefault();
+  const submitLocalOrder = async () => {
+    //  e.preventDefault();
 
     const itemss = [];
 
@@ -179,204 +190,246 @@ function Checkout({ isDelivery }) {
 
   return (
     <div className="checkout">
-      <div className="checkout--pickup">
-        <div className="checkout--title">
-          <span>Контактное лицо</span>
-        </div>
-        <form className="checkout--fields">
-          <p>
-            <label className="checkout--label-1">ФИО</label>
-            <input
-              onChange={handleInput}
-              className="checkout--input-1"
-              type="text"
-              value={checkoutInput.firstName}
-              name="firstName"
-            />
-            <p className="p-checkbox">
-              <input
-                onChange={handleCheckbox}
-                type="checkbox"
-                name="is_conf_required"
-                defaultChecked={
-                  checkboxes.is_conf_required === 1 ? true : false
-                }
-              />
-              <label className="checkout--label-2">
-                Требуется подтверждение с оператором
-              </label>
-            </p>
-          </p>
-          <p>
-            <label className="checkout--label-1">Телефон</label>
-            <input
-              onChange={handleInput}
-              className="checkout--input-1"
-              type="number"
-              value={checkoutInput.phoneNumber}
-              name="phoneNumber"
-            />
-          </p>
-          <p>
-            <label className="checkout--label-1">E-mail</label>
-            <input
-              onChange={handleInput}
-              className="checkout--input-1"
-              type="text"
-              value={checkoutInput.email}
-              name="email"
-            />
-
-            <p className="p-checkbox">
-              <input
-                onChange={handleCheckbox}
-                type="checkbox"
-                name="is_entity"
-                defaultChecked={checkboxes.is_entity === 1 ? true : false}
-              />
-              <label className="checkout--label-2">Юридическое лицо</label>
-            </p>
-            <p className="p-checkbox">
-              <input type="checkbox" />
-              <label className="checkout--label-2">
-                Зарегистрировать меня как пользователя сайта при создании заказа
-              </label>
-            </p>
-          </p>
-        </form>
-        {!isDelivery ? (
-          <div className="checkout--button">
-            {isAuth ? (
-              <button onClick={submitAuthOrder}>Отправить</button>
-            ) : (
-              <button onClick={submitLocalOrder}>Отправить</button>
-            )}
-          </div>
-        ) : null}
-      </div>
-      {isDelivery ? (
-        <div className="checkout--delivery">
+      <form
+        //   onSubmit={(e) =>
+        //     isAuth
+        //       ? handleSubmit(submitAuthOrder(e))
+        //       : handleSubmit(submitLocalOrder(e))
+        //   }
+        onSubmit={handleSubmit(submitLocalOrder)}
+      >
+        <div className="checkout--pickup">
           <div className="checkout--title">
-            <span>Оформление заказа (Доставка)</span>
+            <span>Контактное лицо</span>
           </div>
-          <form className="checkout--fields">
+          <div className="checkout--fields">
             <p>
-              <label className="checkout--label-1">Адрес:</label>
+              <label className="checkout--label-1">ФИО</label>
+              <input
+                {...register("firstName", {
+                  required: true,
+                })}
+                onChange={handleInput}
+                className="checkout--input-1"
+                type="text"
+                value={checkoutInput.firstName}
+                //  name="firstName"
+              />
+              <div className="checkout__error">
+                {errors?.firstName && <p>Поле обязательно к заполнению!</p>}
+              </div>
+              <p className="p-checkbox">
+                <input
+                  onChange={handleCheckbox}
+                  type="checkbox"
+                  name="is_conf_required"
+                  defaultChecked={
+                    checkboxes.is_conf_required === 1 ? true : false
+                  }
+                />
+                <label className="checkout--label-2">
+                  Требуется подтверждение с оператором
+                </label>
+              </p>
+            </p>
+            <p>
+              <label className="checkout--label-1">Телефон</label>
+              <input
+                {...register("phoneNumber", {
+                  required: true,
+                })}
+                onChange={handleInput}
+                className="checkout--input-1"
+                type="number"
+                value={checkoutInput.phoneNumber}
+                //  name="phoneNumber"
+              />
+              <div className="checkout__error">
+                {errors?.phoneNumber && <p>Поле обязательно к заполнению!</p>}
+              </div>
+            </p>
+            <p>
+              <label className="checkout--label-1">E-mail</label>
               <input
                 onChange={handleInput}
                 className="checkout--input-1"
                 type="text"
-                value={checkoutInput.address}
-                name="address"
+                value={checkoutInput.email}
+                name="email"
               />
-            </p>
-            <p className="checkout--flex-fields">
-              <p>
-                <label className="checkout--label-1">Подъезд</label>
+
+              <p className="p-checkbox">
                 <input
-                  onChange={handleInput}
-                  className="checkout--input-2"
-                  type="text"
-                  value={checkoutInput.floor}
-                  name="floor"
+                  onChange={handleCheckbox}
+                  type="checkbox"
+                  name="is_entity"
+                  defaultChecked={checkboxes.is_entity === 1 ? true : false}
                 />
+                <label className="checkout--label-2">Юридическое лицо</label>
               </p>
-              <p>
-                <label className="checkout--label-1">Этаж</label>
-                <input
-                  onChange={handleInput}
-                  className="checkout--input-2"
-                  type="text"
-                  value={checkoutInput.entrance}
-                  name="entrance"
-                />
-              </p>{" "}
-              <p>
-                <label className="checkout--label-1">Домофон</label>
-                <input
-                  onChange={handleInput}
-                  className="checkout--input-2"
-                  type="text"
-                  value={checkoutInput.intercom}
-                  name="intercom"
-                />
+              <p className="p-checkbox">
+                <input type="checkbox" />
+                <label className="checkout--label-2">
+                  Зарегистрировать меня как пользователя сайта при создании
+                  заказа
+                </label>
               </p>
             </p>
-            <p>
-              <label className="checkout--label-1">Комментарий к заказу:</label>
-              <div className="checkout__textArea-p">
-                <textarea
-                  onChange={handleInput}
-                  className="checkout__textArea"
-                  type=""
-                  value={checkoutInput.note}
-                  name="note"
-                />
-              </div>
-            </p>
-            <p>
-              <label className="checkout--label-1">
-                Выберите дату доставки:
-              </label>
-              <input
-                type="date"
-                className="checkout--input-1"
-                placeholder="dd-mm-yyyy"
-              />
-            </p>
-            <p>
-              <label className="checkout--label-1">Наличие лифта</label>
-              <p className="p-radio">
-                <input
-                  onChange={handleRadios}
-                  type="radio"
-                  id="radio-1"
-                  name="p-radio-inputs"
-                  value={4}
-                />
-                <label for="radio-1">Нет</label>
-              </p>
-              <p className="p-radio">
-                <input
-                  onChange={handleRadios}
-                  type="radio"
-                  id="radio-2"
-                  name="p-radio-inputs"
-                  value={1}
-                />
-                <label for="radio-2">Пассажирский</label>
-              </p>
-              <p className="p-radio">
-                <input
-                  onChange={handleRadios}
-                  type="radio"
-                  id="radio-3"
-                  name="p-radio-inputs"
-                  value={2}
-                />
-                <label for="radio-3">Грузовой</label>
-              </p>
-              <p className="p-radio">
-                <input
-                  onChange={handleRadios}
-                  type="radio"
-                  id="radio-4"
-                  name="p-radio-inputs"
-                  value={3}
-                />
-                <label for="radio-4">Пассажирский и грузовой</label>
-              </p>
-            </p>
-          </form>
-          <div className="checkout--button">
-            {isAuth ? (
-              <button onClick={submitAuthOrder}>Отправить</button>
-            ) : (
-              <button onClick={submitLocalOrder}>Отправить</button>
-            )}
           </div>
+
+          {/* {!isDelivery ? (
+            <div className="checkout--button">
+              {isAuth ? (
+                <button onClick={submitAuthOrder}>Отправить</button>
+              ) : (
+                  <button onClick={submitLocalOrder}>Отправить</button>
+                
+              )}
+            </div>
+          ) : null} */}
+          {!isDelivery ? (
+            <div className="checkout--button">
+              <button type="submit">Отправить</button>
+            </div>
+          ) : null}
         </div>
-      ) : null}
+        {isDelivery ? (
+          <div className="checkout--delivery">
+            <div className="checkout--title">
+              <span>Оформление заказа (Доставка)</span>
+            </div>
+            <div className="checkout--fields">
+              <p>
+                <label className="checkout--label-1">Адрес:</label>
+                <input
+                  {...register("address", {
+                    required: isDelivery ? true : false,
+                  })}
+                  onChange={handleInput}
+                  className="checkout--input-1"
+                  type="text"
+                  value={checkoutInput.address}
+                  // name="address"
+                />
+                <div className="checkout__error">
+                  {errors?.address && <p>Поле обязательно к заполнению!</p>}
+                </div>
+              </p>
+              <p className="checkout--flex-fields">
+                <p>
+                  <label className="checkout--label-1">Подъезд</label>
+                  <input
+                    onChange={handleInput}
+                    className="checkout--input-2"
+                    type="text"
+                    value={checkoutInput.floor}
+                    name="floor"
+                  />
+                </p>
+                <p>
+                  <label className="checkout--label-1">Этаж</label>
+                  <input
+                    onChange={handleInput}
+                    className="checkout--input-2"
+                    type="text"
+                    value={checkoutInput.entrance}
+                    name="entrance"
+                  />
+                </p>{" "}
+                <p>
+                  <label className="checkout--label-1">Домофон</label>
+                  <input
+                    onChange={handleInput}
+                    className="checkout--input-2"
+                    type="text"
+                    value={checkoutInput.intercom}
+                    name="intercom"
+                  />
+                </p>
+              </p>
+              <p>
+                <label className="checkout--label-1">
+                  Комментарий к заказу:
+                </label>
+                <div className="checkout__textArea-p">
+                  <textarea
+                    onChange={handleInput}
+                    className="checkout__textArea"
+                    type=""
+                    value={checkoutInput.note}
+                    name="note"
+                  />
+                </div>
+              </p>
+              <p>
+                <label className="checkout--label-1">
+                  Выберите дату доставки:
+                </label>
+                <input
+                  // type="date"
+                  type={"text"}
+                  className="checkout--input-1"
+                  placeholder="dd-mm-yyyy"
+                />
+              </p>
+              <p>
+                <label className="checkout--label-1">Наличие лифта</label>
+                <p className="p-radio">
+                  <input
+                    onChange={handleRadios}
+                    type="radio"
+                    id="radio-1"
+                    name="p-radio-inputs"
+                    value={4}
+                  />
+                  <label for="radio-1">Нет</label>
+                </p>
+                <p className="p-radio">
+                  <input
+                    onChange={handleRadios}
+                    type="radio"
+                    id="radio-2"
+                    name="p-radio-inputs"
+                    value={1}
+                  />
+                  <label for="radio-2">Пассажирский</label>
+                </p>
+                <p className="p-radio">
+                  <input
+                    onChange={handleRadios}
+                    type="radio"
+                    id="radio-3"
+                    name="p-radio-inputs"
+                    value={2}
+                  />
+                  <label for="radio-3">Грузовой</label>
+                </p>
+                <p className="p-radio">
+                  <input
+                    onChange={handleRadios}
+                    type="radio"
+                    id="radio-4"
+                    name="p-radio-inputs"
+                    value={3}
+                  />
+                  <label for="radio-4">Пассажирский и грузовой</label>
+                </p>
+              </p>
+            </div>
+            {/* <div className="checkout--button">
+              {isAuth ? (
+                <button onClick={submitAuthOrder}>Отправить</button>
+              ) : (
+                <button onClick={submitLocalOrder}>Отправить</button>
+              )}
+            </div> */}
+
+            <div className="checkout--button">
+              <button type="submit">Отправить</button>
+            </div>
+          </div>
+        ) : null}
+      </form>
     </div>
   );
 }

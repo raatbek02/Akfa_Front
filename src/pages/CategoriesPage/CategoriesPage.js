@@ -21,6 +21,7 @@ import {
   CATEGORY_BANNER_DETAIL__ROUTE,
   NEWSDETAIL__ROUTE,
 } from "../../utils/consts";
+import { CircularProgress } from "@mui/material";
 
 SwiperCore.use([Autoplay, Pagination]);
 
@@ -31,9 +32,10 @@ function CategoriesPage() {
   const [categoryProducts, setSubCategoryProducts] = useState([]);
   const [count, setCount] = useState(1);
   const [bannerData, setBannerData] = useState([]);
+  const [sorting, setSorting] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const { addItem, items, totalItems, totalUniqueItems, emptyCart } = useCart();
-  const [sorting, setSorting] = React.useState("");
 
   const handleChange = (event) => {
     setSorting(event.target.value);
@@ -63,6 +65,9 @@ function CategoriesPage() {
         .get(`http://localhost:8000/api/category-news/`)
         .then(({ data }) => {
           setBannerData(data);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     };
     getBannerData();
@@ -139,6 +144,14 @@ function CategoriesPage() {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="loading--banner">
+        <CircularProgress color="secondary" />
+      </div>
+    );
+  }
+
   return (
     <div className="categoriesPage">
       <div className="categoriesPage__container">
@@ -179,34 +192,41 @@ function CategoriesPage() {
         <div className="categoriesPage__title">
           <h2>
             <span>
-              {categoryProducts.results && categoryProducts.results[0].category}
+              {categoryProducts.results.length > 0
+                ? categoryProducts.results[0].category
+                : null}
             </span>
           </h2>
         </div>
-        <div className="categoriesPage__sorting">
-          <ul>
-            {/* <li
-            onClick={() => setActiveItem(null)}
-            className={subCategory_id === null ? "active" : ""}
-          >
-            Все
-          </li> */}
-            {subcategory.map((obj) => {
-              console.log("obj.id ,subCategory_id", obj.id, subCategory_id);
-              return (
-                <li
-                  key={obj.id}
-                  onClick={() => {
-                    dispatch(setSubCategory_id(obj.id));
-                    localStorage.setItem("subCategory_ID", obj.id);
-                  }}
-                  className={subCategory_id === obj.id ? "active" : ""}
-                >
-                  {obj.title}
-                </li>
-              );
-            })}
-          </ul>
+        <div className="categoriesPage__sorting-wrapper">
+          <div className="categoriesPage__sorting">
+            <ul>
+              {subcategory.map((obj) => {
+                return (
+                  <li
+                    key={obj.id}
+                    onClick={() => {
+                      dispatch(setSubCategory_id(obj.id));
+                      localStorage.setItem("subCategory_ID", obj.id);
+                    }}
+                    className={subCategory_id === obj.id ? "active" : ""}
+                  >
+                    {obj.title}
+                  </li>
+                );
+              })}
+              {/* <li>Касметология</li>
+            <li>Касметология</li>
+            <li>Касметология</li>
+            <li>Касметология</li>
+            <li>Касметология</li>
+            <li>Касметология</li>
+            <li>Касметология</li>
+            <li>Касметология</li>
+            <li>Касметология</li>
+            <li>Касметология</li> */}
+            </ul>
+          </div>
         </div>
 
         <div className="categoriesPage__sorting--mobile">

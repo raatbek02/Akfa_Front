@@ -86,6 +86,16 @@
     rgba(170, 39, 75, 1) 100%
   );
   color: #fff;
+  cursor: pointer;
+}
+.checkout--button button:hover {
+  background: linear-gradient(
+    90deg,
+    rgb(218, 38, 38) 0%,
+    rgb(139, 25, 25) 61%,
+    rgb(131, 17, 47) 100%
+  );
+  transition: all 0.3s linear;
 }
 .p-radio {
   margin-bottom: 10px;
@@ -111,6 +121,15 @@
   height: 100px;
   width: 100%;
   margin-bottom: 15px;
+}
+
+.checkout__error {
+  margin-bottom: 10px;
+}
+.checkout__error p {
+  font-size: 12px;
+  color: rgb(216, 0, 0);
+  font-weight: 700;
 }
 
 /* *********************************  max-width: 1200px  *************************************** */

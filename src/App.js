@@ -14,19 +14,19 @@ import "react-toastify/dist/ReactToastify.css";
 import { setAuthCart } from "./store/carts";
 
 function App() {
-  const [loading, setLoading] = useState(true);
+//   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userSlice.user);
   const subCategory_id = localStorage.getItem("subCategory_ID");
 
   //   console.log(" App subCategory_id", typeof Number(subCategory_id));
 
-  useEffect(() => {
-    setTimeout(() => {
-      getUserData(dispatch);
-      setLoading(false);
-    }, 500);
-  }, []);
+//   useEffect(() => {
+//     setTimeout(() => {
+//       getUserData(dispatch);
+//       setLoading(false);
+//     }, 500);
+//   }, []);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -40,9 +40,9 @@ function App() {
     getProducts();
   }, []);
 
-  if (loading) {
-    return <p>Загрузкa...</p>;
-  }
+//   if (loading) {
+//     return <p>Загрузкa...</p>;
+//   }
 
   return (
     <div className="App">

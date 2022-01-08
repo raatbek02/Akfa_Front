@@ -13,6 +13,8 @@ import { PRODUCT_PAGE_ROUTE } from "../../../utils/consts";
 import { toast } from "react-toastify";
 import { getCompareProducts } from "../../../store/compare";
 
+import CircularProgress from "@mui/material/CircularProgress";
+
 // import InputLabel from "@mui/material/InputLabel";
 // import MenuItem from "@mui/material/MenuItem";
 // import FormControl from "@mui/material/FormControl";
@@ -31,6 +33,8 @@ function Products() {
   const [type, setType] = useState("");
   const [count, setCount] = useState(1);
   const [pageCount, setPageCount] = useState(0);
+  const [loading, setLoading] = useState(true);
+
   const { addItem, items, totalItems, totalUniqueItems, emptyCart } = useCart();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -58,14 +62,25 @@ function Products() {
 
   useEffect(() => {
     const getProducts = async () => {
-      const res = await axios.get(
-        `http://127.0.0.1:8000/api/products?page=1&${
-          type !== null ? `${type}=${sort}` : ""
-        }`
-      );
-      setProduct(res.data);
-      const total = res.data.count;
-      setPageCount(Math.ceil(total / 12));
+      let total = 0;
+      await axios
+        .get(
+          `http://127.0.0.1:8000/api/products?page=1&${
+            type !== null ? `${type}=${sort}` : ""
+          }`
+        )
+        .then(({ data }) => {
+          setProduct(data);
+          total = data.count;
+          setPageCount(Math.ceil(total / 12));
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+      // const total = res.data.count;
     };
     getProducts();
   }, [type]);
@@ -128,6 +143,14 @@ function Products() {
       warnCompareAdded();
     }
   };
+
+  if (loading) {
+    return (
+      <div className="loading--block">
+        <CircularProgress color="secondary" />
+      </div>
+    );
+  }
 
   // ${type}=${sort}
   return (

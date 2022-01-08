@@ -10,6 +10,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BANNER_DETAIL__ROUTE } from "../../../utils/consts";
+import { CircularProgress } from "@mui/material";
 
 SwiperCore.use([Autoplay, Pagination]);
 
@@ -17,6 +18,7 @@ SwiperCore.use([Autoplay, Pagination]);
 
 function Banner() {
   const [bannerData, setBannerData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   console.log("bannerData", bannerData);
@@ -27,10 +29,21 @@ function Banner() {
         .get(`http://localhost:8000/api/banner-news/`)
         .then(({ data }) => {
           setBannerData(data);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     };
     getBannerData();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="loading--block">
+        <CircularProgress color="secondary" />
+      </div>
+    );
+  }
 
   return (
     <div className="wrapper">
