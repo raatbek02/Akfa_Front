@@ -94,7 +94,7 @@ function CategoriesPage() {
           `http://127.0.0.1:8000/api/products/?category=${id}&${`subcategory=${subCategory_id}`}`
         )
         .then(
-          ({ data }) => setSubCategoryProducts(data),
+          ({ data }) => setSubCategoryProducts(data.results),
           dispatch(setSubCategory_id(subCategory_id))
         );
     };
@@ -193,9 +193,7 @@ function CategoriesPage() {
 
         <div className="categoriesPage__title">
           <h2>
-            <span>
-              {categoryProducts && categoryProducts.results[0].category}
-            </span>
+            <span>{categoryProducts[0] && categoryProducts[0].category}</span>
           </h2>
         </div>
         <div className="categoriesPage__sorting-wrapper">
@@ -263,8 +261,8 @@ function CategoriesPage() {
         </div>
 
         <div className="categoriesPage__content">
-          {categoryProducts.results &&
-            categoryProducts.results.map((el) => {
+          {categoryProducts &&
+            categoryProducts.map((el) => {
               return (
                 <div
                   key={el._id}
