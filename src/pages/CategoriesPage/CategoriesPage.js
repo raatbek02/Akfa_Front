@@ -35,6 +35,8 @@ function CategoriesPage() {
   const [sorting, setSorting] = useState("");
   const [loading, setLoading] = useState(true);
 
+  console.log("categoryProducts", categoryProducts);
+
   const { addItem, items, totalItems, totalUniqueItems, emptyCart } = useCart();
 
   const handleChange = (event) => {
@@ -192,9 +194,7 @@ function CategoriesPage() {
         <div className="categoriesPage__title">
           <h2>
             <span>
-              {categoryProducts.results.length > 0
-                ? categoryProducts.results[0].category
-                : null}
+              {categoryProducts && categoryProducts.results[0].category}
             </span>
           </h2>
         </div>
