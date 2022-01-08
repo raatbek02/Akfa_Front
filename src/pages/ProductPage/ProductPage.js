@@ -351,7 +351,9 @@ function ProductPage(props) {
                   Перейти на <span>Whatsapp</span>
                 </p>
                 <div className="productPage__top--contactButton">
-                  <button>Перейти в чат</button>
+                  <a href="https://wa.me/+996709061234">
+                    <button>Перейти в чат</button>
+                  </a>
                 </div>
               </div>
             </div>
