@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import "./Kits.css";
-import product_cart_logo from "../../assets/images/new_design/product_cart_logo.svg";
-import product_compare_logo from "../../assets/images/new_design/product_compare_logo.svg";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useCart } from "react-use-cart";
-import { getCompareProducts } from "../../store/compare";
 import { toast } from "react-toastify";
+
+import "./Kits.css";
+import product_cart_logo from "../../assets/images/new_design/product_cart_logo.svg";
+import product_compare_logo from "../../assets/images/new_design/product_compare_logo.svg";
+import { getCompareProducts } from "../../store/compare";
 
 function Kits({ oneProduct }) {
   const [kitsProducts, setKitsProducts] = useState([]);
   const [count, setCount] = useState(1);
-  const { addItem, items, totalItems, totalUniqueItems, emptyCart } = useCart();
+  const { addItem } = useCart();
   const dispatch = useDispatch();
   const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
   const token = JSON.parse(localStorage.getItem("token"));
@@ -20,13 +21,10 @@ function Kits({ oneProduct }) {
   );
 
   const successAdded = () => toast.success("Товар добавлен в корзину!");
-
   const successCompareAdded = () =>
     toast.success("Товар добавлен в сравнения!");
   const warnCompareAdded = () =>
     toast.warn("Максимальное количество товаров для сравнения-4!");
-
-  console.log("kitsProducts", kitsProducts);
 
   useEffect(() => {
     const getOneProduct = async () => {
@@ -90,6 +88,7 @@ function Kits({ oneProduct }) {
                 <div
                   // onClick={() => navigate(`${PRODUCT_PAGE_ROUTE}/${el.id}`)}
                   className="product__item"
+                  key={el.id}
                 >
                   <div className="product__img">
                     <img src={el.image} alt="No img" />

@@ -1,6 +1,5 @@
 import React from "react";
 import Banner from "./Banner/Banner";
-import Category from "./Category/Category";
 import Logo from "./Logo/Logo";
 import News_blog from "./News_blog/News_blog";
 import Products from "./Products/Products";
@@ -12,7 +11,6 @@ function Main() {
       <Logo />
       <Products />
       <News_blog />
-      {/* <Category /> */}
     </main>
   );
 }

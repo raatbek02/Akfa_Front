@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { login, registration } from "../../http/userApi";
+import React from "react";
+// import { login, registration } from "../../http/userApi";
 import AuthContent from "./AuthContent";
 
 function Auth() {

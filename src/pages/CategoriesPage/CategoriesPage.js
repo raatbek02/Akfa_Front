@@ -1,33 +1,32 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import { toast } from "react-toastify";
-
-import product_cart_logo from "../../assets/images/new_design/product_cart_logo.svg";
-import product_compare_logo from "../../assets/images/new_design/product_compare_logo.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { setSubCategory_id } from "../../store/modalCatalog";
-import { useCart } from "react-use-cart";
-import { getCompareProducts } from "../../store/compare";
-
+import { useNavigate, useParams } from "react-router";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  CircularProgress,
+} from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Pagination } from "swiper";
+import { toast } from "react-toastify";
+import { useCart } from "react-use-cart";
+
+import { setSubCategory_id } from "../../store/modalCatalog";
+import { getCompareProducts } from "../../store/compare";
+import { CATEGORY_BANNER_DETAIL__ROUTE } from "../../utils/consts";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
-
 import "./CategoriesPage.css";
-import {
-  CATEGORY_BANNER_DETAIL__ROUTE,
-  NEWSDETAIL__ROUTE,
-} from "../../utils/consts";
-import { CircularProgress } from "@mui/material";
+import product_cart_logo from "../../assets/images/new_design/product_cart_logo.svg";
+import product_compare_logo from "../../assets/images/new_design/product_compare_logo.svg";
 
 SwiperCore.use([Autoplay, Pagination]);
 
 function CategoriesPage() {
   const { id } = useParams();
-  const [activeItem, setActiveItem] = useState(null);
   const [subcategory, setSubCategory] = useState([]);
   const [categoryProducts, setSubCategoryProducts] = useState([]);
   const [count, setCount] = useState(1);
@@ -37,7 +36,7 @@ function CategoriesPage() {
 
   console.log("categoryProducts", categoryProducts);
 
-  const { addItem, items, totalItems, totalUniqueItems, emptyCart } = useCart();
+  const { addItem, items } = useCart();
 
   const handleChange = (event) => {
     setSorting(event.target.value);
@@ -213,7 +212,6 @@ function CategoriesPage() {
                   </li>
                 );
               })}
-             
             </ul>
           </div>
         </div>

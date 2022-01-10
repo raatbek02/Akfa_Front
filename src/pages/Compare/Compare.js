@@ -1,28 +1,18 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 import { removeCompareItem } from "../../store/compare";
-// import product_cart_logo from "../../assets/images/new_design/product_cart_logo.svg";
-// import product_compare_logo from "../../assets/images/new_design/product_compare_logo.svg";
-import empty_compare from "../../assets/images/new_design/empty_compare.png";
 import "./Compare.css";
+import empty_compare from "../../assets/images/new_design/empty_compare.png";
 
 function Compare() {
   const [characteristicData, setCharacteristicData] = useState([]);
-  const [addedChar, setAddedChar] = useState([]);
-  const arr = [];
-  console.log("addedChar", addedChar);
+  //   const [addedChar, setAddedChar] = useState([]);
   const compare_products_local = useSelector(
     (state) => state.compareSlice.compare_products
   );
-  //   const compare_products_local = useSelector
   const dispatch = useDispatch();
 
-  //   for (let i = 0; i < compare_products_local.length; i++) {
-  //     arr.push(compare_products_local[i].characteristics);
-  //     console.log("compare_products_local[i]", compare_products_local[i]);
-  //   }
-  //   console.log("arr", arr);
   useEffect(() => {
     const getCharasteristicData = async () => {
       await axios
@@ -51,13 +41,21 @@ function Compare() {
                   <div className="compare__item--card ">Товар</div>
                   {characteristicData.map((item) => {
                     return (
-                      <div className="compare__item--field">{item.title}</div>
+                      <div
+                        key={item.id + Date.now()}
+                        className="compare__item--field"
+                      >
+                        {item.title}
+                      </div>
                     );
                   })}
                 </div>
                 {compare_products_local.map((el) => {
                   return (
-                    <div className="compare__item">
+                    <div
+                      key={el.id + Date.now() + 10}
+                      className="compare__item"
+                    >
                       <div className="compare__item--card">
                         <div className="compare__img">
                           <img src={el.image} alt="No img" />
@@ -76,7 +74,7 @@ function Compare() {
 
                       {el.chars.map((item) => {
                         return (
-                          <div className="compare__item--field">
+                          <div key={item.id} className="compare__item--field">
                             {item.value}
                           </div>
                         );

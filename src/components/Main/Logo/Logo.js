@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import axios from "axios";
 import SwiperCore, { Autoplay, Pagination } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
-
 import "./Logo.css";
-import logo_1 from "../../../assets/images/logo_1.png";
-import visa_logo from "../../../assets/images/new_design/visa_logo.png";
-import axios from "axios";
 
 SwiperCore.use([Autoplay, Pagination]);
 
@@ -37,7 +34,7 @@ function Logo() {
           <div className="logo__content">
             {logoData.map((el) => {
               return (
-                <SwiperSlide>
+                <SwiperSlide key={el.id}>
                   {" "}
                   <div className="logo__img">
                     <img src={el.image} alt="No img" />

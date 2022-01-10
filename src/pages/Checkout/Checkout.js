@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { useCart } from "react-use-cart";
-import { $host } from "../../http";
-import { setAuthCart } from "../../store/carts";
-import "./Checkout.css";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
+import { useCart } from "react-use-cart";
+import { $host } from "../../http";
+// import { setAuthCart } from "../../store/carts";
+import "./Checkout.css";
 
 function Checkout({ isDelivery }) {
   const [checkoutInput, setCheckoutInput] = useState({
@@ -24,8 +23,6 @@ function Checkout({ isDelivery }) {
   console.log("checkoutInput.radio", checkoutInput.radio);
   const [checkboxes, setCheckboxes] = useState([]);
 
-  const [error, setError] = useState([]);
-
   const {
     register,
     formState: { errors },
@@ -37,7 +34,7 @@ function Checkout({ isDelivery }) {
 
   const token = JSON.parse(localStorage.getItem("token"));
   const cart_id = localStorage.getItem("cart_id");
-  const dispatch = useDispatch();
+  //   const dispatch = useDispatch();
   const user = useSelector((s) => s.userSlice.user);
   const authCart = useSelector((s) => s.cartSlice.authCart);
   const isAuth = useSelector((s) => s.isAuthSlice.isAuth);
@@ -46,16 +43,7 @@ function Checkout({ isDelivery }) {
 
   console.log("authCart checkout", authCart);
 
-  const {
-    isEmpty,
-    totalUniqueItems,
-    items,
-    updateItemQuantity,
-    removeItem,
-    emptyCart,
-    cartTotal,
-    totalItems,
-  } = useCart();
+  const { items, emptyCart } = useCart();
 
   const handleInput = (e) => {
     e.persist();
@@ -189,14 +177,14 @@ function Checkout({ isDelivery }) {
   };
 
   return (
-    <div className="checkout">
+    <div className="checkout" id="checkout">
       <form
-        //   onSubmit={(e) =>
-        //     isAuth
-        //       ? handleSubmit(submitAuthOrder(e))
-        //       : handleSubmit(submitLocalOrder(e))
-        //   }
-        onSubmit={handleSubmit(submitLocalOrder)}
+        onSubmit={(e) =>
+          isAuth
+            ? handleSubmit(submitAuthOrder(e))
+            : handleSubmit(submitLocalOrder(e))
+        }
+        //   onSubmit={handleSubmit(submitLocalOrder)}
       >
         <div className="checkout--pickup">
           <div className="checkout--title">

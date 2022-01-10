@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./News.css";
-import news_img from "../../assets/images/news_img.png";
-import news_item_1 from "../../assets/images/news_item_1.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { NEWS_DETAIL__ROUTE } from "../../utils/consts";
 import { CircularProgress } from "@mui/material";
+import { NEWS_DETAIL__ROUTE } from "../../utils/consts";
+import "./News.css";
+import news_img from "../../assets/images/news_img.png";
 
 function News() {
   const [newsData, setNewsData] = useState([]);
@@ -48,6 +47,7 @@ function News() {
                 <div
                   onClick={() => navigate(`${NEWS_DETAIL__ROUTE}/${el.id}`)}
                   className="news__item"
+                  key={el.id}
                 >
                   <div className="news__item--img">
                     <img src={el.image} alt="No img" />

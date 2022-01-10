@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./Contacts.css";
 import contacts from "../../assets/images/contacts.png";
-import contact_1 from "../../assets/images/contact_icon_1.png";
-import contact_2 from "../../assets/images/contact_icon_2.png";
-import contact_3 from "../../assets/images/contact_icon_3.png";
-import contact_4 from "../../assets/images/contact_icon_4.png";
 import contact_map from "../../assets/images/contact_map.png";
 
 function Contacts() {
+  const [contactData, setContactData] = useState([]);
+  useEffect(() => {
+    const getContactData = async () => {
+      await axios
+        .get(`http://127.0.0.1:8000/api/contact_data/`)
+        .then(({ data }) => setContactData(data));
+    };
+    getContactData();
+  }, []);
   return (
     <div className="contacts">
       <div className="contacts__container">
@@ -17,22 +23,14 @@ function Contacts() {
         <div className="contacts__content">
           <div className="contacts__left">
             <ul>
-              <li>
-                <img src={contact_1} alt="No img" />
-                <span>г.Бишкек, ул. Байтик-Баатыра, 65</span>
-              </li>
-              <li>
-                <img src={contact_2} alt="No img" />
-                <span>+996 (555) 51-51-15</span>
-              </li>{" "}
-              <li>
-                <img src={contact_3} alt="No img" />
-                <span>+996 (555) 51-51-15</span>
-              </li>{" "}
-              <li>
-                <img src={contact_4} alt="No img" />
-                <span>akfamedfarm@gmail.com</span>
-              </li>
+              {contactData.map((el) => {
+                return (
+                  <li key={el.id}>
+                    <img src={el.image} alt="No img" />
+                    <span>{el.title}</span>
+                  </li>
+                );
+              })}
             </ul>
             <div className="contact_map">
               <img src={contact_map} alt="No img" />

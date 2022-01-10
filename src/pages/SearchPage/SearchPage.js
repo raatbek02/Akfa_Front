@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import "./SearchPage.css";
-
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { useCart } from "react-use-cart";
-import { PRODUCT_PAGE_ROUTE } from "../../utils/consts";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import { PRODUCT_PAGE_ROUTE } from "../../utils/consts";
 import { getCompareProducts } from "../../store/compare";
-import axios from "axios";
+import "./SearchPage.css";
 
 import product_cart_logo from "../../assets/images/new_design/product_cart_logo.svg";
 import product_compare_logo from "../../assets/images/new_design/product_compare_logo.svg";
@@ -15,8 +14,7 @@ import lupa_page from "../../assets/images/new_design/lupa_page.png";
 
 function SearchPage() {
   const [count, setCount] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const { addItem, items, totalItems, totalUniqueItems, emptyCart } = useCart();
+  const { addItem } = useCart();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const token = JSON.parse(localStorage.getItem("token"));
@@ -94,6 +92,7 @@ function SearchPage() {
             searchedProducts.map((el) => {
               return (
                 <div
+                  key={el.id}
                   onClick={() => navigate(`${PRODUCT_PAGE_ROUTE}/${el.id}`)}
                   className="product__item"
                 >

@@ -1,0 +1,20 @@
+.char__content {
+  width: 100%;
+  margin: 0 auto;
+}
+.char__content ul li {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 10px;
+  color: #3e3e3e;
+}
+.char__content ul li:nth-child(1n) {
+  background-color: rgb(247, 244, 244);
+}
+.char__content ul li:nth-child(2n) {
+  background-color: rgb(241, 239, 239);
+}
+.char__content table td:last-child {
+  border-right: solid red;
+}

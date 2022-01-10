@@ -13,7 +13,6 @@ import ProductPage from "./pages/ProductPage/ProductPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import {
   ABOUT_ROUTE,
-  BANNERDETAIL__ROUTE,
   BANNER_DETAIL__ROUTE,
   CART_ROUTE,
   CATEGORIES_PAGE_ROUTE,
@@ -23,7 +22,6 @@ import {
   CONTACTS_ROUTE,
   DELIVERY_ROUTE,
   HOME_ROUTE,
-  NEWSDETAIL__ROUTE,
   NEWS_DETAIL__ROUTE,
   NEWS_ROUTE,
   PRIVATE__ROUTE,

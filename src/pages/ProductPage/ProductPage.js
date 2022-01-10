@@ -1,29 +1,22 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
 import { useCart } from "react-use-cart";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-
-import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Thumbs } from "swiper";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { toast } from "react-toastify";
 
+import Description from "./Description";
+import Kits from "./Kits";
+import { getCompareProducts } from "../../store/compare";
+import Char from "./Char";
+import "./ProductPage.css";
 import product_cart_logo from "../../assets/images/new_design/product_cart_logo.svg";
 import product_compare_logo from "../../assets/images/new_design/product_compare_logo.svg";
-import arrowBellow from "../../assets/images/new_design/arrowBellow.svg";
 import minus_cart from "../../assets/images/new_design/minus_cart.svg";
 import plus_cart from "../../assets/images/new_design/plus_cart.svg";
 import depp from "../../assets/images/new_design/depp.png";
-
-import "./ProductPage.css";
-import { $host } from "../../http";
-import { Link } from "react-router-dom";
-import { CART_ROUTE } from "../../utils/consts";
-import { useDispatch, useSelector } from "react-redux";
-import { setAuthCart } from "../../store/carts";
-import Description from "./Description";
-import Kits from "./Kits";
-import { toast } from "react-toastify";
-import { getCompareProducts } from "../../store/compare";
 
 SwiperCore.use([Thumbs]);
 
@@ -35,19 +28,16 @@ function ProductPage(props) {
   const [kits, setKits] = useState(false);
   const [sorting, setSorting] = React.useState("");
   const [mainImg, setMainImg] = useState("");
-  console.log("mainImg", mainImg);
 
   const handleChange = (event) => {
     setSorting(event.target.value);
   };
 
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
   const { id } = useParams();
-  const { addItem, items, totalItems, totalUniqueItems, emptyCart } = useCart();
+  const { addItem } = useCart();
 
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.userSlice.user);
+  //   const user = useSelector((state) => state.userSlice.user);
   const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
   const token = JSON.parse(localStorage.getItem("token"));
 
@@ -60,8 +50,6 @@ function ProductPage(props) {
     toast.success("Товар добавлен в сравнения!");
   const warnCompareAdded = () =>
     toast.warn("Максимальное количество товаров для сравнения-4!");
-
-  console.log("oneProduct", oneProduct);
 
   useEffect(() => {
     const getOneProduct = async () => {
@@ -347,11 +335,22 @@ function ProductPage(props) {
                 </span>
               </div>
               <div className="productPage__top--contactChat">
-                <p>
-                  Перейти на <span>Whatsapp</span>
-                </p>
+                <a
+                  href="https://wa.me/+996709061234"
+                  target={"_blank"}
+                  rel="noreferrer"
+                >
+                  <p>
+                    Перейти на <span>Whatsapp</span>
+                  </p>
+                </a>
+
                 <div className="productPage__top--contactButton">
-                  <a href="https://wa.me/+996709061234">
+                  <a
+                    href="https://wa.me/+996709061234"
+                    target={"_blank"}
+                    rel="noreferrer"
+                  >
                     <button>Перейти в чат</button>
                   </a>
                 </div>
@@ -451,7 +450,7 @@ function ProductPage(props) {
                   <Description />
                 </div>
               ) : characteristic ? (
-                <div>Характеристика</div>
+                <div>{<Char oneProduct={oneProduct} />}</div>
               ) : kits ? (
                 <div>{<Kits oneProduct={oneProduct} />}</div>
               ) : null}

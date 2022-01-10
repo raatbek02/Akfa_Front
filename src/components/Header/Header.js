@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from "react";
-import "./Header.css";
-import cart_logo from "../../assets/images/cart_logo.svg";
-import compare_logo from "../../assets/images/compare_logo.svg";
-import login_logo from "../../assets/images/login_logo.svg";
-import red_dot from "../../assets/images/new_design/red_dot.svg";
-import lupa from "../../assets/images/new_design/lupa.svg";
-
-import catalog_logo from "../../assets/images/catalog_logo.svg";
-
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useCart } from "react-use-cart";
+import Badge from "@mui/material/Badge";
+
 import Modal from "../UI/Modal/Modal";
 import Auth from "../Auth/Auth";
 import {
@@ -23,11 +18,16 @@ import {
 } from "../../utils/consts";
 import CatalogModal from "../UI/Modal/CatalogModal";
 import Category from "../Main/Category/Category";
-import { useDispatch, useSelector } from "react-redux";
 import { setModalCatalog } from "../../store/modalCatalog";
-import { GiHamburgerMenu } from "react-icons/gi";
 import axios from "axios";
 import { addSearchProducts } from "../../store/searchData";
+import "./Header.css";
+
+import cart_logo from "../../assets/images/cart_logo.svg";
+import compare_logo from "../../assets/images/compare_logo.svg";
+import login_logo from "../../assets/images/login_logo.svg";
+import lupa from "../../assets/images/new_design/lupa.svg";
+import catalog_logo from "../../assets/images/catalog_logo.svg";
 
 const list = [
   {
@@ -55,29 +55,21 @@ const list = [
 function Header() {
   const [modalAuth, setModalAuth] = useState(false);
   const [activeMobileMenu, setActiveMobileMenu] = useState(false);
-  const [activeCatalog, setActiveCatalog] = useState();
   const [search, setSearch] = useState("");
-  const [searchData, setSearchData] = useState([]);
+  const { totalUniqueItems } = useCart();
 
   const navigate = useNavigate();
-  console.log("searchData", searchData);
-  //   const [modalCatalog, setModalCatalog] = useState(false);
-  console.log("activeCatalog", activeCatalog);
-
   const dispatch = useDispatch();
   const modalCatalog = useSelector((s) => s.modalCatalog.modalCatalog);
+  const compareProducts = useSelector((s) => s.compareSlice.compare_products);
 
   document.body.style.overflow = activeMobileMenu ? "hidden " : "auto ";
 
-  //   const getSearchData = async () => {
-  //     await
-  //   }
   const searchHandler = async (e) => {
     if (search && e.key === "Enter") {
       await axios
         .get(`http://localhost:8000/api/products/?search=${search}`)
         .then(({ data }) => {
-          setSearchData(data);
           dispatch(addSearchProducts(data.results));
           setSearch("");
           navigate(SEARCH__ROUTE);
@@ -103,7 +95,8 @@ function Header() {
                 return (
                   <li key={index + 1}>
                     <NavLink to={obj.path}>
-                      <li key={index}>{obj.name}</li>
+                      {/* <li key={index}>{obj.name}</li> */}
+                      {obj.name}
                     </NavLink>
                   </li>
                 );
@@ -138,14 +131,18 @@ function Header() {
               <div className="header__assets-top">
                 <div className="header__cart">
                   <Link to={CART_ROUTE}>
-                    <img src={cart_logo} alt="No img" />
+                    <Badge badgeContent={totalUniqueItems} color="error">
+                      <img src={cart_logo} alt="No img" />
+                    </Badge>
                     <p>Корзина</p>
                   </Link>
                 </div>
 
                 <div className="header__compare">
                   <Link to={COMPARE__ROUTE}>
-                    <img src={compare_logo} alt="No img" />
+                    <Badge badgeContent={compareProducts.length} color="error">
+                      <img src={compare_logo} alt="No img" />
+                    </Badge>
                     <p>Сравнения</p>
                   </Link>
                 </div>
@@ -213,9 +210,7 @@ function Header() {
                       onClick={() => setActiveMobileMenu(false)}
                       key={index + 3}
                     >
-                      <NavLink to={obj.path}>
-                        <li key={index}>{obj.name}</li>
-                      </NavLink>
+                      <NavLink to={obj.path}>{obj.name}</NavLink>
                     </li>
                   );
                 })}
@@ -228,7 +223,9 @@ function Header() {
                     onClick={() => setActiveMobileMenu(false)}
                   >
                     <span>Корзина</span>
-                    <img src={cart_logo} alt="No img" />
+                    <Badge badgeContent={totalUniqueItems} color="error">
+                      <img src={cart_logo} alt="No img" />
+                    </Badge>
                   </Link>
                 </div>
 
@@ -238,7 +235,9 @@ function Header() {
                     onClick={() => setActiveMobileMenu(false)}
                   >
                     <span>Сравнения</span>
-                    <img src={compare_logo} alt="No img" />
+                    <Badge badgeContent={totalUniqueItems} color="error">
+                      <img src={compare_logo} alt="No img" />
+                    </Badge>
                   </Link>
                 </div>
 

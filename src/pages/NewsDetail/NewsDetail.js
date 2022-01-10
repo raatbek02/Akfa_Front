@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "./NewsDetail.css";
-import delivery from "../../assets/images/delivery.png";
-import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
+import "./NewsDetail.css";
 
 function NewsDetail() {
   const [oneNews, setOneNews] = useState({});

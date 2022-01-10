@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "react-use-cart";
+import { Link } from "react-scroll";
 import {
   minusItem,
   plusItem,
@@ -29,17 +29,10 @@ function Cart() {
   //   const authCartLS = JSON.parse(localStorage.getItem("auth_cart_items"));
   const authCart = useSelector((s) => s.cartSlice.authCart);
   console.log("authCart", authCart);
-  const {
-    isEmpty,
-    totalUniqueItems,
-    items,
-    updateItemQuantity,
-    removeItem,
-    emptyCart,
-    cartTotal,
-  } = useCart();
+  const { totalUniqueItems, items, updateItemQuantity, removeItem, cartTotal } =
+    useCart();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  //   const navigate = useNavigate();
   const user = useSelector((s) => s.userSlice.user);
   console.log("user", user);
   const token = JSON.parse(localStorage.getItem("token"));
@@ -79,8 +72,6 @@ function Cart() {
   }, []);
 
   const deleteCartItem = (e, product_id, card_id) => {
-    //  const thisClicked = e.currentTarget;
-
     const data = {
       quantity: 0,
       product: product_id,
@@ -94,15 +85,12 @@ function Cart() {
       })
       .then((res) => {
         console.log("Товар удален", res);
-        //   thisClicked.closest(".cart__item").remove();
         dispatch(removeAuthCartItem(card_id));
       })
       .catch((e) => {
         alert("Ошибка,", e);
       });
   };
-
-  //   useEffect(() => {});
 
   const plusUbdateCart = (id) => {
     const data = {
@@ -382,8 +370,27 @@ function Cart() {
                     </ul>
                   </div>
                   <div className="cart__total--buttons">
-                    <button>Перейти к оформлению</button>
-                    <button>Счет на оплату</button>
+                    <Link
+                      activeClass="active"
+                      to="checkout"
+                      spy={true}
+                      smooth={true}
+                      hashSpy={true}
+                      offset={0}
+                      duration={500}
+                      delay={200}
+                      isDynamic={true}
+                      ignoreCancelEvents={false}
+                      spyThrottle={500}
+                    >
+                      <button className="cart__total--linkButton">
+                        Перейти к оформлению
+                      </button>
+                    </Link>
+
+                    <button className="cart__total--priceButton">
+                      Счет на оплату
+                    </button>
                   </div>
                 </div>
               </div>
@@ -394,7 +401,9 @@ function Cart() {
           </>
         ) : (
           <div className="cart__empty">
-            <h2><span>У вас пустая корзина</span></h2>
+            <h2>
+              <span>У вас пустая корзина</span>
+            </h2>
             <div className="cart__empty--img">
               <img src={empty_cart_logo} alt="No img" />
             </div>

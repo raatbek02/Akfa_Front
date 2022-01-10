@@ -1,24 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import axios from "axios";
+import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
+import { useCart } from "react-use-cart";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 import ReactPaginate from "react-paginate";
+import { toast } from "react-toastify";
+import { PRODUCT_PAGE_ROUTE } from "../../../utils/consts";
+import { getCompareProducts } from "../../../store/compare";
 import "./Products.css";
 import product_cart_logo from "../../../assets/images/new_design/product_cart_logo.svg";
 import product_compare_logo from "../../../assets/images/new_design/product_compare_logo.svg";
-
-import { useNavigate } from "react-router";
-import { useCart } from "react-use-cart";
-import { PRODUCT_PAGE_ROUTE } from "../../../utils/consts";
-import { toast } from "react-toastify";
-import { getCompareProducts } from "../../../store/compare";
-
-import CircularProgress from "@mui/material/CircularProgress";
-
-// import InputLabel from "@mui/material/InputLabel";
-// import MenuItem from "@mui/material/MenuItem";
-// import FormControl from "@mui/material/FormControl";
-// import Select from "@mui/material/Select";
 
 const product_filter = [
   { id: 1, name: " Популярные", type: "popular" },
@@ -31,22 +24,18 @@ function Products() {
   const [product, setProduct] = useState([]);
   const [sort, setSort] = useState(null);
   const [type, setType] = useState("");
-  const [count, setCount] = useState(1);
+  const [count] = useState(1);
   const [pageCount, setPageCount] = useState(0);
   const [loading, setLoading] = useState(true);
-
-  const { addItem, items, totalItems, totalUniqueItems, emptyCart } = useCart();
+  const [sorting, setSorting] = React.useState("");
+  //   const { addItem, items, totalItems, totalUniqueItems, emptyCart } = useCart();
+  const { addItem } = useCart();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  console.log(product, sort, type);
-
-  const [sorting, setSorting] = React.useState("");
 
   const handleChange = (event) => {
     setSorting(event.target.value);
   };
-  console.log("age", sorting);
 
   const token = JSON.parse(localStorage.getItem("token"));
   const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
@@ -237,6 +226,7 @@ function Products() {
                 <div
                   onClick={() => navigate(`${PRODUCT_PAGE_ROUTE}/${el.id}`)}
                   className="product__item"
+                  key={el.id}
                 >
                   <div className="product__img">
                     <img src={el.image} alt="No img" />

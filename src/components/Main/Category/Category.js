@@ -1,27 +1,22 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { CATEGORIES_PAGE_ROUTE } from "../../../utils/consts";
-import "./Category.css";
-import modalCatalog_img from "../../../assets/images/new_design/modalCatalog_img.png";
-import { useDispatch } from "react-redux";
 import {
   setModalCatalog,
   setSubCategory_id,
 } from "../../../store/modalCatalog";
+import "./Category.css";
 
 function Category() {
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
-  const [activeCategory, setActiveCategory] = useState("");
   const [activeSubCategory, setActiveSubCategory] = useState("");
-  const [onMouse_id, setOnMouse_id] = useState(null);
+  const [onMouse_id, setOnMouse_id] = useState(1);
   const [onMouse_categoryImage, setOnMouse_categoryImage] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  console.log("Catalog category", category);
-  console.log("Catalog subcategory", subCategory);
 
   useEffect(() => {
     const getCategories = async () => {

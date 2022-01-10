@@ -196,7 +196,7 @@
   font-weight: 700;
 }
 
-.cart__total--buttons button:first-child {
+.cart__total--buttons .cart__total--linkButton {
   background: linear-gradient(
     90deg,
     rgba(255, 72, 72, 1) 0%,
@@ -204,8 +204,25 @@
     rgba(170, 39, 75, 1) 100%
   );
   color: #fff;
+  cursor: pointer;
+  transition: background 0.3s linear;
+  position: relative;
 }
-.cart__total--buttons button:last-child {
+
+.cart__total--buttons .cart__total--linkButton:hover {
+  background: linear-gradient(
+    90deg,
+    rgb(218, 38, 38) 0%,
+    rgb(139, 25, 25) 61%,
+    rgb(131, 17, 47) 100%
+  );
+  transition: all 0.3s linear;
+}
+.cart__total--buttons .cart__total--linkButton:active {
+  border: 1px solid rgb(139, 25, 25);
+}
+
+.cart__total--buttons .cart__total--priceButton {
   background: #fff;
   color: transparent;
   -webkit-background-clip: text;
@@ -216,6 +233,14 @@
     rgba(170, 39, 39, 1) 100%
   );
   border: 2px solid rgba(170, 39, 39, 1);
+  cursor: pointer;
+  transition: all 0.3s linear;
+}
+.cart__total--buttons .cart__total--priceButton:hover {
+  color: rgba(170, 39, 39, 1);
+}
+.cart__total--buttons .cart__total--priceButton:active {
+  border: 3px solid rgba(170, 39, 39, 1);
 }
 
 .checkout .checkout--button {

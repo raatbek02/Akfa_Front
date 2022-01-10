@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
 import {
   ABOUT_ROUTE,
   CART_ROUTE,
@@ -9,19 +11,16 @@ import {
   HOME_ROUTE,
   NEWS_ROUTE,
 } from "../../utils/consts";
-
-import cart_logo from "../../assets/images/cart_logo.svg";
-import compare_logo from "../../assets/images/compare_logo.svg";
-import login_logo from "../../assets/images/login_logo.svg";
-import red_dot from "../../assets/images/new_design/red_dot.svg";
-import catalog_logo from "../../assets/images/catalog_logo.svg";
-import { useDispatch } from "react-redux";
 import { setModalCatalog } from "../../store/modalCatalog";
 import Modal from "../UI/Modal/Modal";
 import Auth from "../Auth/Auth";
 import CatalogModal from "../UI/Modal/CatalogModal";
 import Category from "../Main/Category/Category";
 
+import cart_logo from "../../assets/images/cart_logo.svg";
+import compare_logo from "../../assets/images/compare_logo.svg";
+import login_logo from "../../assets/images/login_logo.svg";
+import catalog_logo from "../../assets/images/catalog_logo.svg";
 const list = [
   {
     name: "Главная",
@@ -47,7 +46,6 @@ const list = [
 
 function Navigation() {
   const [modalAuth, setModalAuth] = useState(false);
-
   const dispatch = useDispatch();
   return (
     <>

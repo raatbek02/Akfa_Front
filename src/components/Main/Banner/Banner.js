@@ -1,27 +1,23 @@
-import React, { useEffect } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import SwiperCore, { Autoplay, Pagination } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { CircularProgress } from "@mui/material";
+
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 
-import "./Banner.css";
-import banner_img from "../../../assets/images/new_design/banner_main.png";
-import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { BANNER_DETAIL__ROUTE } from "../../../utils/consts";
-import { CircularProgress } from "@mui/material";
+import "./Banner.css";
 
 SwiperCore.use([Autoplay, Pagination]);
 
-// const arr = [1, 2, 3];
 
 function Banner() {
   const [bannerData, setBannerData] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
-  console.log("bannerData", bannerData);
 
   useEffect(() => {
     const getBannerData = async () => {

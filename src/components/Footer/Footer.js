@@ -1,20 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./Footer.css";
-import contact_1 from "../../assets/images/footer_contact_1.png";
-import contact_2 from "../../assets/images/footer_contact_2.png";
-import contact_3 from "../../assets/images/footer_contact_3.png";
-import contact_4 from "../../assets/images/footer_contact_4.png";
-
-import footer_map from "../../assets/images/footer_map.png";
 import { toast } from "react-toastify";
 
+import "./Footer.css";
+import footer_map from "../../assets/images/footer_map.png";
+
 function Footer() {
-  const [backCallInput, setBackCallInput] = React.useState({
+  const [backCallInput, setBackCallInput] = useState({
     name: "",
     phone: "",
   });
-
+  const [contactData, setContactData] = useState([]);
+  useEffect(() => {
+    const getContactData = async () => {
+      await axios
+        .get(`http://127.0.0.1:8000/api/contact_data/`)
+        .then(({ data }) => setContactData(data));
+    };
+    getContactData();
+  }, []);
 
   const handleInput = (e) => {
     e.persist();
@@ -54,22 +58,14 @@ function Footer() {
           <div className="footer__contact">
             <h3>Контакты</h3>
             <ul>
-              <li>
-                <img src={contact_1} alt="No img" />
-                <span>г.Бишкек, ул. Байтик-Баатыра, 65</span>
-              </li>
-              <li>
-                <img src={contact_2} alt="No img" />
-                <span>+996 (555) 51-51-15</span>
-              </li>{" "}
-              <li>
-                <img src={contact_3} alt="No img" />
-                <span>+996 (555) 51-51-15</span>
-              </li>{" "}
-              <li>
-                <img src={contact_4} alt="No img" />
-                <span>akfamedfarm@gmail.com</span>
-              </li>
+              {contactData.map((el) => {
+                return (
+                  <li key={el.id}>
+                    <img src={el.image_footer} alt="No img" />
+                    <span>{el.title}</span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
           <div className="footer__map">
