@@ -457,20 +457,13 @@
 
 .header__mobile--menu::-webkit-scrollbar {
   width: 0px;
-  background-color: rgb(255, 255, 255);
 }
 .header__mobile--menu::-webkit-scrollbar-thumb {
   width: 0px;
   /* border-radius: 5px; */
-  background: linear-gradient(
-    90deg,
-    rgba(255, 72, 72, 1) 0%,
-    rgba(206, 53, 53, 1) 61%,
-    rgba(170, 39, 75, 1) 100%
-  );
 }
-.header__mobile--menu::-webkit-scrollbar-track {
+/* .header__mobile--menu::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
-  /* border-radius: 10px; */
+
   background-color: #f9f9fd;
-}
+} */
