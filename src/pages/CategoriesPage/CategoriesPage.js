@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import {
@@ -22,6 +22,7 @@ import "swiper/swiper.min.css";
 import "./CategoriesPage.css";
 import product_cart_logo from "../../assets/images/new_design/product_cart_logo.svg";
 import product_compare_logo from "../../assets/images/new_design/product_compare_logo.svg";
+import { $host } from "../../http";
 
 SwiperCore.use([Autoplay, Pagination]);
 
@@ -62,8 +63,8 @@ function CategoriesPage() {
 
   useEffect(() => {
     const getBannerData = async () => {
-      await axios
-        .get(`http://localhost:8000/api/category-news/`)
+      await $host
+        .get(`api/category-news/`)
         .then(({ data }) => {
           setBannerData(data);
         })
@@ -76,11 +77,9 @@ function CategoriesPage() {
 
   useEffect(() => {
     const getSubcategories = async () => {
-      await axios
-        .get(`http://127.0.0.1:8000/api/subcategory?categories=${id}`)
-        .then(({ data }) => {
-          setSubCategory(data);
-        });
+      await $host.get(`api/subcategory?categories=${id}`).then(({ data }) => {
+        setSubCategory(data);
+      });
     };
 
     getSubcategories();
@@ -88,10 +87,8 @@ function CategoriesPage() {
 
   useEffect(() => {
     const getCategoriesProducts = async () => {
-      await axios
-        .get(
-          `http://127.0.0.1:8000/api/products/?category=${id}&${`subcategory=${subCategory_id}`}`
-        )
+      await $host
+        .get(`api/products/?category=${id}&${`subcategory=${subCategory_id}`}`)
         .then(
           ({ data }) => setSubCategoryProducts(data.results),
           dispatch(setSubCategory_id(subCategory_id))
@@ -107,8 +104,8 @@ function CategoriesPage() {
       quantity: count,
     };
 
-    await axios
-      .post(`http://127.0.0.1:8000/api/cart-item_product/`, data, {
+    await $host
+      .post(`api/cart-item_product/`, data, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Token " + token,

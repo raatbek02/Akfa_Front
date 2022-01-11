@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { toast } from "react-toastify";
 
 import "./Footer.css";
 import footer_map from "../../assets/images/footer_map.png";
+import { $host } from "../../http";
 
 function Footer() {
   const [backCallInput, setBackCallInput] = useState({
@@ -13,8 +14,8 @@ function Footer() {
   const [contactData, setContactData] = useState([]);
   useEffect(() => {
     const getContactData = async () => {
-      await axios
-        .get(`http://127.0.0.1:8000/api/contact_data/`)
+      await $host
+        .get("api/contact_data/")
         .then(({ data }) => setContactData(data));
     };
     getContactData();
@@ -31,8 +32,9 @@ function Footer() {
       name: backCallInput.name,
       phone: backCallInput.phone,
     };
-    axios
-      .post(`http://127.0.0.1:8000/api/backcall`, data, {
+
+    $host
+      .post(`api/backcall`, data, {
         headers: {
           "Content-Type": "application/json",
         },

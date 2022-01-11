@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { useCart } from "react-use-cart";
@@ -11,6 +11,7 @@ import "./SearchPage.css";
 import product_cart_logo from "../../assets/images/new_design/product_cart_logo.svg";
 import product_compare_logo from "../../assets/images/new_design/product_compare_logo.svg";
 import lupa_page from "../../assets/images/new_design/lupa_page.png";
+import { $host } from "../../http";
 
 function SearchPage() {
   const [count, setCount] = useState(1);
@@ -39,8 +40,8 @@ function SearchPage() {
       quantity: count,
     };
 
-    await axios
-      .post(`http://127.0.0.1:8000/api/cart-item_product/`, data, {
+    await $host
+      .post(`api/cart-item_product/`, data, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Token " + token,

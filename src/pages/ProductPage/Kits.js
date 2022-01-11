@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useCart } from "react-use-cart";
 import { toast } from "react-toastify";
@@ -8,6 +8,7 @@ import "./Kits.css";
 import product_cart_logo from "../../assets/images/new_design/product_cart_logo.svg";
 import product_compare_logo from "../../assets/images/new_design/product_compare_logo.svg";
 import { getCompareProducts } from "../../store/compare";
+import { $host } from "../../http";
 
 function Kits({ oneProduct }) {
   const [kitsProducts, setKitsProducts] = useState([]);
@@ -28,8 +29,8 @@ function Kits({ oneProduct }) {
 
   useEffect(() => {
     const getOneProduct = async () => {
-      await axios
-        .get(`http://127.0.0.1:8000/api/products?kits=${oneProduct.kits}`)
+      await $host
+        .get(`api/products?kits=${oneProduct.kits}`)
         .then(({ data }) => setKitsProducts(data));
     };
     getOneProduct();
@@ -42,8 +43,8 @@ function Kits({ oneProduct }) {
       quantity: count,
     };
 
-    await axios
-      .post(`http://127.0.0.1:8000/api/cart-item_product/`, data, {
+    await $host
+      .post(`api/cart-item_product/`, data, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Token " + token,

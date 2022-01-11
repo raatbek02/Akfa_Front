@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
 import { NEWS_DETAIL__ROUTE } from "../../utils/consts";
 import "./News.css";
 import news_img from "../../assets/images/news_img.png";
+import { $host } from "../../http";
 
 function News() {
   const [newsData, setNewsData] = useState([]);
@@ -13,8 +14,8 @@ function News() {
 
   useEffect(() => {
     const getNewsData = async () => {
-      await axios
-        .get(`http://localhost:8000/api/news/`)
+      await $host
+        .get(`api/news/`)
         .then(({ data }) => {
           setNewsData(data);
         })

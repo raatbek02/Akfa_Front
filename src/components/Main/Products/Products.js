@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { useCart } from "react-use-cart";
@@ -12,6 +12,7 @@ import { getCompareProducts } from "../../../store/compare";
 import "./Products.css";
 import product_cart_logo from "../../../assets/images/new_design/product_cart_logo.svg";
 import product_compare_logo from "../../../assets/images/new_design/product_compare_logo.svg";
+import { $host } from "../../../http";
 
 const product_filter = [
   { id: 1, name: " Популярные", type: "popular" },
@@ -52,12 +53,8 @@ function Products() {
   useEffect(() => {
     const getProducts = async () => {
       let total = 0;
-      await axios
-        .get(
-          `http://127.0.0.1:8000/api/products?page=1&${
-            type !== null ? `${type}=${sort}` : ""
-          }`
-        )
+      await $host
+        .get(`api/products?page=1&${type !== null ? `${type}=${sort}` : ""}`)
         .then(({ data }) => {
           setProduct(data);
           total = data.count;
@@ -75,8 +72,8 @@ function Products() {
   }, [type]);
 
   const paginateProducts = async (currentPage) => {
-    const res = await axios.get(
-      `http://127.0.0.1:8000/api/products?page=${currentPage}&${
+    const res = await $host.get(
+      `api/products?page=${currentPage}&${
         type !== null ? `${type}=${sort}` : ""
       }`
     );
@@ -97,8 +94,8 @@ function Products() {
       quantity: count,
     };
 
-    await axios
-      .post(`http://127.0.0.1:8000/api/cart-item_product/`, data, {
+    await $host
+      .post(`api/cart-item_product/`, data, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Token " + token,

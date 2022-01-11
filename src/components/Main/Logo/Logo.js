@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import SwiperCore, { Autoplay, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 import "./Logo.css";
+import { $host } from "../../../http";
 
 SwiperCore.use([Autoplay, Pagination]);
 
@@ -12,7 +13,7 @@ function Logo() {
   const [logoData, setLogoData] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/main-logo/").then(({ data }) => {
+    $host.get("api/main-logo/").then(({ data }) => {
       setLogoData(data);
     });
   }, []);

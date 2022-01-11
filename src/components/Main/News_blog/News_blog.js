@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { NEWS_DETAIL__ROUTE, NEWS_ROUTE } from "../../../utils/consts";
 import "./News_blog.css";
+import { $host } from "../../../http";
 
 function News_blog() {
   const [newsData, setNewsData] = useState([]);
@@ -11,7 +12,7 @@ function News_blog() {
 
   useEffect(() => {
     const getNewsData = async () => {
-      await axios.get(`http://localhost:8000/api/news/`).then(({ data }) => {
+      await $host.get(`api/news/`).then(({ data }) => {
         setNewsData(data);
       });
     };

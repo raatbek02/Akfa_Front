@@ -28,6 +28,7 @@ import compare_logo from "../../assets/images/compare_logo.svg";
 import login_logo from "../../assets/images/login_logo.svg";
 import lupa from "../../assets/images/new_design/lupa.svg";
 import catalog_logo from "../../assets/images/catalog_logo.svg";
+import { $host } from "../../http";
 
 const list = [
   {
@@ -67,13 +68,11 @@ function Header() {
 
   const searchHandler = async (e) => {
     if (search && e.key === "Enter") {
-      await axios
-        .get(`http://localhost:8000/api/products/?search=${search}`)
-        .then(({ data }) => {
-          dispatch(addSearchProducts(data.results));
-          setSearch("");
-          navigate(SEARCH__ROUTE);
-        });
+      await $host.get(`api/products/?search=${search}`).then(({ data }) => {
+        dispatch(addSearchProducts(data.results));
+        setSearch("");
+        navigate(SEARCH__ROUTE);
+      });
     }
   };
 

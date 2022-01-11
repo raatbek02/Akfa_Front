@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useCart } from "react-use-cart";
@@ -17,6 +17,7 @@ import empty_cart_logo from "../../assets/images/new_design/empty_cart.png";
 
 import "./Cart.css";
 import Checkout from "../Checkout/Checkout";
+import { $host } from "../../http/index";
 
 function Cart() {
   const [isDelivery, setIsDelivery] = useState(true);
@@ -48,8 +49,8 @@ function Cart() {
   useEffect(() => {
     //  if (isAuth) {
     const getAuthCart = async () => {
-      await axios
-        .get(`http://127.0.0.1:8000/api/carts/` + user_id, {
+      await $host
+        .get(`api/carts/` + user_id, {
           headers: {
             "Content-Type": "application/json",
             Authorization: "Token " + token,
@@ -76,7 +77,7 @@ function Cart() {
       quantity: 0,
       product: product_id,
     };
-    axios
+    $host
       .post(`http://127.0.0.1:8000/api/destroy-cart/`, data, {
         headers: {
           "Content-Type": "application/json",
@@ -96,7 +97,7 @@ function Cart() {
     const data = {
       cart_item: id,
     };
-    axios
+    $host
       .post(`http://127.0.0.1:8000/api/cart-update/`, data, {
         headers: {
           "Content-Type": "application/json",
@@ -116,7 +117,7 @@ function Cart() {
     const data = {
       cart_item: id,
     };
-    axios
+    $host
       .post(`http://127.0.0.1:8000/api/cart-update/?minus`, data, {
         headers: {
           "Content-Type": "application/json",

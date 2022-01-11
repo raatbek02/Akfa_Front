@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import { CircularProgress } from "@mui/material";
 
 import "./NewsDetail.css";
+import { $host } from "../../http";
 
 function BannerDetail() {
   const [oneNews, setOneNews] = useState({});
@@ -12,8 +13,8 @@ function BannerDetail() {
 
   useEffect(() => {
     const getOneProduct = async () => {
-      await axios
-        .get(`http://localhost:8000/api/banner-news/${id}`)
+      await $host
+        .get(`api/banner-news/${id}`)
         .then(({ data }) => setOneNews(data))
         .finally(() => {
           setLoading(false);

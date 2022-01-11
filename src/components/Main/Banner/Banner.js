@@ -10,9 +10,9 @@ import "swiper/swiper.min.css";
 
 import { BANNER_DETAIL__ROUTE } from "../../../utils/consts";
 import "./Banner.css";
+import { $host } from "../../../http";
 
 SwiperCore.use([Autoplay, Pagination]);
-
 
 function Banner() {
   const [bannerData, setBannerData] = useState([]);
@@ -21,8 +21,8 @@ function Banner() {
 
   useEffect(() => {
     const getBannerData = async () => {
-      await axios
-        .get(`http://localhost:8000/api/banner-news/`)
+      await $host
+        .get(`api/banner-news/`)
         .then(({ data }) => {
           setBannerData(data);
         })

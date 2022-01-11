@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { CATEGORIES_PAGE_ROUTE } from "../../../utils/consts";
@@ -8,6 +8,7 @@ import {
   setSubCategory_id,
 } from "../../../store/modalCatalog";
 import "./Category.css";
+import { $host } from "../../../http";
 
 function Category() {
   const [category, setCategory] = useState([]);
@@ -20,19 +21,17 @@ function Category() {
 
   useEffect(() => {
     const getCategories = async () => {
-      await axios
-        .get(`http://127.0.0.1:8000/api/categories/`)
-        .then(({ data }) => {
-          setCategory(data);
-        });
+      await $host.get(`api/categories/`).then(({ data }) => {
+        setCategory(data);
+      });
     };
     getCategories();
   }, []);
 
   useEffect(() => {
     const getSubcategories = async () => {
-      await axios
-        .get(`http://127.0.0.1:8000/api/subcategory?categories=${onMouse_id}`)
+      await $host
+        .get(`api/subcategory?categories=${onMouse_id}`)
         .then(({ data }) => {
           setSubCategory(data);
         });

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+// import axios from "axios";
 import { removeCompareItem } from "../../store/compare";
 import "./Compare.css";
 import empty_compare from "../../assets/images/new_design/empty_compare.png";
+import { $host } from "../../http";
 
 function Compare() {
   const [characteristicData, setCharacteristicData] = useState([]);
@@ -15,11 +16,9 @@ function Compare() {
 
   useEffect(() => {
     const getCharasteristicData = async () => {
-      await axios
-        .get(`http://127.0.0.1:8000/api/topik-characteristic/`)
-        .then(({ data }) => {
-          setCharacteristicData(data);
-        });
+      await $host.get(`api/topik-characteristic/`).then(({ data }) => {
+        setCharacteristicData(data);
+      });
     };
     getCharasteristicData();
   }, []);

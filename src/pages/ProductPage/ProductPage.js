@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { useCart } from "react-use-cart";
@@ -17,6 +17,7 @@ import product_compare_logo from "../../assets/images/new_design/product_compare
 import minus_cart from "../../assets/images/new_design/minus_cart.svg";
 import plus_cart from "../../assets/images/new_design/plus_cart.svg";
 import depp from "../../assets/images/new_design/depp.png";
+import { $host } from "../../http";
 
 SwiperCore.use([Thumbs]);
 
@@ -53,12 +54,10 @@ function ProductPage(props) {
 
   useEffect(() => {
     const getOneProduct = async () => {
-      await axios
-        .get(`http://127.0.0.1:8000/api/products/${id}`)
-        .then(({ data }) => {
-          setOneProduct(data);
-          setMainImg(data.main_photo);
-        });
+      await $host.get(`api/products/${id}`).then(({ data }) => {
+        setOneProduct(data);
+        setMainImg(data.main_photo);
+      });
     };
     getOneProduct();
   }, []);
@@ -77,7 +76,7 @@ function ProductPage(props) {
       quantity: count,
     };
 
-    await axios
+    await $host
       .post(`http://127.0.0.1:8000/api/cart-item_product/`, data, {
         headers: {
           "Content-Type": "application/json",
