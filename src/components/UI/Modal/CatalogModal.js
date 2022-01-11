@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setModalCatalog } from "../../../store/modalCatalog";
 import "./CatalogModal.css";
@@ -6,10 +6,12 @@ import "./CatalogModal.css";
 function CatalogModal({ active, setActive, children }) {
   const dispatch = useDispatch();
   const modalCatalog = useSelector((s) => s.modalCatalog.modalCatalog);
-  //   useEffect(() => {
-  //     const body = document.querySelector("body");
-  //     body.style.overflow = active ? "hidden" : "auto";
-  //   }, [active]);
+
+  useEffect(() => {
+    const body = document.querySelector("body");
+    body.style.overflow = active ? "hidden" : "auto";
+  }, [active]);
+
   return (
     <div
       className={modalCatalog ? "catalogModal active" : "catalogModal"}

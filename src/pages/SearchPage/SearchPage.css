@@ -35,9 +35,33 @@
 
 /* *********************************  MEDIA QUERY  *************************************** */
 
-/* *********************************  max-width: 1200px  *************************************** */
+/* *********************************  max-width: 1400px  *************************************** */
 @media (max-width: 1400px) {
   .searchPage__container {
     padding: 150px 50px 80px;
+  }
+}
+
+/* *********************************  max-width:992px  *************************************** */
+@media (max-width: 1400px) {
+  .searchPage__container {
+    padding: 150px 30px 50px;
+  }
+}
+
+/* *********************************  max-width:768px  *************************************** */
+@media (max-width: 768px) {
+  .searchPage__container {
+    padding: 150px 20px 50px;
+  }
+}
+
+/* *********************************  max-width:575px  *************************************** */
+@media (max-width: 575px) {
+  .searchPage__title h2 span {
+    font-size: 24px;
+  }
+  .searchPage__title--img {
+    max-width: 40px;
   }
 }

@@ -89,7 +89,7 @@ h3 {
   transition: all 0.3s linear;
 }
 .footer__form form button:active {
-	border: 2px solid green;
+  border: 2px solid green;
 }
 
 /* ******************************************MEDIA QUERY***************************************************** */
@@ -178,5 +178,13 @@ h3 {
   }
   .footer__contact ul li span {
     font-size: 12px;
+  }
+}
+
+/* *********************************  max-width: 575px  *************************************** */
+
+@media (max-width: 450px) {
+  .footer__contact ul {
+    width: 100%;
   }
 }

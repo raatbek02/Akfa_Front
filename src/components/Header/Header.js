@@ -76,13 +76,13 @@ function Header() {
     }
   };
 
-  //   const searchHandler_2 = async (e) => {
-  //     await axios
-  //       .get(`http://localhost:8000/api/products/?search=${encodeURI(search)}`)
-  //       .then(({ data }) => {
-  //         setSearchData(data);
-  //       });
-  //   };
+  const searchHandler_2 = async () => {
+    await $host.get(`api/products/?search=${search}`).then(({ data }) => {
+      dispatch(addSearchProducts(data.results));
+      setSearch("");
+      navigate(SEARCH__ROUTE);
+    });
+  };
 
   return (
     <header className="header">
@@ -147,7 +147,7 @@ function Header() {
                 </div>
 
                 <div
-                  onClick={() => setModalAuth(true)}
+                  // onClick={() => setModalAuth(true)}
                   className="header__login"
                 >
                   <img src={login_logo} alt="No img" />
@@ -162,7 +162,7 @@ function Header() {
                   onKeyDown={(e) => searchHandler(e)}
                 />
                 <img
-                  // onClick={() => searchHandler_2()}
+                  onClick={() => searchHandler_2()}
                   src={lupa}
                   alt="No img"
                 />
@@ -180,19 +180,35 @@ function Header() {
             </div>
             <div className="header__mobile--middle">
               <div className="header__assets-bottom">
-                <input type="text" />
-                <img src={lupa} alt="No img" />
+                <input
+                  type="text"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  onKeyDown={(e) => searchHandler(e)}
+                />
+                <img
+                  onClick={() => searchHandler_2()}
+                  src={lupa}
+                  alt="No img"
+                />
               </div>
               <div
                 className="header__catalog"
-                onClick={() => dispatch(setModalCatalog(!false))}
+                onClick={() => {
+                  dispatch(setModalCatalog(!false));
+                }}
               >
-                Каталог
-                {modalCatalog ? (
-                  <i class="far fa-times-circle"></i>
-                ) : (
-                  <img src={catalog_logo} alt="No img" />
-                )}
+                <span>Каталог</span>
+
+                <div
+                  className={
+                    modalCatalog
+                      ? "header__catalog--icon _active"
+                      : "header__catalog--icon"
+                  }
+                >
+                  <span></span>
+                </div>
               </div>
             </div>
             <nav
@@ -241,7 +257,7 @@ function Header() {
                 </div>
 
                 <div
-                  onClick={() => setModalAuth(true)}
+                  // onClick={() => setModalAuth(true)}
                   className="header__login item"
                 >
                   <span>Войти</span>

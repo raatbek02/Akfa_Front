@@ -46,19 +46,22 @@ function Category() {
           <ul>
             {category.map((obj) => {
               return (
-                <li
-                  key={Date.now() * obj.id}
-                  onMouseOver={() => {
-                    setOnMouse_id(obj.id);
-                    setOnMouse_categoryImage(obj.image);
-                  }}
-                  onClick={() => {
-                    setOnMouse_id(obj.id);
-                    //   setActiveCategory(obj.id);
-                  }}
-                  // className={obj.id === activeCategory ? "" : ""}
-                >
-                  {obj.title}
+                <li>
+                  <button
+                    key={obj.id}
+                    onMouseOver={() => {
+                      setOnMouse_id(obj.id);
+                      setOnMouse_categoryImage(obj.image);
+                    }}
+                    onClick={() => {
+                      setOnMouse_id(obj.id);
+                      //   setActiveCategory(obj.id);
+                    }}
+
+                    // className={obj.id === activeCategory ? "" : ""}
+                  >
+                    {obj.title}
+                  </button>
                 </li>
               );
             })}
@@ -68,18 +71,20 @@ function Category() {
           <ul>
             {subCategory.map((obj) => {
               return (
-                <li
-                  onClick={() => {
-                    navigate(`${CATEGORIES_PAGE_ROUTE}/${obj.categories}`);
-                    setActiveSubCategory(obj.id);
-                    dispatch(setModalCatalog(false));
-                    dispatch(setSubCategory_id(obj.id));
-                    localStorage.setItem("subCategory_ID", obj.id);
-                  }}
-                  key={Date.now() * obj.id}
-                  className={activeSubCategory === obj.id ? "" : ""}
-                >
-                  {obj.title}
+                <li>
+                  <button
+                    onClick={() => {
+                      navigate(`${CATEGORIES_PAGE_ROUTE}/${obj.categories}`);
+                      setActiveSubCategory(obj.id);
+                      dispatch(setModalCatalog(false));
+                      dispatch(setSubCategory_id(obj.id));
+                      localStorage.setItem("subCategory_ID", obj.id);
+                    }}
+                    key={Date.now() * obj.id}
+                    className={activeSubCategory === obj.id ? "" : ""}
+                  >
+                    {obj.title}
+                  </button>
                 </li>
               );
             })}
