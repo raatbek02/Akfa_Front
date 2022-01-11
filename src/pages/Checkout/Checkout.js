@@ -32,7 +32,7 @@ function Checkout({ isDelivery }) {
   });
   //   const onSubmit = (data) => {};
 
-  const token = JSON.parse(localStorage.getItem("token"));
+    const token = JSON.parse(localStorage.getItem("token"));
   const cart_id = localStorage.getItem("cart_id");
   //   const dispatch = useDispatch();
   const user = useSelector((s) => s.userSlice.user);
@@ -179,12 +179,12 @@ function Checkout({ isDelivery }) {
   return (
     <div className="checkout" id="checkout">
       <form
-        onSubmit={(e) =>
-          isAuth
-            ? handleSubmit(submitAuthOrder(e))
-            : handleSubmit(submitLocalOrder(e))
-        }
-        //   onSubmit={handleSubmit(submitLocalOrder)}
+        //   onSubmit={(e) =>
+        //     isAuth
+        //       ? handleSubmit(submitAuthOrder(e))
+        //       : handleSubmit(submitLocalOrder(e))
+        //   }
+        onSubmit={handleSubmit(submitLocalOrder)}
       >
         <div className="checkout--pickup">
           <div className="checkout--title">
