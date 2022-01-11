@@ -8,10 +8,9 @@ import { $host } from "../../http";
 function Contacts() {
   const [contactData, setContactData] = useState([]);
   useEffect(() => {
-	  const getContactData = async () => {
-		   
+    const getContactData = async () => {
       await $host
-        .get(`http://127.0.0.1:8000/api/contact_data/`)
+        .get(`api/contact_data/`)
         .then(({ data }) => setContactData(data));
     };
     getContactData();
