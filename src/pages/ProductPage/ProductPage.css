@@ -557,9 +557,9 @@
   .productPage__top--mainImage div {
     height: 200px;
   }
-  .productPage__top--mainImage div img {
+  /* .productPage__top--mainImage div img {
     object-fit: cover;
-  }
+  } */
   .productPage__top--restImages .restimage {
     width: 30px;
     height: 30px;
