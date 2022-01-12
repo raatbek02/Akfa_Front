@@ -23,9 +23,6 @@ function Cart() {
   const [isDelivery, setIsDelivery] = useState(true);
   //   const [radioPickup, setRadioPickup] = useState(false);
 
-  //   console.log("radioDelivery", radioDelivery);
-  //   console.log("radioPickup", radioPickup);
-
   //   const [authCart, setAuthCart] = useState([]);
   //   const authCartLS = JSON.parse(localStorage.getItem("auth_cart_items"));
   const authCart = useSelector((s) => s.cartSlice.authCart);
@@ -34,43 +31,40 @@ function Cart() {
     useCart();
   const dispatch = useDispatch();
   //   const navigate = useNavigate();
-  const user = useSelector((s) => s.userSlice.user);
-  console.log("user", user);
+  //   const user = useSelector((s) => s.userSlice.user);
   const token = JSON.parse(localStorage.getItem("token"));
   const isAuth = useSelector((s) => s.isAuthSlice.isAuth);
-  console.log("isAuth", isAuth);
   let totalAuthCartPrice = 0;
 
-  const user_id = localStorage.getItem("user_id");
-  console.log("user_id", user_id);
+  //   const user_id = localStorage.getItem("user_id");
 
   //   const auth_items = useSelector((s) => s.cartSlice.auth_items);
 
-  useEffect(() => {
-    //  if (isAuth) {
-    const getAuthCart = async () => {
-      await $host
-        .get(`api/carts/` + user_id, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Token " + token,
-          },
-        })
-        .then(({ data }) => {
-          dispatch(setAuthCart(data.items));
-          //   localStorage.setItem("auth_cart_items", JSON.stringify(data.items));
+  //   useEffect(() => {
+  //     //  if (isAuth) {
+  //     const getAuthCart = async () => {
+  //       await $host
+  //         .get(`api/carts/` + user_id, {
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //             Authorization: "Token " + token,
+  //           },
+  //         })
+  //         .then(({ data }) => {
+  //           dispatch(setAuthCart(data.items));
+  //           //   localStorage.setItem("auth_cart_items", JSON.stringify(data.items));
 
-          console.log("Успешно", data);
-          localStorage.setItem("cart_id", data.id);
-        })
-        .catch((e) => {
-          console.log("Ошибка", e);
-          //  navigate(HOME_ROUTE);
-        });
-    };
-    getAuthCart();
-    //  }
-  }, []);
+  //           console.log("Успешно", data);
+  //           localStorage.setItem("cart_id", data.id);
+  //         })
+  //         .catch((e) => {
+  //           console.log("Ошибка", e);
+  //           //  navigate(HOME_ROUTE);
+  //         });
+  //     };
+  //     getAuthCart();
+  //     //  }
+  //   }, []);
 
   const deleteCartItem = (e, product_id, card_id) => {
     const data = {
@@ -146,6 +140,7 @@ function Cart() {
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   return (
     <div className="cart">
       <div className="cart__container">
@@ -187,7 +182,8 @@ function Cart() {
                   {isAuth
                     ? authCart &&
                       authCart.map((obj) => {
-                        totalAuthCartPrice += obj.product.price * obj.quantity;
+                        totalAuthCartPrice +=
+                          obj.product.discount_price * obj.quantity;
                         return (
                           <div className="cart__item">
                             <div className="cart__img">

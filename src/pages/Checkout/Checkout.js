@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { useCart } from "react-use-cart";
@@ -30,18 +30,15 @@ function Checkout({ isDelivery }) {
   } = useForm({
     mode: "onSubmit",
   });
-  //   const onSubmit = (data) => {};
 
-  const token = JSON.parse(localStorage.getItem("token"));
-  const cart_id = localStorage.getItem("cart_id");
   //   const dispatch = useDispatch();
-  const user = useSelector((s) => s.userSlice.user);
-  const authCart = useSelector((s) => s.cartSlice.authCart);
-  const isAuth = useSelector((s) => s.isAuthSlice.isAuth);
+  //   const isAuth = useSelector((s) => s.isAuthSlice.isAuth);
+  //   const token = JSON.parse(localStorage.getItem("token"));
+  //   const user = useSelector((s) => s.userSlice.user);
+  //   const cart_id = localStorage.getItem("cart_id");
+  //   const authCart = useSelector((s) => s.cartSlice.authCart);
 
   const successSubmited = () => toast.success("Ваш заказ успешно отправлен!");
-
-  console.log("authCart checkout", authCart);
 
   const { items, emptyCart } = useCart();
 
@@ -60,63 +57,63 @@ function Checkout({ isDelivery }) {
     setCheckoutInput({ ...checkoutInput, radio: e.target.value });
   };
 
-  const submitAuthOrder = async (e) => {
-    const auth_items = [];
-    const pickupData = {
-      cart_id: cart_id,
-      user: user.id,
-      first_name: checkoutInput.firstName,
-      phone_number: checkoutInput.phoneNumber,
-      email: checkoutInput.email,
+  //   const submitAuthOrder = async (e) => {
+  //     const auth_items = [];
+  //     const pickupData = {
+  //       cart_id: cart_id,
+  //       user: user.id,
+  //       first_name: checkoutInput.firstName,
+  //       phone_number: checkoutInput.phoneNumber,
+  //       email: checkoutInput.email,
 
-      is_conf_required: checkboxes.is_conf_required,
-      is_entity: checkboxes.is_entity,
+  //       is_conf_required: checkboxes.is_conf_required,
+  //       is_entity: checkboxes.is_entity,
 
-      items: auth_items,
-    };
-    const isDeliveryData = {
-      cart_id: cart_id,
-      user: user.id,
-      first_name: checkoutInput.firstName,
-      phone_number: checkoutInput.phoneNumber,
-      email: checkoutInput.email,
-      address: checkoutInput.address,
-      entrance: checkoutInput.entrance,
-      floor: checkoutInput.floor,
-      intercom: checkoutInput.intercom,
-      note: checkoutInput.note,
-      // date: checkoutInput.date,
+  //       items: auth_items,
+  //     };
+  //     const isDeliveryData = {
+  //       cart_id: cart_id,
+  //       user: user.id,
+  //       first_name: checkoutInput.firstName,
+  //       phone_number: checkoutInput.phoneNumber,
+  //       email: checkoutInput.email,
+  //       address: checkoutInput.address,
+  //       entrance: checkoutInput.entrance,
+  //       floor: checkoutInput.floor,
+  //       intercom: checkoutInput.intercom,
+  //       note: checkoutInput.note,
+  //       // date: checkoutInput.date,
 
-      is_conf_required: checkboxes.is_conf_required,
-      is_entity: checkboxes.is_entity,
-      radio: checkoutInput.radio,
+  //       is_conf_required: checkboxes.is_conf_required,
+  //       is_entity: checkboxes.is_entity,
+  //       radio: checkoutInput.radio,
 
-      items: auth_items,
-    };
+  //       items: auth_items,
+  //     };
 
-    authCart.map((item) => {
-      let obj = {
-        product: item.product.id,
-        quantity: item.quantity,
-        price: item.product.price,
-      };
-      auth_items.push(obj);
-    });
-    await $host
-      .post(`api/order/`, isDelivery ? isDeliveryData : pickupData, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Token " + token,
-        },
-      })
-      .then((res) => {
-        console.log("auth_cart успешно отправлено в order", res);
-        //   dispatch(setAuthCart([]));
-      })
-      .catch((e) => {
-        console.log("Ошибка auth_cart ", e);
-      });
-  };
+  //     authCart.map((item) => {
+  //       let obj = {
+  //         product: item.product.id,
+  //         quantity: item.quantity,
+  //         price: item.product.discount_price,
+  //       };
+  //       auth_items.push(obj);
+  //     });
+  //     await $host
+  //       .post(`api/order/`, isDelivery ? isDeliveryData : pickupData, {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: "Token " + token,
+  //         },
+  //       })
+  //       .then((res) => {
+  //         console.log("auth_cart успешно отправлено в order", res);
+  //         //   dispatch(setAuthCart([]));
+  //       })
+  //       .catch((e) => {
+  //         console.log("Ошибка auth_cart ", e);
+  //       });
+  //   };
 
   const submitLocalOrder = async () => {
     //  e.preventDefault();
@@ -155,7 +152,7 @@ function Checkout({ isDelivery }) {
       let obj = {
         product: item.id,
         quantity: item.quantity,
-        price: item.price,
+        price: item.discount_price,
       };
       itemss.push(obj);
     });
@@ -196,16 +193,19 @@ function Checkout({ isDelivery }) {
           <div className="checkout--fields">
             <p>
               <label className="checkout--label-1">ФИО</label>
-              <input
-                {...register("firstName", {
-                  required: true,
-                })}
-                onChange={handleInput}
-                className="checkout--input-1"
-                type="text"
-                value={checkoutInput.firstName}
-                //  name="firstName"
-              />
+
+              <div className="checkout--input-1">
+                <input
+                  {...register("firstName", {
+                    required: true,
+                  })}
+                  onChange={handleInput}
+                  type="text"
+                  value={checkoutInput.firstName}
+                  //  name="firstName"
+                />
+              </div>
+
               <div className="checkout__error">
                 {errors?.firstName && <p>Поле обязательно к заполнению!</p>}
               </div>
@@ -225,29 +225,32 @@ function Checkout({ isDelivery }) {
             </p>
             <p>
               <label className="checkout--label-1">Телефон</label>
-              <input
-                {...register("phoneNumber", {
-                  required: true,
-                })}
-                onChange={handleInput}
-                className="checkout--input-1"
-                type="number"
-                value={checkoutInput.phoneNumber}
-                //  name="phoneNumber"
-              />
+              <div className="checkout--input-1">
+                <input
+                  {...register("phoneNumber", {
+                    required: true,
+                  })}
+                  onChange={handleInput}
+                  type="number"
+                  value={checkoutInput.phoneNumber}
+                  //  name="phoneNumber"
+                />
+              </div>
+
               <div className="checkout__error">
                 {errors?.phoneNumber && <p>Поле обязательно к заполнению!</p>}
               </div>
             </p>
             <p>
               <label className="checkout--label-1">E-mail</label>
-              <input
-                onChange={handleInput}
-                className="checkout--input-1"
-                type="text"
-                value={checkoutInput.email}
-                name="email"
-              />
+              <div className="checkout--input-1">
+                <input
+                  onChange={handleInput}
+                  type="text"
+                  value={checkoutInput.email}
+                  name="email"
+                />
+              </div>
 
               <p className="p-checkbox">
                 <input
@@ -258,13 +261,13 @@ function Checkout({ isDelivery }) {
                 />
                 <label className="checkout--label-2">Юридическое лицо</label>
               </p>
-              <p className="p-checkbox">
+              {/* <p className="p-checkbox">
                 <input type="checkbox" />
                 <label className="checkout--label-2">
                   Зарегистрировать меня как пользователя сайта при создании
                   заказа
                 </label>
-              </p>
+              </p> */}
             </p>
           </div>
 
@@ -292,16 +295,18 @@ function Checkout({ isDelivery }) {
             <div className="checkout--fields">
               <p>
                 <label className="checkout--label-1">Адрес:</label>
-                <input
-                  {...register("address", {
-                    required: isDelivery ? true : false,
-                  })}
-                  onChange={handleInput}
-                  className="checkout--input-1"
-                  type="text"
-                  value={checkoutInput.address}
-                  // name="address"
-                />
+                <div className="checkout--input-1">
+                  <input
+                    {...register("address", {
+                      required: isDelivery ? true : false,
+                    })}
+                    onChange={handleInput}
+                    type="text"
+                    value={checkoutInput.address}
+                    // name="address"
+                  />
+                </div>
+
                 <div className="checkout__error">
                   {errors?.address && <p>Поле обязательно к заполнению!</p>}
                 </div>
@@ -309,33 +314,36 @@ function Checkout({ isDelivery }) {
               <p className="checkout--flex-fields">
                 <p>
                   <label className="checkout--label-1">Подъезд</label>
-                  <input
-                    onChange={handleInput}
-                    className="checkout--input-2"
-                    type="text"
-                    value={checkoutInput.floor}
-                    name="floor"
-                  />
+                  <div className="checkout--input-2">
+                    <input
+                      onChange={handleInput}
+                      type="text"
+                      value={checkoutInput.floor}
+                      name="floor"
+                    />
+                  </div>
                 </p>
                 <p>
                   <label className="checkout--label-1">Этаж</label>
-                  <input
-                    onChange={handleInput}
-                    className="checkout--input-2"
-                    type="text"
-                    value={checkoutInput.entrance}
-                    name="entrance"
-                  />
+                  <div className="checkout--input-2">
+                    <input
+                      onChange={handleInput}
+                      type="text"
+                      value={checkoutInput.entrance}
+                      name="entrance"
+                    />
+                  </div>
                 </p>{" "}
                 <p>
                   <label className="checkout--label-1">Домофон</label>
-                  <input
-                    onChange={handleInput}
-                    className="checkout--input-2"
-                    type="text"
-                    value={checkoutInput.intercom}
-                    name="intercom"
-                  />
+                  <div className="checkout--input-2">
+                    <input
+                      onChange={handleInput}
+                      type="text"
+                      value={checkoutInput.intercom}
+                      name="intercom"
+                    />
+                  </div>
                 </p>
               </p>
               <p>
@@ -356,12 +364,14 @@ function Checkout({ isDelivery }) {
                 <label className="checkout--label-1">
                   Выберите дату доставки:
                 </label>
-                <input
-                  // type="date"
-                  type={"text"}
-                  className="checkout--input-1"
-                  placeholder="dd-mm-yyyy"
-                />
+                <div>
+                  <input
+                    // type="date"
+                    type={"text"}
+                    className="checkout--input-1"
+                    placeholder="dd-mm-yyyy"
+                  />
+                </div>
               </p>
               <p>
                 <label className="checkout--label-1">Наличие лифта</label>

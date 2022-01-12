@@ -180,7 +180,7 @@ function ProductPage(props) {
                     {oneProduct.title}
                   </div>
                   <div className="productPage__top--price">
-                    <span>{oneProduct.price}$</span>
+                    <span>{oneProduct.discount_price}$</span>
                   </div>
                   <div className="productPage__top--availibility">
                     <span style={{ color: "#343E63", fontWeight: "700" }}>
@@ -283,7 +283,7 @@ function ProductPage(props) {
                     {oneProduct.title}
                   </div>
                   <div className="productPage__top--price">
-                    <span>{oneProduct.price}$</span>
+                    <span>{oneProduct.discount_price}$</span>
                   </div>
                   <div className="productPage__top--availibility">
                     <span style={{ color: "#343E63", fontWeight: "700" }}>

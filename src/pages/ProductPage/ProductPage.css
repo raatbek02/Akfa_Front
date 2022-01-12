@@ -80,7 +80,7 @@
   height: 100%;
   border-radius: 10px;
   display: block;
-  object-fit: cover;
+  object-fit: contain;
 }
 .productPage__top--mainImage span {
   font-size: 12px;
@@ -101,7 +101,7 @@
 
 .productPage__top--title {
   text-align: center;
-  font-size: 24px;
+  font-size: 20px;
   color: #3f3d56;
   font-family: Geometria;
   font-weight: 700;
@@ -111,7 +111,7 @@
   margin: 25px 5px 30px 0;
 }
 .productPage__top--price span {
-  font-size: 36px;
+  font-size: 30px;
   font-weight: 700;
   color: transparent;
   -webkit-background-clip: text;
@@ -557,6 +557,9 @@
   .productPage__top--mainImage div {
     height: 200px;
   }
+  .productPage__top--mainImage div img {
+    object-fit: cover;
+  }
   .productPage__top--restImages .restimage {
     width: 30px;
     height: 30px;
@@ -660,4 +663,3 @@
 }
 
 /* ///////////////////////////////////////////////// */
-

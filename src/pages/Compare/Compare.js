@@ -68,7 +68,7 @@ function Compare() {
                         <div className="compare__item--content">
                           <div className="compare__name">{el.title}</div>
                           <div className="compare__price">
-                            <span>{el.price} $</span>
+                            <span>{el.discount_price} $</span>
                           </div>
 
                           <div

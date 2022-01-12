@@ -107,7 +107,7 @@ function SearchPage() {
                   <div className="product__item--content">
                     <div className="product__name">{el.title}</div>
                     <div className="product__price">
-                      <span>{el.price} $</span>
+                      <span>{el.discount_price} $</span>
                       <span> есть</span>
                     </div>
 
