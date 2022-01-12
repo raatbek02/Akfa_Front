@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 // import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
+
 import { useCart } from "react-use-cart";
 import SwiperCore, { Thumbs } from "swiper";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
@@ -17,6 +18,8 @@ import product_compare_logo from "../../assets/images/new_design/product_compare
 import minus_cart from "../../assets/images/new_design/minus_cart.svg";
 import plus_cart from "../../assets/images/new_design/plus_cart.svg";
 import depp from "../../assets/images/new_design/depp.png";
+import home from "../../assets/images/new_design/home.png";
+
 import { $host } from "../../http";
 
 SwiperCore.use([Thumbs]);
@@ -29,6 +32,8 @@ function ProductPage(props) {
   const [kits, setKits] = useState(false);
   const [sorting, setSorting] = React.useState("");
   const [mainImg, setMainImg] = useState("");
+
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setSorting(event.target.value);
@@ -113,7 +118,15 @@ function ProductPage(props) {
     <div className="productPage">
       <div className="productPage__container">
         <div className="productPage__path">
-          {oneProduct.category} / {oneProduct.subcategory}
+          <div
+            onClick={() => navigate("/")}
+            className="productPage__path--icon"
+          >
+            <img src={home} alt="No img" />
+          </div>{" "}
+          <div>
+            {oneProduct.category} / {oneProduct.subcategory}
+          </div>
         </div>
         <div className="productPage__content">
           <div className="productPage__top">
@@ -235,16 +248,28 @@ function ProductPage(props) {
 
                 <div className="productPage__top--restImages">
                   <div>
-                    <div className="restimage">
+                    <div
+                      className="restimage"
+                      onClick={() => setMainImg(oneProduct.main_photo)}
+                    >
                       <img src={oneProduct.main_photo} alt="No img" />
                     </div>
-                    <div className="restimage">
+                    <div
+                      className="restimage"
+                      onClick={() => setMainImg(oneProduct.photo_1)}
+                    >
                       <img src={oneProduct.photo_1} alt="No img" />
                     </div>{" "}
-                    <div className="restimage">
+                    <div
+                      className="restimage"
+                      onClick={() => setMainImg(oneProduct.photo_2)}
+                    >
                       <img src={oneProduct.photo_2} alt="No img" />
                     </div>{" "}
-                    <div className="restimage">
+                    <div
+                      className="restimage"
+                      onClick={() => setMainImg(oneProduct.photo_3)}
+                    >
                       <img src={oneProduct.photo_3} alt="No img" />
                     </div>
                   </div>

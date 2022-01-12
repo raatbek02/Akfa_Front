@@ -9,8 +9,14 @@
   padding: 150px 120px;
 }
 .productPage__path {
+  display: flex;
+  align-items: center;
   font-size: 14px;
   margin-bottom: 20px;
+}
+.productPage__path--icon {
+  margin-right: 10px;
+  cursor: pointer;
 }
 .productPage__top {
   display: flex;

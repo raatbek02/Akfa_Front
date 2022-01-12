@@ -18,3 +18,13 @@
 .char__content table td:last-child {
   border-right: solid red;
 }
+
+/* *********************************  MEDIA QUERY  *************************************** */
+
+/* *********************************  max-width: 575px  *************************************** */
+
+@media (max-width: 575px) {
+  .char__content ul li {
+    font-size: 12px;
+  }
+}
