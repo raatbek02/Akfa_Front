@@ -223,7 +223,7 @@
 }
 
 .cart__total--buttons .cart__total--priceButton {
-  background: #fff;
+  /* background: #fff; */
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
@@ -236,12 +236,12 @@
   cursor: pointer;
   transition: all 0.3s linear;
 }
-.cart__total--buttons .cart__total--priceButton:hover {
+/* .cart__total--buttons .cart__total--priceButton:hover {
   color: rgba(170, 39, 39, 1);
 }
 .cart__total--buttons .cart__total--priceButton:active {
   border: 3px solid rgba(170, 39, 39, 1);
-}
+} */
 
 .checkout .checkout--button {
   margin-top: 30px;
@@ -392,9 +392,10 @@
   .cart__bottom .checkout .checkout--flex-fields {
     flex-direction: column;
   }
-  .checkout--flex-fields p input {
+  .checkout--flex-fields .checkout--input-2 {
     max-width: unset;
     width: 100%;
+    height: 100%;
   }
   .cart__bottom .checkout .checkout--label-1 {
     font-size: 16px;

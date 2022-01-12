@@ -364,11 +364,10 @@ function Checkout({ isDelivery }) {
                 <label className="checkout--label-1">
                   Выберите дату доставки:
                 </label>
-                <div>
+                <div className="checkout--input-1">
                   <input
                     // type="date"
                     type={"text"}
-                    className="checkout--input-1"
                     placeholder="dd-mm-yyyy"
                   />
                 </div>
