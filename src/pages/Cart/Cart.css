@@ -222,26 +222,19 @@
   border: 1px solid rgb(139, 25, 25);
 }
 
-.cart__total--buttons .cart__total--priceButton {
+.cart__total--priceButton {
   /* background: #fff; */
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-  background-image: linear-gradient(
-    90deg,
-    rgba(255, 72, 72, 1) 0%,
-    rgba(170, 39, 39, 1) 100%
-  );
+  color: rgba(170, 39, 39, 1);
   border: 2px solid rgba(170, 39, 39, 1);
   cursor: pointer;
   transition: all 0.3s linear;
 }
-/* .cart__total--buttons .cart__total--priceButton:hover {
-  color: rgba(170, 39, 39, 1);
+.cart__total--priceButton:hover {
+  color: rgb(131, 7, 7);
 }
-.cart__total--buttons .cart__total--priceButton:active {
-  border: 3px solid rgba(170, 39, 39, 1);
-} */
+.cart__total--priceButton:active {
+  border: 3px solid rgb(0, 0, 0);
+}
 
 .checkout .checkout--button {
   margin-top: 30px;
