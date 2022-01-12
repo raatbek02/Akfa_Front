@@ -242,7 +242,9 @@ function CategoriesPage() {
                     }}
                     className={subCategory_id === obj.id ? "active" : ""}
                   >
-                    {obj.title}
+                    <span className="categoriesPage__sorting--mobile--li">
+                      {obj.title}
+                    </span>
                   </MenuItem>
                 );
               })}

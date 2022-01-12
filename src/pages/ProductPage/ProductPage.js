@@ -138,7 +138,7 @@ function ProductPage(props) {
                       onClick={() => setMainImg(oneProduct.main_photo)}
                       className="restimage"
                     >
-                      <img src={mainImg} alt="No img" />
+                      <img src={oneProduct.main_photo} alt="No img" />
                     </div>
                     <div
                       onClick={() => setMainImg(oneProduct.photo_1)}
@@ -241,7 +241,7 @@ function ProductPage(props) {
               <div className="productPage__top--data-left">
                 <div className="productPage__top--mainImage">
                   <div>
-                    <img src={oneProduct.main_photo} alt="No img" />
+                    <img src={mainImg} alt="No img" />
                   </div>
                   <p>Код товара: AR-Mammo</p>
                 </div>
