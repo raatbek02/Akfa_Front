@@ -296,14 +296,15 @@
   .header__mobile--button::after {
     left: 0;
     position: absolute;
-    height: 10%;
+    height: 2px;
     width: 100%;
     transition: all 0.3s linear;
     background-color: #000;
+    border-radius: 3px;
   }
-  .header__mobile--button::after {
-    height: 5%;
-  }
+  /* .header__mobile--button::after {
+    height: 1px;
+  } */
   .header__mobile--button::before,
   .header__mobile--button::after {
     content: "";
@@ -361,15 +362,16 @@
   }
   .header__mobile--menu ul li {
     margin: 0 0 30px 0;
-    font-size: 24px;
+    font-size: 20px;
     color: #2e2d2d;
+    font-weight: 700;
   }
   .header__assets {
-    font-size: 24px;
+    font-size: 20px;
     cursor: pointer;
     transition: all 0.3s linear;
     color: #2e2d2d;
-    font-weight: 500;
+    font-weight: 700;
     font-family: Geometria;
   }
   .header__assets .item {

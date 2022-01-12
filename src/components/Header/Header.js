@@ -250,7 +250,7 @@ function Header() {
                     onClick={() => setActiveMobileMenu(false)}
                   >
                     <span>Сравнения</span>
-                    <Badge badgeContent={totalUniqueItems} color="error">
+                    <Badge badgeContent={compareProducts.length} color="error">
                       <img src={compare_logo} alt="No img" />
                     </Badge>
                   </Link>

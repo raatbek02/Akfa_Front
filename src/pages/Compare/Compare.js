@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeCompareItem } from "../../store/compare";
 import "./Compare.css";
 import empty_compare from "../../assets/images/new_design/empty_compare.png";
+import bin_compare from "../../assets/images/new_design/bin_compare.png";
+
 import { $host } from "../../http";
 
 function Compare() {
@@ -64,10 +66,13 @@ function Compare() {
                           <div className="compare__price">
                             <span>{el.price} $</span>
                           </div>
-                          <i
+
+                          <div
                             onClick={() => dispatch(removeCompareItem(el.id))}
-                            class="far fa-trash-alt"
-                          ></i>
+                            className="compare__bin"
+                          >
+                            <img src={bin_compare} alt="No" />
+                          </div>
                         </div>
                       </div>
 

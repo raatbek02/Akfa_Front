@@ -37,6 +37,11 @@ function NewsDetail() {
           <span>{oneNews.title}</span>
         </h2>
         <div className="newsDetail__content">
+          <div className="newsDetail__right mobile">
+            <div className="newsDetail__right--img">
+              <img src={oneNews.image} alt="No img" />
+            </div>
+          </div>
           <div className="newsDetail__left">
             <div className="newsDetail__text">{oneNews.description}</div>
           </div>

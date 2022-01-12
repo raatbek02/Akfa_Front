@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import { useCart } from "react-use-cart";
 import { toast } from "react-toastify";
 
@@ -9,12 +10,14 @@ import product_cart_logo from "../../assets/images/new_design/product_cart_logo.
 import product_compare_logo from "../../assets/images/new_design/product_compare_logo.svg";
 import { getCompareProducts } from "../../store/compare";
 import { $host } from "../../http";
+import { PRODUCT_PAGE_ROUTE } from "../../utils/consts";
 
 function Kits({ oneProduct }) {
   const [kitsProducts, setKitsProducts] = useState([]);
   const [count, setCount] = useState(1);
   const { addItem } = useCart();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
   const token = JSON.parse(localStorage.getItem("token"));
   const compare_products_local = useSelector(
@@ -87,7 +90,7 @@ function Kits({ oneProduct }) {
             kitsProducts.results.map((el) => {
               return (
                 <div
-                  // onClick={() => navigate(`${PRODUCT_PAGE_ROUTE}/${el.id}`)}
+                  onClick={() => navigate(`${PRODUCT_PAGE_ROUTE}/${el.id}`)}
                   className="product__item"
                   key={el.id}
                 >

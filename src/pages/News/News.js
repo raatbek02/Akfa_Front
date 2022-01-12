@@ -53,7 +53,7 @@ function News() {
                   <div className="news__item--img">
                     <img src={el.image} alt="No img" />
                   </div>
-                  <p className="news__item--text">{el.description}</p>
+                  <p className="news__item--text">{el.title}</p>
                 </div>
               );
             })}
