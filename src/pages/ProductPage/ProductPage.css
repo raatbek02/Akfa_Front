@@ -643,9 +643,12 @@
 /* *********************************  max-width: 450px  *************************************** */
 
 @media (max-width: 450px) {
+  .productPage__top-addCart span {
+    margin-left: 0;
+  }
   .productPage__top-addCart {
     font-size: 10px;
-    padding: 4px 3px;
+    padding: 5px 8px;
   }
 
   .productPage__top--contactButton button {

@@ -11,10 +11,12 @@ import product_compare_logo from "../../assets/images/new_design/product_compare
 import { getCompareProducts } from "../../store/compare";
 import { $host } from "../../http";
 import { PRODUCT_PAGE_ROUTE } from "../../utils/consts";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function Kits({ oneProduct }) {
   const [kitsProducts, setKitsProducts] = useState([]);
   const [count, setCount] = useState(1);
+  const [loading, setLoading] = useState(true);
   const { addItem } = useCart();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,7 +36,10 @@ function Kits({ oneProduct }) {
     const getOneProduct = async () => {
       await $host
         .get(`api/products?kits=${oneProduct.kits}`)
-        .then(({ data }) => setKitsProducts(data));
+        .then(({ data }) => setKitsProducts(data))
+        .finally(() => {
+          setLoading(false);
+        });
     };
     getOneProduct();
   }, []);
@@ -81,6 +86,14 @@ function Kits({ oneProduct }) {
       warnCompareAdded();
     }
   };
+
+  if (loading) {
+    return (
+      <div className="loading--block">
+        <CircularProgress color="error" />
+      </div>
+    );
+  }
 
   return (
     <div className="kits">

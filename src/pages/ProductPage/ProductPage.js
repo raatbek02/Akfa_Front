@@ -7,6 +7,7 @@ import { useCart } from "react-use-cart";
 import SwiperCore, { Thumbs } from "swiper";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { toast } from "react-toastify";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import Description from "./Description";
 import Kits from "./Kits";
@@ -32,6 +33,7 @@ function ProductPage(props) {
   const [kits, setKits] = useState(false);
   const [sorting, setSorting] = React.useState("");
   const [mainImg, setMainImg] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -59,10 +61,15 @@ function ProductPage(props) {
 
   useEffect(() => {
     const getOneProduct = async () => {
-      await $host.get(`api/products/${id}`).then(({ data }) => {
-        setOneProduct(data);
-        setMainImg(data.main_photo);
-      });
+      await $host
+        .get(`api/products/${id}`)
+        .then(({ data }) => {
+          setOneProduct(data);
+          setMainImg(data.main_photo);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     };
     getOneProduct();
   }, []);
@@ -113,6 +120,14 @@ function ProductPage(props) {
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  if (loading) {
+    return (
+      <div className="loading--block">
+        <CircularProgress color="error" />
+      </div>
+    );
+  }
 
   return (
     <div className="productPage">
