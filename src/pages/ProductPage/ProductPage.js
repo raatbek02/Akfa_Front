@@ -394,7 +394,7 @@ function ProductPage(props) {
             </div>
 
             <div className="productPage__bottom--toggles mobile">
-              <FormControl sx={{ m: 1, minWidth: 150 }}>
+              <FormControl sx={{ m: 1, minWidth: 150 }} color="error">
                 <InputLabel id="demo-simple-select-autowidth-label">
                   О товаре
                 </InputLabel>

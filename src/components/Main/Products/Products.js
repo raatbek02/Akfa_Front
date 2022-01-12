@@ -133,7 +133,7 @@ function Products() {
   if (loading) {
     return (
       <div className="loading--block">
-        <CircularProgress color="secondary" />
+        <CircularProgress color="error" />
       </div>
     );
   }
@@ -174,7 +174,7 @@ function Products() {
           })}
         </ul>
         <div className="product__sorting--mobile">
-          <FormControl sx={{ m: 1, minWidth: 150 }}>
+          <FormControl sx={{ m: 1, minWidth: 150 }} color="error">
             <InputLabel id="demo-simple-select-autowidth-label">
               Сортировка
             </InputLabel>

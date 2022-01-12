@@ -36,7 +36,7 @@ function Banner() {
   if (loading) {
     return (
       <div className="loading--block">
-        <CircularProgress color="secondary" />
+        <CircularProgress color="error" />
       </div>
     );
   }
