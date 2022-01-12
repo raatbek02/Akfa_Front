@@ -25,7 +25,7 @@ function CategoryBannerDetail() {
   if (loading) {
     return (
       <div className="loading--banner">
-        <CircularProgress color="secondary" />
+        <CircularProgress color="error" />
       </div>
     );
   }
