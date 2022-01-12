@@ -23,6 +23,10 @@ function BannerDetail() {
     getOneProduct();
   }, []);
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   if (loading) {
     return (
       <div className="loading--banner">

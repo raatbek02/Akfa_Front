@@ -1,12 +1,15 @@
-import React from 'react'
-import Main from '../components/Main/Main'
+import React from "react";
+import Main from "../components/Main/Main";
 
 function Home() {
-	return (
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  return (
     <div style={{ background: "#FAFAF2" }}>
       <Main />
     </div>
   );
 }
 
-export default Home
+export default Home;

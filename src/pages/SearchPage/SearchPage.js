@@ -76,6 +76,10 @@ function SearchPage() {
     }
   };
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="searchPage">
       <div className="searchPage__container">

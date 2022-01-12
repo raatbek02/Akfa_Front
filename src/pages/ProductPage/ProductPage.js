@@ -105,6 +105,10 @@ function ProductPage(props) {
     }
   };
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="productPage">
       <div className="productPage__container">
@@ -235,13 +239,13 @@ function ProductPage(props) {
                       <img src={oneProduct.main_photo} alt="No img" />
                     </div>
                     <div className="restimage">
-                      <img src={oneProduct.main_photo} alt="No img" />
+                      <img src={oneProduct.photo_1} alt="No img" />
                     </div>{" "}
                     <div className="restimage">
-                      <img src={oneProduct.main_photo} alt="No img" />
+                      <img src={oneProduct.photo_2} alt="No img" />
                     </div>{" "}
                     <div className="restimage">
-                      <img src={oneProduct.main_photo} alt="No img" />
+                      <img src={oneProduct.photo_3} alt="No img" />
                     </div>
                   </div>
                 </div>

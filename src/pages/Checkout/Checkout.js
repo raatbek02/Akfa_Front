@@ -32,7 +32,7 @@ function Checkout({ isDelivery }) {
   });
   //   const onSubmit = (data) => {};
 
-    const token = JSON.parse(localStorage.getItem("token"));
+  const token = JSON.parse(localStorage.getItem("token"));
   const cart_id = localStorage.getItem("cart_id");
   //   const dispatch = useDispatch();
   const user = useSelector((s) => s.userSlice.user);
@@ -176,6 +176,9 @@ function Checkout({ isDelivery }) {
       });
   };
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="checkout" id="checkout">
       <form

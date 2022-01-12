@@ -4,6 +4,9 @@ import about_img from "../../assets/images/about_img.png";
 import about_service from "../../assets/images/new_design/about_service.png";
 
 function About() {
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="about">
       <div className="about__container">

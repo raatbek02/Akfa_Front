@@ -142,6 +142,10 @@ function Cart() {
   //       return <p>Ваша корзина пустая! </p>;
   //     }
   //   }
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="cart">
       <div className="cart__container">

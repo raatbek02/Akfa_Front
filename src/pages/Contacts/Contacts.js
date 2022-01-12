@@ -15,6 +15,10 @@ function Contacts() {
     };
     getContactData();
   }, []);
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="contacts">
       <div className="contacts__container">

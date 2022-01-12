@@ -3,6 +3,9 @@ import "./Delivery.css";
 import delivery from "../../assets/images/delivery.png";
 
 function Delivery() {
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="delivery">
       <div className="delivery__container">
