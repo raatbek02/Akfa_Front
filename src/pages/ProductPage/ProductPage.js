@@ -138,37 +138,37 @@ function ProductPage(props) {
                       onClick={() => setMainImg(oneProduct.main_photo)}
                       className="restimage"
                     >
-                      <img src={oneProduct.main_photo} alt="No img" />
+                      <img src={oneProduct.main_photo} alt="" />
                     </div>
                     <div
                       onClick={() => setMainImg(oneProduct.photo_1)}
                       className="restimage"
                     >
-                      <img src={oneProduct.photo_1} alt="No img" />
+                      <img src={oneProduct.photo_1} alt="" />
                     </div>{" "}
                     <div
                       onClick={() => setMainImg(oneProduct.photo_2)}
                       className="restimage"
                     >
-                      <img src={oneProduct.photo_2} alt="No img" />
+                      <img src={oneProduct.photo_2} alt="" />
                     </div>{" "}
                     <div
                       onClick={() => setMainImg(oneProduct.photo_3)}
                       className="restimage"
                     >
-                      <img src={oneProduct.photo_3} alt="No img" />
+                      <img src={oneProduct.photo_3} alt="" />
                     </div>{" "}
                     <div
                       onClick={() => setMainImg(oneProduct.photo_4)}
                       className="restimage"
                     >
-                      <img src={oneProduct.photo_4} alt="No img" />
+                      <img src={oneProduct.photo_4} alt="" />
                     </div>
                   </div>
                 </div>
                 <div className="productPage__top--mainImage">
                   <div>
-                    <img src={mainImg} alt="No img" />
+                    <img src={mainImg} alt="" />
                   </div>
                 </div>
               </div>
@@ -241,7 +241,7 @@ function ProductPage(props) {
               <div className="productPage__top--data-left">
                 <div className="productPage__top--mainImage">
                   <div>
-                    <img src={mainImg} alt="No img" />
+                    <img src={mainImg} alt="" />
                   </div>
                   <p>Код товара: AR-Mammo</p>
                 </div>
@@ -252,25 +252,25 @@ function ProductPage(props) {
                       className="restimage"
                       onClick={() => setMainImg(oneProduct.main_photo)}
                     >
-                      <img src={oneProduct.main_photo} alt="No img" />
+                      <img src={oneProduct.main_photo} alt="" />
                     </div>
                     <div
                       className="restimage"
                       onClick={() => setMainImg(oneProduct.photo_1)}
                     >
-                      <img src={oneProduct.photo_1} alt="No img" />
+                      <img src={oneProduct.photo_1} alt="" />
                     </div>{" "}
                     <div
                       className="restimage"
                       onClick={() => setMainImg(oneProduct.photo_2)}
                     >
-                      <img src={oneProduct.photo_2} alt="No img" />
+                      <img src={oneProduct.photo_2} alt="" />
                     </div>{" "}
                     <div
                       className="restimage"
                       onClick={() => setMainImg(oneProduct.photo_3)}
                     >
-                      <img src={oneProduct.photo_3} alt="No img" />
+                      <img src={oneProduct.photo_3} alt="" />
                     </div>
                   </div>
                 </div>

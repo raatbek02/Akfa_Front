@@ -218,7 +218,7 @@ function CategoriesPage() {
         </div>
 
         <div className="categoriesPage__sorting--mobile">
-          <FormControl sx={{ m: 1, minWidth: 150 }}>
+          <FormControl sx={{ m: 1, minWidth: 150 }} color="error">
             <InputLabel id="demo-simple-select-autowidth-label">
               Подкатегории
             </InputLabel>

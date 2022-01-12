@@ -34,7 +34,7 @@ function News_blog() {
             }
           >
             <div className="news_blog__item--img">
-              <img src={newsData[0] && newsData[0].image} alt="No img" />
+              <img src={newsData[0] && newsData[0].image} alt="" />
             </div>
             <p className="news_blog__item--text">
               {newsData[0] && newsData[0].title}
@@ -47,7 +47,7 @@ function News_blog() {
             }
           >
             <div className="news_blog__item--img">
-              <img src={newsData[1] && newsData[1].image} alt="No img" />
+              <img src={newsData[1] && newsData[1].image} alt="" />
             </div>
             <p className="news_blog__item--text">
               {newsData[1] && newsData[1].title}
