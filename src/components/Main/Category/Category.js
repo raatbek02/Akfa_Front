@@ -46,7 +46,7 @@ function Category() {
           <ul>
             {category.map((obj) => {
               return (
-                <li>
+                <li key={obj.id}>
                   <button
                     key={obj.id}
                     onMouseOver={() => {

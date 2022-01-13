@@ -282,7 +282,7 @@ function Header() {
       <Modal active={modalAuth} setActive={setModalAuth}>
         <Auth />
       </Modal>
-      <CatalogModal>{<Category />}</CatalogModal>
+      <CatalogModal active={activeMobileMenu}>{<Category />}</CatalogModal>
     </header>
   );
 }

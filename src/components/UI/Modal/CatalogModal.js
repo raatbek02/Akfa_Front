@@ -8,8 +8,8 @@ function CatalogModal({ active, setActive, children }) {
   const modalCatalog = useSelector((s) => s.modalCatalog.modalCatalog);
 
   useEffect(() => {
-    const body = document.querySelector("body");
-    body.style.overflow = active ? "hidden" : "auto";
+    const html = document.querySelector("html");
+    html.style.overflowY = active ? "hidden" : "auto";
   }, [active]);
 
   return (
