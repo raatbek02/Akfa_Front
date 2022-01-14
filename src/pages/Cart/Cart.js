@@ -18,6 +18,9 @@ import empty_cart_logo from "../../assets/images/new_design/empty_cart.png";
 import "./Cart.css";
 import Checkout from "../Checkout/Checkout";
 import { $host } from "../../http/index";
+import { useNavigate } from "react-router-dom";
+import { PDF_PAGE } from "../../utils/consts";
+import HtmlToPdf from "../PdfPage/HtmlToPdf";
 
 function Cart() {
   const [isDelivery, setIsDelivery] = useState(true);
@@ -30,7 +33,7 @@ function Cart() {
   const { totalUniqueItems, items, updateItemQuantity, removeItem, cartTotal } =
     useCart();
   const dispatch = useDispatch();
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
   //   const user = useSelector((s) => s.userSlice.user);
   const token = JSON.parse(localStorage.getItem("token"));
   const isAuth = useSelector((s) => s.isAuthSlice.isAuth);
@@ -388,10 +391,13 @@ function Cart() {
                         Перейти к оформлению
                       </button>
                     </Link>
-
-                    <button className="cart__total--priceButton">
+							<HtmlToPdf />
+                    {/* <button
+                      onClick={() => HtmlToPdf}
+                      className="cart__total--priceButton"
+                    >
                       Счет на оплату
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>

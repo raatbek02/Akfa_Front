@@ -24,11 +24,13 @@ import {
   HOME_ROUTE,
   NEWS_DETAIL__ROUTE,
   NEWS_ROUTE,
+  //   PDF_PAGE,
   PRIVATE__ROUTE,
   PRODUCT_PAGE_ROUTE,
   SEARCH__ROUTE,
 } from "./utils/consts";
 import BannerDetail from "./pages/NewsDetail/BannerDetail";
+// import PdfPage from "./pages/PdfPage/PdfPage";
 
 export const authRoutes = [
   {
@@ -94,4 +96,8 @@ export const publicRoutes = [
     path: BANNER_DETAIL__ROUTE + "/:id",
     Component: <BannerDetail />,
   },
+  //   {
+  //     path: PDF_PAGE,
+  //     Component: <PdfPage />,
+  //   },
 ];

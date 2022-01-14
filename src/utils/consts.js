@@ -12,7 +12,6 @@ export const SEARCH__ROUTE = "/search";
 export const NEWS_DETAIL__ROUTE = "/newsDetail";
 export const CATEGORY_BANNER_DETAIL__ROUTE = "/categoryBannerDetail";
 export const BANNER_DETAIL__ROUTE = "/bannerDetail";
-
-
+// export const PDF_PAGE = "/pdfPage";
 
 export const PRIVATE__ROUTE = "/private";
