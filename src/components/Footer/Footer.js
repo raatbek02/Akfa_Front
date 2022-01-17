@@ -33,8 +33,6 @@ function Footer() {
       phone: backCallInput.phone,
     };
 
-	  
-
     $host
       .post(`api/backcall`, data, {
         headers: {
@@ -74,7 +72,13 @@ function Footer() {
           </div>
           <div className="footer__map">
             <div className="footer__map--img">
-              <img src={footer_map} alt="No img" />
+              <a
+                href="https://www.google.com/maps/place/65+%D1%83%D0%BB.+%D0%91%D0%B0%D0%B9%D1%82%D0%B8%D0%BA+%D0%B1%D0%B0%D0%B0%D1%82%D1%8B%D1%80%D0%B0,+%D0%91%D0%B8%D1%88%D0%BA%D0%B5%D0%BA/@42.8593988,74.6086425,17z/data=!4m5!3m4!1s0x389eb63482b0b2c5:0x7a3e60fca80c223d!8m2!3d42.8593988!4d74.6108312"
+                target={"_blank"}
+                rel="noreferrer"
+              >
+                <img src={footer_map} alt="No img" />
+              </a>
             </div>
           </div>
           <div className="footer__form">

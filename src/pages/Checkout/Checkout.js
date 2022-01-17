@@ -20,7 +20,6 @@ function Checkout({ isDelivery }) {
     date: "",
     radio: "",
   });
-  console.log("checkoutInput.radio", checkoutInput.radio);
   const [checkboxes, setCheckboxes] = useState([]);
 
   const {
@@ -176,6 +175,7 @@ function Checkout({ isDelivery }) {
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   return (
     <div className="checkout" id="checkout">
       <form

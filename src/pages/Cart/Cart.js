@@ -29,7 +29,6 @@ function Cart() {
   //   const [authCart, setAuthCart] = useState([]);
   //   const authCartLS = JSON.parse(localStorage.getItem("auth_cart_items"));
   const authCart = useSelector((s) => s.cartSlice.authCart);
-  console.log("authCart", authCart);
   const { totalUniqueItems, items, updateItemQuantity, removeItem, cartTotal } =
     useCart();
   const dispatch = useDispatch();

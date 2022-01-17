@@ -35,15 +35,11 @@ function CategoriesPage() {
   const [sorting, setSorting] = useState("");
   const [loading, setLoading] = useState(true);
 
-  console.log("categoryProducts", categoryProducts);
-
   const { addItem, items } = useCart();
 
   const handleChange = (event) => {
     setSorting(event.target.value);
   };
-
-  console.log("CategoryPage added items ", items);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -113,8 +109,6 @@ function CategoriesPage() {
       })
       .then((res) => {
         setCount(count);
-
-        console.log("Success", res);
       })
       .catch((e) => {
         console.log("Ошибка", e);
@@ -231,7 +225,6 @@ function CategoriesPage() {
               label="Подкатегории"
             >
               {subcategory.map((obj) => {
-                console.log("obj.id ,subCategory_id", obj.id, subCategory_id);
                 return (
                   <MenuItem
                     value={obj.id}
