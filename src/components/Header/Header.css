@@ -166,7 +166,7 @@
 }
 .header__assets {
 }
-.header__assets-top div:hover {
+.header__assets-top div button:hover {
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
@@ -186,13 +186,17 @@
 .header__assets-top div {
   text-align: center;
 }
-.header__assets-top div p {
+.header__assets-top div button p {
   font-size: 12px;
   font-weight: 700;
+  font-family: Geometria;
 }
 
 .header__assets-top div {
   margin-right: 30px;
+  cursor: pointer;
+}
+.header__assets-top div button {
   cursor: pointer;
 }
 .header__assets-top div:last-child {
@@ -371,7 +375,14 @@
     color: #2e2d2d;
     font-weight: 700;
   }
-  .header__assets {
+  .header__asset--mobile {
+    font-size: 20px;
+    transition: all 0.3s linear;
+    color: #2e2d2d;
+    font-weight: 700;
+    font-family: Geometria;
+  }
+  .header__asset--mobile button {
     font-size: 20px;
     cursor: pointer;
     transition: all 0.3s linear;
@@ -379,18 +390,18 @@
     font-weight: 700;
     font-family: Geometria;
   }
-  .header__assets .item {
+  .header__asset--mobile .item {
     margin: 0 0 30px 0;
   }
-  .header__assets .item a {
+  .header__asset--mobile .item a {
     display: flex;
     align-items: center;
   }
-  .header__assets .header__login {
+  .header__asset--mobile .header__login {
     display: flex;
     align-items: center;
   }
-  .header__assets .item span {
+  .header__asset--mobile .item span {
     margin-right: 10px;
   }
 }

@@ -129,21 +129,35 @@ function Header() {
             <div className="header__assets">
               <div className="header__assets-top">
                 <div className="header__cart">
-                  <Link to={CART_ROUTE}>
+                  {/* <Link to={CART_ROUTE}>
                     <Badge badgeContent={totalUniqueItems} color="error">
                       <img src={cart_logo} alt="No img" />
                     </Badge>
                     <p>Корзина</p>
-                  </Link>
+                  </Link> */}
+
+                  <button onClick={() => navigate(CART_ROUTE)}>
+                    <Badge badgeContent={totalUniqueItems} color="error">
+                      <img src={cart_logo} alt="No img" />
+                    </Badge>
+                    <p>Корзина</p>
+                  </button>
                 </div>
 
                 <div className="header__compare">
-                  <Link to={COMPARE__ROUTE}>
+                  {/* <Link to={COMPARE__ROUTE}>
                     <Badge badgeContent={compareProducts.length} color="error">
                       <img src={compare_logo} alt="No img" />
                     </Badge>
                     <p>Сравнения</p>
-                  </Link>
+                  </Link> */}
+
+                  <button onClick={() => navigate(COMPARE__ROUTE)}>
+                    <Badge badgeContent={compareProducts.length} color="error">
+                      <img src={compare_logo} alt="No img" />
+                    </Badge>
+                    <p>Сравнения</p>
+                  </button>
                 </div>
 
                 {/* <div
@@ -231,9 +245,9 @@ function Header() {
                 })}
               </ul>
 
-              <div className="header__assets ">
+              <div className="header__asset--mobile ">
                 <div className="header__cart item">
-                  <Link
+                  {/* <Link
                     to={CART_ROUTE}
                     onClick={() => setActiveMobileMenu(false)}
                   >
@@ -241,11 +255,24 @@ function Header() {
                     <Badge badgeContent={totalUniqueItems} color="error">
                       <img src={cart_logo} alt="No img" />
                     </Badge>
-                  </Link>
+                  </Link> */}
+
+                  <button
+                    onClick={() => {
+                      navigate(CART_ROUTE);
+                      setActiveMobileMenu(false);
+                    }}
+                  >
+                    <span>Корзина</span>
+
+                    <Badge badgeContent={totalUniqueItems} color="error">
+                      <img src={cart_logo} alt="No img" />
+                    </Badge>
+                  </button>
                 </div>
 
                 <div className="header__compare item">
-                  <Link
+                  {/* <Link
                     to={COMPARE__ROUTE}
                     onClick={() => setActiveMobileMenu(false)}
                   >
@@ -253,7 +280,20 @@ function Header() {
                     <Badge badgeContent={compareProducts.length} color="error">
                       <img src={compare_logo} alt="No img" />
                     </Badge>
-                  </Link>
+                  </Link> */}
+
+                  <button
+                    onClick={() => {
+                      navigate(COMPARE__ROUTE);
+                      setActiveMobileMenu(false);
+                    }}
+                  >
+                    <span>Сравнения</span>
+
+                    <Badge badgeContent={compareProducts.length} color="error">
+                      <img src={compare_logo} alt="No img" />
+                    </Badge>
+                  </button>
                 </div>
 
                 {/* <div
