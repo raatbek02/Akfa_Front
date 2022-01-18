@@ -92,7 +92,7 @@ function Category() {
         </div>
         <div className="category__right">
           <div className="category__right--img">
-            <img src={onMouse_categoryImage} alt="No img" />;
+            <img src={onMouse_categoryImage} alt="No img" />
           </div>
         </div>
       </div>
