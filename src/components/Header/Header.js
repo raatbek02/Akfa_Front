@@ -146,13 +146,13 @@ function Header() {
                   </Link>
                 </div>
 
-                <div
+                {/* <div
                   // onClick={() => setModalAuth(true)}
                   className="header__login"
                 >
                   <img src={login_logo} alt="No img" />
                   <p>Войти</p>
-                </div>
+                </div> */}
               </div>
               <div className="header__assets-bottom">
                 <input
@@ -256,13 +256,13 @@ function Header() {
                   </Link>
                 </div>
 
-                <div
+                {/* <div
                   // onClick={() => setModalAuth(true)}
                   className="header__login item"
                 >
                   <span>Войти</span>
                   <img src={login_logo} alt="No img" />
-                </div>
+                </div> */}
               </div>
             </nav>
             <div

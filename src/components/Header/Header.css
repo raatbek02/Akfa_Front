@@ -180,7 +180,8 @@
 .header__assets-top {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  /* justify-content: flex-end; */
+  justify-content: space-around;
 }
 .header__assets-top div {
   text-align: center;
@@ -197,9 +198,13 @@
 .header__assets-top div:last-child {
   margin-right: 0;
 }
+.header__compare {
+  margin-right: 0;
+}
 .header__assets-bottom {
   margin-top: 10px;
-  width: 100%;
+  /* width: 100%; */
+  max-width: 180px;
   height: 35px;
   box-shadow: inset 0px 0px 4px rgb(0 0 0 / 25%);
   display: flex;

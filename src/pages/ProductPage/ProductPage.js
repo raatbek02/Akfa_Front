@@ -77,6 +77,7 @@ function ProductPage(props) {
   const plusCount = () => {
     setCount(count + 1);
   };
+
   const minusCount = () => {
     if (count > 1) {
       setCount(count - 1);
@@ -506,3 +507,5 @@ function ProductPage(props) {
 }
 
 export default ProductPage;
+
+
