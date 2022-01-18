@@ -94,6 +94,8 @@
   display: flex;
   align-items: center;
   /* justify-content: center; */
+
+  color: rgb(201, 34, 34);
 }
 /* .news_blog__right {
   width: 30%;
