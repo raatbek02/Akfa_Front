@@ -13,7 +13,7 @@ import {
 import minus_cart from "../../assets/images/new_design/minus_cart.svg";
 import plus_cart from "../../assets/images/new_design/plus_cart.svg";
 import cart_item_remove from "../../assets/images/new_design/cart_item_remove.svg";
-import empty_cart_logo from "../../assets/images/new_design/empty_cart.png";
+import new_empty_cart_logo from "../../assets/images/new_design/new_empty_cart.png";
 
 import "./Cart.css";
 import Checkout from "../Checkout/Checkout";
@@ -390,7 +390,7 @@ function Cart() {
                         Перейти к оформлению
                       </button>
                     </Link>
-							<HtmlToPdf />
+                    <HtmlToPdf />
                     {/* <button
                       onClick={() => HtmlToPdf}
                       className="cart__total--priceButton"
@@ -411,7 +411,7 @@ function Cart() {
               <span>У вас пустая корзина</span>
             </h2>
             <div className="cart__empty--img">
-              <img src={empty_cart_logo} alt="No img" />
+              <img src={new_empty_cart_logo} alt="No img" />
             </div>
           </div>
         )}

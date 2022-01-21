@@ -41,32 +41,37 @@ function News() {
   return (
     <div className="news">
       <div className="news__container">
-        <h2 className="news__title">
-          <span>Новости</span>
-        </h2>
-
         <div className="news__content">
-          <div className="news__left">
-            {newsData.map((el) => {
-              return (
-                <div
-                  onClick={() => navigate(`${NEWS_DETAIL__ROUTE}/${el.id}`)}
-                  className="news__item"
-                  key={el.id}
-                >
-                  <div className="news__item--img">
-                    <img src={el.image} alt="No img" />
+          {newsData.map((el) => {
+            return (
+              <div key={el.id} className="news__item">
+                <div className="news__left">
+                  <div className="news__item--title">{el.title}</div>
+                  <div className="news__item--mobileImage">
+                    <div className="news__img">
+                      <img src={el.image} alt="" />
+                    </div>
                   </div>
-                  <p className="news__item--text">{el.title}</p>
+                  <div className="news__item--description">
+                    {el.description}
+                  </div>
+                  <div className="news__item--buttons">
+                    <button
+                      onClick={() => navigate(`${NEWS_DETAIL__ROUTE}/${el.id}`)}
+                    >
+                      Подробнее
+                    </button>
+                  </div>
                 </div>
-              );
-            })}
-          </div>
-          <div className="news__right">
-            <div className="news__img">
-              <img src={news_img} alt="No img" />
-            </div>
-          </div>
+
+                <div className="news__right">
+                  <div className="news__img">
+                    <img src={el.image} alt="" />
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -74,3 +79,37 @@ function News() {
 }
 
 export default News;
+
+// return (
+//   <div className="news">
+//     <div className="news__container">
+//       <h2 className="news__title">
+//         <span>Новости</span>
+//       </h2>
+
+//       <div className="news__content">
+//         <div className="news__left">
+//           {newsData.map((el) => {
+//             return (
+//               <div
+//                 onClick={() => navigate(`${NEWS_DETAIL__ROUTE}/${el.id}`)}
+//                 className="news__item"
+//                 key={el.id}
+//               >
+//                 <div className="news__item--img">
+//                   <img src={el.image} alt="No img" />
+//                 </div>
+//                 <p className="news__item--text">{el.title}</p>
+//               </div>
+//             );
+//           })}
+//         </div>
+//         <div className="news__right">
+//           <div className="news__img">
+//             <img src={news_img} alt="No img" />
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   </div>
+// );

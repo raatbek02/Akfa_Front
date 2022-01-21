@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function Description() {
-	return (
+  return (
     <>
       <p>
         Аппарат рентгеновский маммографический "AR-Mammo" – эффективное решение
@@ -62,4 +62,4 @@ function Description() {
   );
 }
 
-export default Description
+export default Description;

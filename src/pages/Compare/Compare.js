@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import axios from "axios";
 import { removeCompareItem } from "../../store/compare";
 import "./Compare.css";
-import empty_compare from "../../assets/images/new_design/empty_compare.png";
+import new_empty_compare from "../../assets/images/new_design/new_empty_compare.png";
 import bin_compare from "../../assets/images/new_design/bin_compare.png";
 
 import { $host } from "../../http";
@@ -99,7 +99,7 @@ function Compare() {
               <span>Товары для сравнения отсутствуют</span>
             </h2>
             <div className="compare__empty--img">
-              <img src={empty_compare} alt="No img" />
+              <img src={new_empty_compare} alt="No img" />
             </div>
           </div>
         )}
