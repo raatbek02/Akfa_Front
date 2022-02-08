@@ -15,7 +15,7 @@
   font-weight: 700;
 }
 .products__title h2 span {
-  font-size: 36px;
+  font-size: 30px;
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
@@ -34,7 +34,7 @@
   margin-right: 40px;
   font-family: Geometria;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 18px;
   color: #2e2d2d;
   cursor: pointer;
   position: relative;

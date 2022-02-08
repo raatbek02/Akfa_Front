@@ -13,12 +13,15 @@ import { $host } from "../../../http";
 function Category() {
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
+  const [activeCategory, setActiveCategory] = useState("");
   const [activeSubCategory, setActiveSubCategory] = useState("");
   const [onMouse_id, setOnMouse_id] = useState(1);
   const [onMouse_categoryImage, setOnMouse_categoryImage] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  console.log("category", category);
+  console.log("subCategory", subCategory);
   useEffect(() => {
     const getCategories = async () => {
       await $host.get(`api/categories/`).then(({ data }) => {
@@ -55,10 +58,13 @@ function Category() {
                     }}
                     onClick={() => {
                       setOnMouse_id(obj.id);
-                      //   setActiveCategory(obj.id);
+                      navigate(`${CATEGORIES_PAGE_ROUTE}/${obj.id}`);
+                      dispatch(setModalCatalog(false));
+                      setActiveCategory(obj.id);
                     }}
-
-                    // className={obj.id === activeCategory ? "" : ""}
+                    className={
+                      obj.id === activeCategory ? "active_category" : ""
+                    }
                   >
                     {obj.title}
                   </button>
@@ -81,7 +87,7 @@ function Category() {
                       localStorage.setItem("subCategory_ID", obj.id);
                     }}
                     key={Date.now() * obj.id}
-                    className={activeSubCategory === obj.id ? "" : ""}
+                    className={activeSubCategory === obj.id ? "active" : ""}
                   >
                     {obj.title}
                   </button>

@@ -105,6 +105,7 @@
   color: #3f3d56;
   font-family: Geometria;
   font-weight: 700;
+  margin-top: 20px;
 }
 .productPage__top--price {
   text-align: right;
@@ -228,6 +229,16 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+.productPage__top--contactImg {
+  width: 95px;
+  height: 95px;
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.productPage__top--contactImg img {
+  width: 100%;
 }
 .productPage__top--contactInfo {
   text-align: center;

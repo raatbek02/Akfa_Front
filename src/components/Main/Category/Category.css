@@ -35,6 +35,11 @@
   margin-bottom: 10px;
   cursor: pointer;
 }
+.category__left ul li .active_category {
+  color: rgb(170, 39, 39);
+  
+
+}
 .category__middle {
   width: 26%;
   overflow: scroll;

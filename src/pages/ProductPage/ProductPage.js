@@ -31,6 +31,7 @@ function ProductPage(props) {
   const [description, setDescription] = useState(true);
   const [characteristic, setСharacteristic] = useState(false);
   const [oneProduct, setOneProduct] = useState({});
+  const [managerData, setManagerData] = useState([]);
   const [count, setCount] = useState(1);
   const [kits, setKits] = useState(false);
   const [sorting, setSorting] = React.useState("");
@@ -38,8 +39,6 @@ function ProductPage(props) {
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
-
-  console.log("oneProduct", oneProduct);
 
   const handleChange = (event) => {
     setSorting(event.target.value);
@@ -63,6 +62,9 @@ function ProductPage(props) {
   const warnCompareAdded = () =>
     toast.warn("Максимальное количество товаров для сравнения-4!");
 
+  let text = "122 312 312";
+  let res = text.replace(/\s+/g, "");
+  console.log("res", res);
   useEffect(() => {
     const getOneProduct = async () => {
       await $host
@@ -76,6 +78,15 @@ function ProductPage(props) {
         });
     };
     getOneProduct();
+  }, []);
+
+  useEffect(() => {
+    const getManagerData = async () => {
+      await $host.get(`api/manager/`).then(({ data }) => {
+        setManagerData(data);
+      });
+    };
+    getManagerData();
   }, []);
 
   const plusCount = () => {
@@ -206,11 +217,11 @@ function ProductPage(props) {
                     <span style={{ color: "#343E63", fontWeight: "700" }}>
                       Доступность
                     </span>
-                    : На складе
+                    {oneProduct.is_done ? ": На складе" : ": Нет"}
                   </div>
-                  <div className="productPage__top--additionalInfo">
+                  {/* <div className="productPage__top--additionalInfo">
                     Доп информация
-                  </div>
+                  </div> */}
                 </div>
                 <div className="productPage__top--cartButtons">
                   <span>
@@ -368,45 +379,55 @@ function ProductPage(props) {
             </div>
 
             <div className="productPage__top--contact">
-              <div>
-                <div className="productPage__top--contactInfo">
-                  <div className="productPage__top--contactImg">
-                    <img src={depp} alt="No img" />
-                  </div>
-                  <div className="productPage__top--contactTitle">
-                    Джони Депп
-                  </div>
-                  <ul>
-                    <li>Менеджер по консультацию</li>
-                    <li>+ 996 777 555 555</li>
-                    <li>Depp@gmail.com</li>
-                  </ul>
-                </div>
-                <span style={{ fontWeight: "500", color: "#000" }}>
+              {managerData &&
+                managerData.map((el) => (
+                  <>
+                    <div>
+                      <div className="productPage__top--contactInfo">
+                        <div className="productPage__top--contactImg">
+                          <img src={el.avatar} alt="No img" />
+                        </div>
+                        <div className="productPage__top--contactTitle">
+                          {el.title}
+                        </div>
+                        <ul>
+                          <li>Менеджер по консультацию</li>
+                          <li>{el.phone_number}</li>
+                          <li>{el.email}</li>
+                        </ul>
+                      </div>
+                      {/* <span style={{ fontWeight: "500", color: "#000" }}>
                   Доп информация
-                </span>
-              </div>
-              <div className="productPage__top--contactChat">
-                <a
-                  href="https://wa.me/+996709061234"
-                  target={"_blank"}
-                  rel="noreferrer"
-                >
-                  <p>
-                    Перейти на <span>Whatsapp</span>
-                  </p>
-                </a>
+                </span> */}
+                    </div>
+                    <div className="productPage__top--contactChat">
+                      <a
+                        href={`https://wa.me/${String(el.phone_number).replace(
+                          /\s+/g,
+                          ""
+                        )}`}
+                        target={"_blank"}
+                        rel="noreferrer"
+                      >
+                        <p>
+                          Перейти на <span>Whatsapp</span>
+                        </p>
+                      </a>
 
-                <div className="productPage__top--contactButton">
-                  <a
-                    href="https://wa.me/+996709061234"
-                    target={"_blank"}
-                    rel="noreferrer"
-                  >
-                    <button>Перейти в чат</button>
-                  </a>
-                </div>
-              </div>
+                      <div className="productPage__top--contactButton">
+                        <a
+                          href={`https://wa.me/${String(
+                            el.phone_number
+                          ).replace(/\s+/g, "")}`}
+                          target={"_blank"}
+                          rel="noreferrer"
+                        >
+                          <button>Перейти в чат</button>
+                        </a>
+                      </div>
+                    </div>
+                  </>
+                ))}
             </div>
           </div>
 

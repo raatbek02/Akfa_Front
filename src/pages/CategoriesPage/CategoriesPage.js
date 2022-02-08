@@ -30,10 +30,15 @@ function CategoriesPage() {
   const { id } = useParams();
   const [subcategory, setSubCategory] = useState([]);
   const [categoryProducts, setSubCategoryProducts] = useState([]);
+  const [allCategoryProd, setAllCategoryProd] = useState([]);
   const [count, setCount] = useState(1);
   const [bannerData, setBannerData] = useState([]);
   const [sorting, setSorting] = useState("");
   const [loading, setLoading] = useState(true);
+
+  console.log("subcategory", subcategory);
+  console.log("categoryProducts", categoryProducts);
+  console.log(allCategoryProd, setAllCategoryProd);
 
   const { addItem, items } = useCart();
 
@@ -188,7 +193,7 @@ function CategoriesPage() {
 
         <div className="categoriesPage__title">
           <h2>
-            <span>{categoryProducts[0] && categoryProducts[0].category}</span>
+            <span>{subcategory[0] && subcategory[0].category_item}</span>
           </h2>
         </div>
         <div className="categoriesPage__sorting-wrapper">

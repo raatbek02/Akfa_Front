@@ -232,7 +232,11 @@ function Products() {
                     <div className="product__name">{el.title}</div>
                     <div className="product__price">
                       <span>{el.discount_price} $</span>
-                      <span> есть</span>
+                      {el.is_done ? (
+                        <span> Есть</span>
+                      ) : (
+                        <span style={{ color: "rgb(233, 53, 53)" }}> Нет</span>
+                      )}
                     </div>
 
                     <div className="product__buttons">
