@@ -22,6 +22,8 @@ import depp from "../../assets/images/new_design/depp.png";
 import home from "../../assets/images/new_design/home.png";
 
 import { $host } from "../../http";
+import { CONTACTS_ROUTE } from "../../utils/consts";
+import { Link } from "react-router-dom";
 
 SwiperCore.use([Thumbs]);
 
@@ -36,6 +38,8 @@ function ProductPage(props) {
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
+
+  console.log("oneProduct", oneProduct);
 
   const handleChange = (event) => {
     setSorting(event.target.value);
@@ -209,7 +213,11 @@ function ProductPage(props) {
                   </div>
                 </div>
                 <div className="productPage__top--cartButtons">
-                  <span>Подробнее про условия доставки</span>
+                  <span>
+                    <Link to={CONTACTS_ROUTE}>
+                      Подробнее про условия доставки
+                    </Link>
+                  </span>
                   <div>
                     <div className="productPage__top--counter">
                       <button onClick={minusCount}>
@@ -491,7 +499,7 @@ function ProductPage(props) {
             <div className="productPage__bottom--content">
               {description ? (
                 <div className="productPage__description">
-                  <Description />
+                  <Description oneProduct={oneProduct} />
                 </div>
               ) : characteristic ? (
                 <div>{<Char oneProduct={oneProduct} />}</div>
@@ -507,5 +515,3 @@ function ProductPage(props) {
 }
 
 export default ProductPage;
-
-

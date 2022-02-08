@@ -10,7 +10,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Autoplay, Pagination } from "swiper";
+import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper";
 import { toast } from "react-toastify";
 import { useCart } from "react-use-cart";
 
@@ -24,7 +24,7 @@ import product_cart_logo from "../../assets/images/new_design/product_cart_logo.
 import product_compare_logo from "../../assets/images/new_design/product_compare_logo.svg";
 import { $host } from "../../http";
 
-SwiperCore.use([Autoplay, Pagination]);
+SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 function CategoriesPage() {
   const { id } = useParams();
@@ -154,6 +154,7 @@ function CategoriesPage() {
         <div className="banner__left ">
           <Swiper
             pagination={{ clickable: true }}
+            // navigation={true}
             autoplay={{
               delay: 5000,
               disableOnInteraction: false,
@@ -191,23 +192,74 @@ function CategoriesPage() {
           </h2>
         </div>
         <div className="categoriesPage__sorting-wrapper">
-          <div className="categoriesPage__sorting">
-            <ul>
+          <div className="categoriesPage__sorting above-1200">
+            <Swiper
+              //   pagination={{ clickable: true }}
+              navigation={true}
+              //   autoplay={{
+              //     delay: 5000,
+              //     disableOnInteraction: false,
+              //   }}
+              //   centeredSlides={true}
+              loop={false}
+              speed={900}
+              //   spaceBetween={20}
+              slidesPerView={4}
+            >
               {subcategory.map((obj) => {
                 return (
-                  <li
+                  <SwiperSlide
                     key={obj.id}
                     onClick={() => {
                       dispatch(setSubCategory_id(obj.id));
                       localStorage.setItem("subCategory_ID", obj.id);
                     }}
-                    className={subCategory_id === obj.id ? "active" : ""}
+                    className={
+                      subCategory_id === obj.id
+                        ? "categoriesPage__sorting--item active"
+                        : "categoriesPage__sorting--item"
+                    }
                   >
                     {obj.title}
-                  </li>
+                  </SwiperSlide>
                 );
               })}
-            </ul>
+            </Swiper>
+          </div>
+
+          <div className="categoriesPage__sorting bellow-1200">
+            <Swiper
+              //   pagination={{ clickable: true }}
+              navigation={true}
+              //   autoplay={{
+              //     delay: 5000,
+              //     disableOnInteraction: false,
+              //   }}
+              //   centeredSlides={true}
+              loop={false}
+              speed={900}
+              //   spaceBetween={20}
+              slidesPerView={3}
+            >
+              {subcategory.map((obj) => {
+                return (
+                  <SwiperSlide
+                    key={obj.id}
+                    onClick={() => {
+                      dispatch(setSubCategory_id(obj.id));
+                      localStorage.setItem("subCategory_ID", obj.id);
+                    }}
+                    className={
+                      subCategory_id === obj.id
+                        ? "categoriesPage__sorting--item active"
+                        : "categoriesPage__sorting--item"
+                    }
+                  >
+                    {obj.title}
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
           </div>
         </div>
 

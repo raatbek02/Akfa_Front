@@ -96,6 +96,7 @@ export const publicRoutes = [
     path: BANNER_DETAIL__ROUTE + "/:id",
     Component: <BannerDetail />,
   },
+
   //   {
   //     path: PDF_PAGE,
   //     Component: <PdfPage />,

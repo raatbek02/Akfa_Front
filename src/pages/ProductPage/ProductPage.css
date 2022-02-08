@@ -339,10 +339,8 @@
   background-color: #fff;
   box-shadow: 0px 10px 16px rgba(0, 0, 0, 0.05);
 }
-.productPage__description {
-}
 
-.productPage__description span {
+/* .productPage__description span {
   margin: 40px 0;
   display: block;
   font-weight: 700;
@@ -352,7 +350,7 @@
 }
 .productPage__description ul {
   margin-bottom: 90px;
-}
+} */
 
 .productPage__reviews-item {
   display: flex;

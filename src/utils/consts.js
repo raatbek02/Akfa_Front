@@ -15,3 +15,6 @@ export const BANNER_DETAIL__ROUTE = "/bannerDetail";
 // export const PDF_PAGE = "/pdfPage";
 
 export const PRIVATE__ROUTE = "/private";
+
+
+
