@@ -216,7 +216,7 @@ function Cart() {
                                   </button>
                                 </div>
                                 <div className="cart__price">
-                                  <span>{obj.product.itemTotal}$</span>
+                                  <span>{obj.product.itemTotal} сом</span>
                                 </div>
                               </div>
                               <div className="cart__item--remove">
@@ -271,7 +271,7 @@ function Cart() {
                                     </button>
                                   </div>
                                   <div className="cart__price">
-                                    <span>{obj.itemTotal.toFixed(2)}$</span>
+                                    <span>{obj.itemTotal.toFixed(2)}сом</span>
                                   </div>
                                 </div>
                                 <div className="cart__item--remove">
@@ -328,7 +328,7 @@ function Cart() {
                                     </button>
                                   </div>
                                   <div className="cart__price">
-                                    <span>{obj.itemTotal.toFixed(2)}$</span>
+                                    <span>{obj.itemTotal.toFixed(2)}сом</span>
                                   </div>
                                 </div>
                                 <div className="cart__item--bottomData">

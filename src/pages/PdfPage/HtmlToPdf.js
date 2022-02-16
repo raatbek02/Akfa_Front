@@ -38,7 +38,7 @@ export class ComponentToPrint extends React.PureComponent {
                         <tr>
                           <td>{el.title}</td>
                           <td>{el.quantity}</td>
-                          <td>{el.discount_price}$</td>
+                          <td>{el.discount_price} сом</td>
                         </tr>
                       );
                     })}

@@ -86,6 +86,7 @@
   color: #344f77;
   font-size: 14px;
   font-weight: 700;
+  max-width: 300px;
 }
 
 .cart__counter {
