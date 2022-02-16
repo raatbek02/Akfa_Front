@@ -138,7 +138,7 @@ function Checkout({ isDelivery }) {
       floor: checkoutInput.floor,
       intercom: checkoutInput.intercom,
       note: checkoutInput.note,
-      // date: checkoutInput.date,
+      date: checkoutInput.date,
 
       is_conf_required: checkboxes.is_conf_required,
       is_entity: checkboxes.is_entity,
@@ -366,9 +366,12 @@ function Checkout({ isDelivery }) {
                 </label>
                 <div className="checkout--input-1">
                   <input
-                    // type="date"
-                    type={"text"}
-                    placeholder="dd-mm-yyyy"
+                    type="date"
+                    onChange={handleInput}
+                    value={checkoutInput.date}
+                    name="date"
+                    //   type={"text"}
+                    //   placeholder="dd-mm-yyyy"
                   />
                 </div>
               </p>
