@@ -3,8 +3,8 @@ import "./Description.css";
 
 function Description({ oneProduct }) {
   return (
-    <div className="description">
-      <p>{oneProduct.description}</p>
+    <div  className="description">
+      <p dangerouslySetInnerHTML={{__html:oneProduct.description}}></p>
     </div>
   );
 }
