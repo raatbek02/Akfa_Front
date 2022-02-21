@@ -50,8 +50,6 @@ function Products() {
   const warnCompareAdded = () =>
     toast.warn("Максимальное количество товаров для сравнения-4!");
 
-  console.log("product", product);
-
   useEffect(() => {
     const getProducts = async () => {
       let total = 0;
@@ -233,7 +231,7 @@ function Products() {
                   <div className="product__item--content">
                     <div className="product__name">{el.title}</div>
                     <div className="product__price">
-                      <span>{el.discount_price} сом</span>
+                      <span>{el.discount_price} $</span>
                       {el.is_done ? (
                         <span> Есть</span>
                       ) : (
