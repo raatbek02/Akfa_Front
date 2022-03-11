@@ -9,9 +9,9 @@ function Delivery() {
   return (
     <div className="delivery">
       <div className="delivery__container">
-        <h2 className="delivery__title">
+        <h1 className="delivery__title">
           <span>Доставка и оплата</span>
-        </h2>
+        </h1>
         <div className="delivery__content">
           <div className="delivery__left">
             <div className="delivery__text">

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { CATEGORIES_PAGE_ROUTE } from "../../../utils/consts";
@@ -20,8 +19,6 @@ function Category() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log("category", category);
-  console.log("subCategory", subCategory);
   useEffect(() => {
     const getCategories = async () => {
       await $host.get(`api/categories/`).then(({ data }) => {
@@ -107,32 +104,3 @@ function Category() {
 }
 
 export default Category;
-
-//   return (
-//     <div className="category">
-//       <div className="category__container">
-//         <div className="category__title">
-//           <div className="category__title--line"></div>
-//           <h2>Категории</h2>
-//           <div className="category__title--line"></div>
-//         </div>
-//         <div className="show_click">
-//           <span> Показать все</span>
-//         </div>
-//         <ul className="category__content">
-//           {category.map((obj) => {
-//             return (
-//               <li
-//                 onClick={() => navigate(`${CATEGORIES_PAGE_ROUTE}/${obj.id}`)}
-//                 key={obj.id}
-//                 className="category__item"
-//               >
-//                 <p>{obj.title}</p>
-//                 <img src={obj.image} alt="No img" />
-//               </li>
-//             );
-//           })}
-//         </ul>
-//       </div>
-//     </div>
-//   );

@@ -11,9 +11,9 @@ function About() {
     <div className="about">
       <div className="about__container">
         <div className="about__content">
-          <h2>
+          <h1>
             <span>О нас</span>
-          </h2>
+          </h1>
           <div className="about__us">
             <div className="about__left">
               <div className="about__text">

@@ -62,9 +62,6 @@ function ProductPage(props) {
   const warnCompareAdded = () =>
     toast.warn("Максимальное количество товаров для сравнения-4!");
 
-  let text = "122 312 312";
-  let res = text.replace(/\s+/g, "");
-  console.log("res", res);
   useEffect(() => {
     const getOneProduct = async () => {
       await $host

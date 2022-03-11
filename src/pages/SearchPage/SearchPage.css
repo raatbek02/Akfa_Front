@@ -10,10 +10,10 @@
   justify-content: center;
   margin-bottom: 30px;
 }
-.searchPage__title h2 {
+.searchPage__title h1 {
 }
 
-.searchPage__title h2 span {
+.searchPage__title h1 span {
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
@@ -58,7 +58,7 @@
 
 /* *********************************  max-width:575px  *************************************** */
 @media (max-width: 575px) {
-  .searchPage__title h2 span {
+  .searchPage__title h1 span {
     font-size: 24px;
   }
   .searchPage__title--img {

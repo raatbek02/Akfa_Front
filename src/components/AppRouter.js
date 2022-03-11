@@ -5,8 +5,6 @@ import { authRoutes, publicRoutes } from "../routes";
 
 function AppRouter() {
   const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
-  console.log("IsAuuuuuuth", isAuth);
-  //   const isAuth = false;
   return (
     <div
       style={{

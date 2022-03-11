@@ -96,7 +96,8 @@
 
 .categoriesPage__content {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 20px;
   flex-wrap: wrap;
 }
 .categoriesPage__item {
@@ -211,19 +212,6 @@
 }
 
 /* *********************************  max-width: 1200px  *************************************** */
-.categoriesPage__sorting.bellow-1200 {
-  display: none;
-}
-@media (max-width: 1200px) {
-  .categoriesPage__sorting.above-1200 {
-    display: none;
-  }
-}
-@media (min-width: 768px) and (max-width: 1200px) {
-  .categoriesPage__sorting.bellow-1200 {
-    display: block;
-  }
-}
 
 /* *********************************  max-width: 992px  *************************************** */
 @media (max-width: 992px) {

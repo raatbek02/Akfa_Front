@@ -143,9 +143,9 @@ function Products() {
     <div className="products">
       <div className="products__container">
         <div className="products__title">
-          <h2>
+          <h1>
             <span>Товары</span>
-          </h2>
+          </h1>
         </div>
         <ul className="product__sorting">
           <li

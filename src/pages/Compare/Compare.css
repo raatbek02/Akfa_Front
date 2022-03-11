@@ -14,11 +14,11 @@
   height: 2px;
   background-color: #777777;
 } */
-.compare__title h2 {
+.compare__title h1 {
   text-align: center;
   margin-bottom: 30px;
 }
-.compare__title h2 span {
+.compare__title h1 span {
   font-size: 24px;
   color: transparent;
   -webkit-background-clip: text;
@@ -200,10 +200,10 @@
   width: 100%;
 }
 
-.compare__empty h2 {
+.compare__empty h1 {
   text-align: center;
 }
-.compare__empty h2 span {
+.compare__empty h1 span {
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
@@ -272,7 +272,7 @@
 }
 /* *********************************  max-width: 575px  *************************************** */
 @media (max-width: 575px) {
-  .compare__title h2 span {
+  .compare__title h1 span {
     font-size: 18px;
   }
   /* .compare__item--card:first-child {

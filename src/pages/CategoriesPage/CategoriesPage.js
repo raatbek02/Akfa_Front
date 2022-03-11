@@ -209,42 +209,16 @@ function CategoriesPage() {
               loop={false}
               speed={900}
               //   spaceBetween={20}
-              slidesPerView={4}
-            >
-              {subcategory.map((obj) => {
-                return (
-                  <SwiperSlide
-                    key={obj.id}
-                    onClick={() => {
-                      dispatch(setSubCategory_id(obj.id));
-                      localStorage.setItem("subCategory_ID", obj.id);
-                    }}
-                    className={
-                      subCategory_id === obj.id
-                        ? "categoriesPage__sorting--item active"
-                        : "categoriesPage__sorting--item"
-                    }
-                  >
-                    {obj.title}
-                  </SwiperSlide>
-                );
-              })}
-            </Swiper>
-          </div>
 
-          <div className="categoriesPage__sorting bellow-1200">
-            <Swiper
-              //   pagination={{ clickable: true }}
-              navigation={true}
-              //   autoplay={{
-              //     delay: 5000,
-              //     disableOnInteraction: false,
-              //   }}
-              //   centeredSlides={true}
-              loop={false}
-              speed={900}
-              //   spaceBetween={20}
-              slidesPerView={3}
+              breakpoints={{
+                1200: {
+                  slidesPerView: 3,
+                },
+
+                320: {
+                  slidesPerView: 2,
+                },
+              }}
             >
               {subcategory.map((obj) => {
                 return (

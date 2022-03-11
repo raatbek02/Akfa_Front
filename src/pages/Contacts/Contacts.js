@@ -22,9 +22,9 @@ function Contacts() {
   return (
     <div className="contacts">
       <div className="contacts__container">
-        <h2 className="contacts__title">
+        <h1 className="contacts__title">
           <span>Контакты</span>
-        </h2>
+        </h1>
         <div className="contacts__content">
           <div className="contacts__left">
             <ul>

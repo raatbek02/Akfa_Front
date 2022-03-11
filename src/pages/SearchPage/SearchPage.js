@@ -84,9 +84,9 @@ function SearchPage() {
     <div className="searchPage">
       <div className="searchPage__container">
         <div className="searchPage__title">
-          <h2>
+          <h1>
             <span>Результаты поиска</span>
-          </h2>
+          </h1>
           <div className="searchPage__title--img">
             <img src={lupa_page} alt="No img" />
           </div>

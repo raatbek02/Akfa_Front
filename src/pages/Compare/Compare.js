@@ -35,9 +35,9 @@ function Compare() {
         {compare_products_local.length > 0 ? (
           <>
             <div className="compare__title">
-              <h2>
+              <h1>
                 <span>Сравнение товаров</span>
-              </h2>
+              </h1>
             </div>
 
             <div className="compare__content">
@@ -95,9 +95,9 @@ function Compare() {
           </>
         ) : (
           <div className="compare__empty">
-            <h2>
+            <h1>
               <span>Товары для сравнения отсутствуют</span>
-            </h2>
+            </h1>
             <div className="compare__empty--img">
               <img src={new_empty_compare} alt="No img" />
             </div>
