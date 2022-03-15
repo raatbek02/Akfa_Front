@@ -42,11 +42,6 @@ function Footer() {
       .then((res) => {
         successSubmited();
         setBackCallInput({ name: "", phone: "" });
-
-        console.log("Обратный звонок успешно отправлен", res);
-      })
-      .catch((e) => {
-        console.log("Ошибка обратного звонка ", e);
       });
   };
 
