@@ -285,6 +285,9 @@
     text-align: center;
     margin: 20px 0;
   }
+  .product__content {
+    justify-content: center;
+  }
   .product__item--content {
     padding: 5px;
   }

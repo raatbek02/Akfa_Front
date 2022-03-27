@@ -1,0 +1,325 @@
+.subcategoriesPage__container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 150px 120px 130px 120px;
+}
+
+.subcategoriesPage .banner__left {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.subcategoriesPage__title {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.subcategoriesPage__title h2 span {
+  font-size: 20px;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 72, 72, 1) 0%,
+    rgba(170, 39, 39, 1) 100%
+  );
+
+  font-family: Geometria;
+  font-weight: 700;
+  margin-top: 50px;
+}
+.subcategoriesPage__sorting-wrapper {
+  width: 100%;
+  overflow-x: scroll;
+  margin-bottom: 50px;
+  background-color: #fff;
+}
+.subcategoriesPage__sorting {
+  /* display: inline-block; */
+  /* width: 100%; */
+  /* background-color: #fff; */
+  padding: 10px 30px;
+  border-radius: 10px;
+  box-shadow: 0px 10px 16px rgba(0, 0, 0, 0.05);
+}
+
+.subcategoriesPage__sorting {
+  /* display: flex; */
+  /* margin-bottom: 40px; */
+}
+.subcategoriesPage__sorting .subcategoriesPage__sorting--item {
+  /* margin-right: 20px; */
+  font-size: 14px;
+  font-weight: 500;
+  color: #3f3d56;
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+}
+.subcategoriesPage__sorting .subcategoriesPage__sorting--item:first-child {
+  padding-left: 20px;
+}
+.subcategoriesPage__sorting .subcategoriesPage__sorting--item:last-child {
+  padding-right: 20px;
+}
+.subcategoriesPage__sorting .active {
+  /* margin-right: 20px; */
+  font-size: 14px;
+  font-weight: 500;
+
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 72, 72, 1) 0%,
+    rgba(170, 39, 39, 1) 100%
+  );
+  cursor: pointer;
+}
+.subcategoriesPage__sorting .active::after {
+  content: url("../../assets/images/new_design/red_dot.svg");
+  display: block;
+  position: absolute;
+
+  transition: all 0.3s linear;
+  top: 13px;
+  left: 50%;
+  /* right: 50%; */
+}
+
+.subcategoriesPage--item:first-child {
+  background-color: #3f3d56;
+  color: #fff;
+  border: 0;
+}
+
+.subcategoriesPage__content {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.subcategoriesPage__item {
+  max-width: 280px;
+  font-family: Geometria;
+  font-weight: 500;
+  color: #272626;
+  font-size: 14px;
+  margin-bottom: 40px;
+  border-radius: 5px;
+
+  background-color: #ffffff;
+  cursor: pointer;
+
+  filter: drop-shadow(0px 10px 16px rgba(0, 0, 0, 0.05));
+}
+.subcategoriesPage__img {
+  width: 280px;
+}
+.subcategoriesPage__img img {
+  width: 100%;
+}
+
+.subcategoriesPage__item--content {
+  padding: 20px;
+}
+.subcategoriesPage__name {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 10px 0;
+  color: #3e3e3e;
+  /* text-align: center; */
+}
+.subcategoriesPage__price {
+  text-align: left;
+}
+
+.subcategoriesPage__price span:first-child {
+  font-size: 18px;
+  font-family: Gilroy;
+  font-weight: 900;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 72, 72, 1) 0%,
+    rgba(170, 39, 39, 1) 100%
+  );
+  margin-right: 12px;
+}
+.subcategoriesPage__price span:last-child {
+  font-weight: 700;
+  color: #00a907;
+}
+
+.subcategoriesPage__buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 35px;
+}
+.subcategoriesPage__cart-button {
+  padding: 8px 35px;
+
+  background: linear-gradient(
+    90deg,
+    rgba(255, 72, 72, 1) 0%,
+    rgba(206, 53, 53, 1) 61%,
+    rgba(170, 39, 75, 1) 100%
+  );
+  font-size: 14px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.subcategoriesPage__cart-button span {
+  margin-left: 15px;
+}
+.subcategoriesPage__compare-button {
+  border: 1px solid #aa2727;
+  border-radius: 10px;
+  padding: 3px 5px 1px;
+}
+
+/* =============  SWIPER  =============== */
+.swiper-wrapper {
+  /* justify-content: space-between; */
+}
+.swiper-button-next,
+.swiper-button-prev {
+  color: rgb(170, 39, 39);
+}
+.swiper-button-next,
+.swiper-container-rtl .swiper-button-prev {
+  right: 0;
+}
+.swiper-button-prev {
+  left: 0;
+}
+
+/* *********************************  MEDIA QUERY  ************************************* */
+
+/* *********************************  max-width: 1400px  *************************************** */
+@media (max-width: 1400px) {
+  .subcategoriesPage__container {
+    max-width: 1440px;
+    padding: 150px 50px 130px 50px;
+  }
+}
+
+/* *********************************  max-width: 1200px  *************************************** */
+
+/* *********************************  max-width: 992px  *************************************** */
+@media (max-width: 992px) {
+  .subcategoriesPage__container {
+    max-width: 1440px;
+    padding: 150px 30px 80px 30px;
+  }
+  .subcategoriesPage__content {
+    justify-content: center;
+  }
+}
+/* *********************************  max-width: 768px  *************************************** */
+.subcategoriesPage__sorting--mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .subcategoriesPage__sorting-wrapper {
+    display: none;
+  }
+  .subcategoriesPage__container {
+    max-width: 1440px;
+    padding: 150px 20px 50px 20px;
+  }
+  .subcategoriesPage__item {
+    width: 45%;
+  }
+  .product__img {
+    width: 100%;
+  }
+  .subcategoriesPage__title {
+    margin-top: 20px;
+  }
+  .subcategoriesPage__title h2 {
+    text-align: center;
+  }
+  .subcategoriesPage__sorting {
+    display: none;
+  }
+
+  .subcategoriesPage__sorting ul li {
+    font-size: 10px;
+  }
+  .subcategoriesPage__sorting--mobile {
+    display: block;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .subcategoriesPage__sorting--mobile--li {
+    font-size: 12px;
+  }
+}
+/* .................................................. */
+/* *********************************  max-width: 575px  *************************************** */
+
+@media (max-width: 575px) {
+  .subcategoriesPage__item {
+    width: 100%;
+  }
+}
+.subcategoriesPage__sorting-wrapper::-webkit-scrollbar {
+  width: 0px;
+  height: 2px;
+}
+
+.subcategoriesPage__sorting-wrapper::-webkit-scrollbar-track {
+  /* background: #ffffff; */
+
+  /* width: 4px; */
+  /* height: 4px; */
+}
+
+.subcategoriesPage__sorting-wrapper::-webkit-scrollbar-thumb {
+  /* background: #e0e0e0; */
+
+  background: linear-gradient(
+    90deg,
+    rgba(255, 72, 72, 1) 0%,
+    rgba(206, 53, 53, 1) 61%,
+    rgba(170, 39, 75, 1) 100%
+  );
+  /* width: 4px; */
+  height: 2px;
+}
+
+/* ......................................................................... */
+
+.css-6hp17o-MuiList-root-MuiMenu-list {
+  overflow: scroll;
+}
+
+.css-1km1ehz {
+  overflow: scroll;
+}
+
+.css-6hp17o-MuiList-root-MuiMenu-list::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+.css-6hp17o-MuiList-root-MuiMenu-list::-webkit-scrollbar-track,
+.css-1km1ehz::-webkit-scrollbar-track {
+  width: 0px;
+  height: 0px;
+}
+
+.css-6hp17o-MuiList-root-MuiMenu-list::-webkit-scrollbar-thumb,
+.css-1km1ehz::-webkit-scrollbar-thumb {
+  width: 0px;
+  height: 0px;
+}

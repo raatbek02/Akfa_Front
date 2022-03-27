@@ -5,6 +5,7 @@ const modalCatalog = createSlice({
   initialState: {
     modalCatalog: false,
     subCategory_id: 1,
+    underSubcat_id: 1,
   },
   reducers: {
     setModalCatalog(state, action) {
@@ -13,8 +14,12 @@ const modalCatalog = createSlice({
     setSubCategory_id(state, action) {
       state.subCategory_id = action.payload;
     },
+    setUnderSubcat_id(state, action) {
+      state.underSubcat_id = action.payload;
+    },
   },
 });
 
-export const { setModalCatalog, setSubCategory_id } = modalCatalog.actions;
+export const { setModalCatalog, setSubCategory_id, setUnderSubcat_id } =
+  modalCatalog.actions;
 export default modalCatalog.reducer;

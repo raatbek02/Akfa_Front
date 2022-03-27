@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { CATEGORIES_PAGE_ROUTE } from "../../../utils/consts";
+import {
+  CATEGORIES_PAGE_ROUTE,
+  SUBCATEGORIES_PAGE_ROUTE,
+  UNDERSUBCAT_PAGE_ROUTE,
+} from "../../../utils/consts";
 import {
   setModalCatalog,
   setSubCategory_id,
+  setUnderSubcat_id,
 } from "../../../store/modalCatalog";
 import "./Category.css";
 import { $host } from "../../../http";
@@ -12,12 +17,19 @@ import { $host } from "../../../http";
 function Category() {
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
+
   const [activeCategory, setActiveCategory] = useState("");
   const [activeSubCategory, setActiveSubCategory] = useState("");
+  const [activeUnderSubcat, setActiveUnderSubcat] = useState("");
+
   const [onMouse_id, setOnMouse_id] = useState(1);
+  const [onMouseSubcat_id, setOnMouseSubcat_id] = useState(1);
+
   const [onMouse_categoryImage, setOnMouse_categoryImage] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  console.log("subCategory", subCategory);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -74,10 +86,13 @@ function Category() {
           <ul>
             {subCategory.map((obj) => {
               return (
-                <li>
+                <li key={obj.id}>
                   <button
+                    onMouseOver={() => {
+                      setOnMouseSubcat_id(obj.id);
+                    }}
                     onClick={() => {
-                      navigate(`${CATEGORIES_PAGE_ROUTE}/${obj.categories}`);
+                      navigate(`${SUBCATEGORIES_PAGE_ROUTE}/${obj.categories}`);
                       setActiveSubCategory(obj.id);
                       dispatch(setModalCatalog(false));
                       dispatch(setSubCategory_id(obj.id));
@@ -88,6 +103,21 @@ function Category() {
                   >
                     {obj.title}
                   </button>
+                  {obj.under_subcategories.map((el) => (
+                    <button
+                      className="underSubcat--btn"
+                      key={el.id}
+                      onClick={() => {
+                        navigate(`${UNDERSUBCAT_PAGE_ROUTE}/${obj.id}`);
+                        setActiveUnderSubcat(el.id);
+                        dispatch(setModalCatalog(false));
+                        dispatch(setUnderSubcat_id(el.id));
+                        localStorage.setItem("underSubcat_ID", el.id);
+                      }}
+                    >
+                      {el.title}
+                    </button>
+                  ))}
                 </li>
               );
             })}

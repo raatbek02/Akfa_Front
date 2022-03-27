@@ -1,6 +1,5 @@
 import About from "./pages/About/About";
 import Cart from "./pages/Cart/Cart";
-import CategoriesPage from "./pages/CategoriesPage/CategoriesPage";
 import Checkout from "./pages/Checkout/Checkout";
 import Compare from "./pages/Compare/Compare";
 import Contacts from "./pages/Contacts/Contacts";
@@ -22,14 +21,21 @@ import {
   CONTACTS_ROUTE,
   DELIVERY_ROUTE,
   HOME_ROUTE,
+  LOGO_DETAIL__ROUTE,
   NEWS_DETAIL__ROUTE,
   NEWS_ROUTE,
   //   PDF_PAGE,
   PRIVATE__ROUTE,
   PRODUCT_PAGE_ROUTE,
   SEARCH__ROUTE,
+  SUBCATEGORIES_PAGE_ROUTE,
+  UNDERSUBCAT_PAGE_ROUTE,
 } from "./utils/consts";
 import BannerDetail from "./pages/NewsDetail/BannerDetail";
+import LogoDetail from "./pages/LogoDetail/LogoDetail";
+import UnderSubcat from "./pages/UnderSubcat/UnderSubcat";
+import SubcategoriesPage from "./pages/SubcategoriesPage/SubcategoriesPage";
+import CategoriesPage from "./pages/CategoriesPage/CategoriesPage";
 // import PdfPage from "./pages/PdfPage/PdfPage";
 
 export const authRoutes = [
@@ -64,6 +70,16 @@ export const publicRoutes = [
     path: CATEGORIES_PAGE_ROUTE + "/:id",
     Component: <CategoriesPage />,
   },
+
+  {
+    path: SUBCATEGORIES_PAGE_ROUTE + "/:id",
+    Component: <SubcategoriesPage />,
+  },
+  {
+    path: UNDERSUBCAT_PAGE_ROUTE + "/:id",
+    Component: <UnderSubcat />,
+  },
+
   {
     path: PRODUCT_PAGE_ROUTE + "/:id",
     Component: <ProductPage />,
@@ -95,6 +111,10 @@ export const publicRoutes = [
   {
     path: BANNER_DETAIL__ROUTE + "/:id",
     Component: <BannerDetail />,
+  },
+  {
+    path: LOGO_DETAIL__ROUTE + "/:id",
+    Component: <LogoDetail />,
   },
 
   //   {

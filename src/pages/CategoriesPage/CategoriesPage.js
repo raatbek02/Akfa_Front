@@ -1,66 +1,30 @@
 import React, { useEffect, useState } from "react";
-// import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router";
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  CircularProgress,
-} from "@mui/material";
+import { useDispatch } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper";
-import { toast } from "react-toastify";
-import { useCart } from "react-use-cart";
-
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  CATEGORY_BANNER_DETAIL__ROUTE,
+  SUBCATEGORIES_PAGE_ROUTE,
+} from "../../utils/consts";
 import { setSubCategory_id } from "../../store/modalCatalog";
-import { getCompareProducts } from "../../store/compare";
-import { CATEGORY_BANNER_DETAIL__ROUTE } from "../../utils/consts";
+import { $host } from "../../http";
+import { CircularProgress } from "@mui/material";
+import grey_medLogo from "../../assets/images/categories_img/dark_medLogo.png";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 import "./CategoriesPage.css";
-import product_cart_logo from "../../assets/images/new_design/product_cart_logo.svg";
-import product_compare_logo from "../../assets/images/new_design/product_compare_logo.svg";
-import { $host } from "../../http";
 
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 function CategoriesPage() {
-  const { id } = useParams();
-  const [subcategory, setSubCategory] = useState([]);
-  const [categoryProducts, setSubCategoryProducts] = useState([]);
-  const [allCategoryProd, setAllCategoryProd] = useState([]);
-  const [count, setCount] = useState(1);
   const [bannerData, setBannerData] = useState([]);
-  const [sorting, setSorting] = useState("");
   const [loading, setLoading] = useState(true);
+  const [subCategory, setSubCategory] = useState([]);
 
-  console.log("subcategory", subcategory);
-  console.log("categoryProducts", categoryProducts);
-  console.log(allCategoryProd, setAllCategoryProd);
-
-  const { addItem, items } = useCart();
-
-  const handleChange = (event) => {
-    setSorting(event.target.value);
-  };
-
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const subCategory_id = useSelector((s) => s.modalCatalog.subCategory_id);
-  const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
-  const token = JSON.parse(localStorage.getItem("token"));
-  const compare_products_local = useSelector(
-    (state) => state.compareSlice.compare_products
-  );
-
-  const successAdded = () => toast.success("Товар добавлен в корзину!");
-
-  const successCompareAdded = () =>
-    toast.success("Товар добавлен в сравнения!");
-  const warnCompareAdded = () =>
-    toast.warn("Максимальное количество товаров для сравнения-4!");
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   useEffect(() => {
     const getBannerData = async () => {
@@ -82,68 +46,8 @@ function CategoriesPage() {
         setSubCategory(data);
       });
     };
-
     getSubcategories();
   }, [id]);
-
-  useEffect(() => {
-    const getCategoriesProducts = async () => {
-      await $host
-        .get(`api/products/?category=${id}&${`subcategory=${subCategory_id}`}`)
-        .then(
-          ({ data }) => setSubCategoryProducts(data.results),
-          dispatch(setSubCategory_id(subCategory_id))
-        );
-    };
-    getCategoriesProducts();
-  }, [subCategory_id, id]);
-
-  const addAuthCart = async (e, id) => {
-    e.stopPropagation();
-    const data = {
-      product: id,
-      quantity: count,
-    };
-
-    await $host
-      .post(`api/cart-item_product/`, data, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Token " + token,
-        },
-      })
-      .then((res) => {
-        setCount(count);
-      })
-      .catch((e) => {
-        console.log("Ошибка", e);
-      });
-    //  e.preventDefault();
-  };
-
-  const addLocalCart = (e, id, count) => {
-    e.stopPropagation();
-    e.preventDefault();
-
-    successAdded();
-
-    addItem(id, count);
-  };
-
-  const addCompareProducts = (e, el, id) => {
-    e.stopPropagation();
-    dispatch(getCompareProducts({ el, id }));
-
-    if (compare_products_local.length < 4) {
-      successCompareAdded();
-    } else {
-      warnCompareAdded();
-    }
-  };
-
-  React.useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   if (loading) {
     return (
@@ -192,140 +96,36 @@ function CategoriesPage() {
         </div>
 
         <div className="categoriesPage__title">
-          <h2>
-            <span>{subcategory[0] && subcategory[0].category_item}</span>
-          </h2>
-        </div>
-        <div className="categoriesPage__sorting-wrapper">
-          <div className="categoriesPage__sorting above-1200">
-            <Swiper
-              //   pagination={{ clickable: true }}
-              navigation={true}
-              //   autoplay={{
-              //     delay: 5000,
-              //     disableOnInteraction: false,
-              //   }}
-              //   centeredSlides={true}
-              loop={false}
-              speed={900}
-              //   spaceBetween={20}
-
-              breakpoints={{
-                1200: {
-                  slidesPerView: 3,
-                },
-
-                320: {
-                  slidesPerView: 2,
-                },
-              }}
-            >
-              {subcategory.map((obj) => {
-                return (
-                  <SwiperSlide
-                    key={obj.id}
-                    onClick={() => {
-                      dispatch(setSubCategory_id(obj.id));
-                      localStorage.setItem("subCategory_ID", obj.id);
-                    }}
-                    className={
-                      subCategory_id === obj.id
-                        ? "categoriesPage__sorting--item active"
-                        : "categoriesPage__sorting--item"
-                    }
-                  >
-                    {obj.title}
-                  </SwiperSlide>
-                );
-              })}
-            </Swiper>
-          </div>
-        </div>
-
-        <div className="categoriesPage__sorting--mobile">
-          <FormControl sx={{ m: 1, minWidth: 150 }} color="error">
-            <InputLabel id="demo-simple-select-autowidth-label">
-              Подкатегории
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-autowidth-label"
-              id="demo-simple-select-autowidth"
-              value={sorting}
-              onChange={handleChange}
-              autoWidth
-              label="Подкатегории"
-            >
-              {subcategory.map((obj) => {
-                return (
-                  <MenuItem
-                    value={obj.id}
-                    key={obj.id}
-                    onClick={() => {
-                      dispatch(setSubCategory_id(obj.id));
-                      localStorage.setItem("subCategory_ID", obj.id);
-                    }}
-                    className={subCategory_id === obj.id ? "active" : ""}
-                  >
-                    <span className="categoriesPage__sorting--mobile--li">
-                      {obj.title}
-                    </span>
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
+          <h1>CategoriesPage</h1>
         </div>
 
         <div className="categoriesPage__content">
-          {categoryProducts &&
-            categoryProducts.map((el) => {
-              return (
+          {subCategory &&
+            subCategory.map((el) => (
+              <div key={el.id} className="categoriesPage__item">
                 <div
-                  key={el._id}
-                  onClick={() => navigate(`/productPage/${el.id}`)}
-                  className="categoriesPage__item"
+                  onClick={() => {
+                    navigate(`${SUBCATEGORIES_PAGE_ROUTE}/${el.categories}`);
+                    dispatch(setSubCategory_id(el.id));
+                    localStorage.setItem("subCategory_ID", el.id);
+                  }}
+                  className="categoriesPage__item--top"
                 >
-                  <div className="product__img">
-                    <img src={el.image} alt="No img" />
-                  </div>
-                  <div className="product__item--content">
-                    <div className="product__name">{el.title}</div>
-                    <div className="product__price">
-                      <span>{el.discount_price} сом</span>
-                      <span> есть</span>
-                    </div>
-                    <div className="product__buttons">
-                      {isAuth ? (
-                        <div
-                          onClick={(e) => addAuthCart(e, el.id)}
-                          className="product__cart-button"
-                        >
-                          <img src={product_cart_logo} alt="No img" />
+                  {el.title}
+                </div>
+                <div className="categoriesPage__item--bottom">
+                  <ul>
+                    {el.under_subcategories.map((el_2) => (
+                      <li>{el_2.title}</li>
+                    ))}
+                  </ul>
 
-                          <span>В корзину</span>
-                        </div>
-                      ) : (
-                        <div
-                          onClick={(e) => addLocalCart(e, el)}
-                          className="product__cart-button"
-                        >
-                          <img src={product_cart_logo} alt="No img" />
-
-                          <span>В корзину</span>
-                        </div>
-                      )}
-
-                      <div
-                        onClick={(e) => addCompareProducts(e, el, el.id)}
-                        className="product__compare-button"
-                      >
-                        <img src={product_compare_logo} alt="No img" />
-                      </div>
-                    </div>
+                  <div className="categoriesPage__bg">
+                    <img src={grey_medLogo} alt="" />
                   </div>
                 </div>
-              );
-            })}
+              </div>
+            ))}
         </div>
       </div>
     </div>
@@ -333,44 +133,3 @@ function CategoriesPage() {
 }
 
 export default CategoriesPage;
-
-//   <div className="product__buttons">
-//     <div className="product__cart-button">
-//       <img src={product_cart_logo} alt="No img" />
-//       {isAuth ? (
-//         <span onClick={(e) => addAuthCart(e, el.id)}>В корзину</span>
-//       ) : (
-//         <span onClick={(e) => addLocalCart(e, el, count)}>В корзину</span>
-//       )}
-//     </div>
-//     <div
-//       onClick={(e) => addCompareProducts(e, el, el.id)}
-//       className="product__compare-button"
-//     >
-//       <img src={product_compare_logo} alt="No img" />
-//     </div>
-//   </div>;
-
-// const data = [];
-// for (let i = 0; i < 18; i++) {
-//   data.push({
-//     img: category_5,
-//     name: "Касметология",
-//     price: "25.35 $",
-//     availability: "есть",
-//     rating: star,
-//   });
-// }
-
-//   useEffect(() => {
-//     const getCategoriesProducts = async () => {
-//       await axios
-//         .get(
-//           `http://127.0.0.1:8000/api/products/?category=${id}&${
-//             activeItem !== null ? `subcategory=${activeItem}` : ""
-//           }`
-//         )
-//         .then(({ data }) => setSubCategoryProducts(data));
-//     };
-//     getCategoriesProducts();
-//   }, [activeItem, id]);

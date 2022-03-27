@@ -122,8 +122,17 @@ function Header() {
           </div>
           <div className="header__right">
             <div className="header__logo">
+              {/* <Link to="/">
+                <span>AkfaMedfarm</span>{" "}
+              </Link> */}
+
               <Link to="/">
-                <span>akfa</span>{" "}
+                <div className="header__logo--item">
+                  <p>
+                    <span>Akfa</span>
+                    med farm
+                  </p>
+                </div>
               </Link>
             </div>
             <div className="header__assets">
@@ -188,8 +197,17 @@ function Header() {
         <div className="header__content mobile">
           <div className="header__mobile--top">
             <div className="header__logo">
+              {/* <Link to="/">
+                <span>AkfaMedfarm</span>{" "}
+              </Link> */}
+
               <Link to="/">
-                <span>akfa</span>{" "}
+                <div className="header__logo--item">
+                  <p>
+                    <span>Akfa</span>
+                    med farm
+                  </p>
+                </div>
               </Link>
             </div>
             <div className="header__mobile--middle">
