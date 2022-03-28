@@ -12,6 +12,7 @@ import { getCompareProducts } from "../../store/compare";
 import { $host } from "../../http";
 import { PRODUCT_PAGE_ROUTE } from "../../utils/consts";
 import CircularProgress from "@mui/material/CircularProgress";
+import ReactPaginate from "react-paginate";
 
 function Kits({ oneProduct }) {
   const [kitsProducts, setKitsProducts] = useState([]);
@@ -20,8 +21,10 @@ function Kits({ oneProduct }) {
   const { addItem } = useCart();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
-  const token = JSON.parse(localStorage.getItem("token"));
+  const [pageCount, setPageCount] = useState(0);
+
+  //   const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
+  //   const token = JSON.parse(localStorage.getItem("token"));
   const compare_products_local = useSelector(
     (state) => state.compareSlice.compare_products
   );
@@ -32,42 +35,75 @@ function Kits({ oneProduct }) {
   const warnCompareAdded = () =>
     toast.warn("Максимальное количество товаров для сравнения-4!");
 
+  //   useEffect(() => {
+  //     const getOneProduct = async () => {
+  //       await $host
+  //         .get(`api/products?kits=${oneProduct.kits}`)
+  //         .then(({ data }) => setKitsProducts(data))
+  //         .finally(() => {
+  //           setLoading(false);
+  //         });
+  //     };
+  //     getOneProduct();
+  //   }, []);
+
   useEffect(() => {
-    const getOneProduct = async () => {
+    const getProducts = async () => {
+      let total = 0;
       await $host
         .get(`api/products?kits=${oneProduct.kits}`)
-        .then(({ data }) => setKitsProducts(data))
+        .then(({ data }) => {
+          setKitsProducts(data);
+          total = data.count;
+          setPageCount(Math.ceil(total / 12));
+        })
         .finally(() => {
           setLoading(false);
         });
+
+      // const total = res.data.count;
     };
-    getOneProduct();
+    getProducts();
   }, []);
 
-  const addAuthCart = async (e, id) => {
-    e.stopPropagation();
-    const data = {
-      product: id,
-      quantity: count,
-    };
-
-    await $host
-      .post(`api/cart-item_product/`, data, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Token " + token,
-        },
-      })
-      .then((res) => {
-        setCount(count);
-
-        console.log("Success", res);
-      })
-      .catch((e) => {
-        console.log("Ошибка", e);
-      });
-    //  e.preventDefault();
+  const paginateProducts = async (currentPage) => {
+    const res = await $host.get(
+      `api/products?page=${currentPage}&kits=${oneProduct.kits}`
+    );
+    return res.data;
   };
+
+  const handlePageClick = async (data) => {
+    let currentPage = data.selected + 1;
+
+    const getPaginatedProducts = await paginateProducts(currentPage);
+    setKitsProducts(getPaginatedProducts);
+  };
+
+  //   const addAuthCart = async (e, id) => {
+  //     e.stopPropagation();
+  //     const data = {
+  //       product: id,
+  //       quantity: count,
+  //     };
+
+  //     await $host
+  //       .post(`api/cart-item_product/`, data, {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: "Token " + token,
+  //         },
+  //       })
+  //       .then((res) => {
+  //         setCount(count);
+
+  //         console.log("Success", res);
+  //       })
+  //       .catch((e) => {
+  //         console.log("Ошибка", e);
+  //       });
+  //     //  e.preventDefault();
+  //   };
 
   const addLocalCart = (e, id, count) => {
     e.stopPropagation();
@@ -113,30 +149,19 @@ function Kits({ oneProduct }) {
                   <div className="product__item--content">
                     <div className="product__name">{el.title}</div>
                     <div className="product__price">
-                      <span>{el.discount_price} $</span>
+                      <span>{el.discount_price} сом</span>
                       <span> есть</span>
                     </div>
 
-                    <div
-                      onClick={(e) => addAuthCart(e, el.id)}
-                      className="product__buttons"
-                    >
-                      {isAuth ? (
-                        <div className="product__cart-button">
-                          <img src={product_cart_logo} alt="No img" />
+                    <div className="product__buttons">
+                      <div
+                        onClick={(e) => addLocalCart(e, el, count)}
+                        className="product__cart-button"
+                      >
+                        <img src={product_cart_logo} alt="No img" />
 
-                          <span>В корзину</span>
-                        </div>
-                      ) : (
-                        <div
-                          onClick={(e) => addLocalCart(e, el, count)}
-                          className="product__cart-button"
-                        >
-                          <img src={product_cart_logo} alt="No img" />
-
-                          <span>В корзину</span>
-                        </div>
-                      )}
+                        <span>В корзину</span>
+                      </div>
 
                       <div
                         onClick={(e) => addCompareProducts(e, el, el.id)}
@@ -150,9 +175,57 @@ function Kits({ oneProduct }) {
               );
             })}
         </div>
+
+        <div className="product__pagination">
+          <ReactPaginate
+            previousLabel={<i class="fas fa-chevron-left"></i>}
+            nextLabel={<i class="fas fa-chevron-right"></i>}
+            breakLabel={"..."}
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={3}
+            onPageChange={handlePageClick}
+            containerClassName={"product__pagination--container"}
+            pageClassName={"product__pagination--item"}
+            pageLinkClassName={"product__pagination--link"}
+            previousClassName={""}
+            previousLinkClassName={"product__pagination--previous"}
+            nextClassName={""}
+            nextLinkClassName={"product__pagination--next"}
+            breakClassName={"product__pagination--item"}
+            breakLinkClassName={"product__pagination--link"}
+            activeClassName={"active"}
+          />
+        </div>
       </div>
     </div>
   );
 }
 
 export default Kits;
+
+//  <div onClick={(e) => addAuthCart(e, el.id)} className="product__buttons">
+//    {isAuth ? (
+//      <div className="product__cart-button">
+//        <img src={product_cart_logo} alt="No img" />
+
+//        <span>В корзину</span>
+//      </div>
+//    ) : (
+//      <div
+//        onClick={(e) => addLocalCart(e, el, count)}
+//        className="product__cart-button"
+//      >
+//        <img src={product_cart_logo} alt="No img" />
+
+//        <span>В корзину</span>
+//      </div>
+//    )}
+
+//    <div
+//      onClick={(e) => addCompareProducts(e, el, el.id)}
+//      className="product__compare-button"
+//    >
+//      <img src={product_compare_logo} alt="No img" />
+//    </div>
+//  </div>;

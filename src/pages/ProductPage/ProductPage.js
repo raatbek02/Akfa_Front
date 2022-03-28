@@ -18,7 +18,6 @@ import product_cart_logo from "../../assets/images/new_design/product_cart_logo.
 import product_compare_logo from "../../assets/images/new_design/product_compare_logo.svg";
 import minus_cart from "../../assets/images/new_design/minus_cart.svg";
 import plus_cart from "../../assets/images/new_design/plus_cart.svg";
-import depp from "../../assets/images/new_design/depp.png";
 import home from "../../assets/images/new_design/home.png";
 
 import { $host } from "../../http";
@@ -27,7 +26,7 @@ import { Link } from "react-router-dom";
 
 SwiperCore.use([Thumbs]);
 
-function ProductPage(props) {
+function ProductPage() {
   const [description, setDescription] = useState(true);
   const [characteristic, setСharacteristic] = useState(false);
   const [oneProduct, setOneProduct] = useState({});
@@ -37,6 +36,8 @@ function ProductPage(props) {
   const [sorting, setSorting] = React.useState("");
   const [mainImg, setMainImg] = useState("");
   const [loading, setLoading] = useState(true);
+
+  console.log("oneProduct", oneProduct);
 
   const navigate = useNavigate();
 
@@ -49,8 +50,8 @@ function ProductPage(props) {
 
   const dispatch = useDispatch();
   //   const user = useSelector((state) => state.userSlice.user);
-  const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
-  const token = JSON.parse(localStorage.getItem("token"));
+  //   const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
+  //   const token = JSON.parse(localStorage.getItem("token"));
 
   const compare_products_local = useSelector(
     (state) => state.compareSlice.compare_products
@@ -95,29 +96,29 @@ function ProductPage(props) {
       setCount(count - 1);
     }
   };
-  const addAuthCart = async () => {
-    const data = {
-      product: id,
-      quantity: count,
-    };
+  //   const addAuthCart = async () => {
+  //     const data = {
+  //       product: id,
+  //       quantity: count,
+  //     };
 
-    await $host
-      .post(`http://127.0.0.1:8000/api/cart-item_product/`, data, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Token " + token,
-        },
-      })
-      .then((res) => {
-        successAdded();
+  //     await $host
+  //       .post(`http://127.0.0.1:8000/api/cart-item_product/`, data, {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: "Token " + token,
+  //         },
+  //       })
+  //       .then((res) => {
+  //         successAdded();
 
-        console.log("Success", res);
-      })
-      .catch((e) => {
-        console.log("Ошибка", e);
-      });
-    //  e.preventDefault();
-  };
+  //         console.log("Success", res);
+  //       })
+  //       .catch((e) => {
+  //         console.log("Ошибка", e);
+  //       });
+  //     //  e.preventDefault();
+  //   };
 
   const addCompareProducts = (e, el, id) => {
     e.stopPropagation();
@@ -208,13 +209,25 @@ function ProductPage(props) {
                     {oneProduct.title}
                   </div>
                   <div className="productPage__top--price">
-                    <span>{oneProduct.discount_price}$</span>
+                    <span>{oneProduct.discount_price}сом</span>
                   </div>
                   <div className="productPage__top--availibility">
                     <span style={{ color: "#343E63", fontWeight: "700" }}>
                       Доступность
                     </span>
                     {oneProduct.is_done ? ": На складе" : ": Нет"}
+                  </div>
+                  <div className="productPage__top--availibility">
+                    <span
+                      style={{
+                        color: "#343E63",
+                        fontWeight: "700",
+                        marginRight: "10px ",
+                      }}
+                    >
+                      Производитель:
+                    </span>
+                    {oneProduct.manufacturer}
                   </div>
                   {/* <div className="productPage__top--additionalInfo">
                     Доп информация
@@ -236,26 +249,18 @@ function ProductPage(props) {
                         <img src={plus_cart} alt="No img" />
                       </button>
                     </div>
-                    {isAuth ? (
-                      <div
-                        onClick={() => addAuthCart()}
-                        className="productPage__top-addCart"
-                      >
-                        <img src={product_cart_logo} alt="No img" />
-                        <span> В корзину</span>
-                      </div>
-                    ) : (
-                      <div
-                        onClick={() => {
-                          addItem(oneProduct, count);
-                          successAdded();
-                        }}
-                        className="productPage__top-addCart"
-                      >
-                        <img src={product_cart_logo} alt="No img" />
-                        <span> В корзину</span>
-                      </div>
-                    )}
+
+                    <div
+                      onClick={() => {
+                        addItem(oneProduct, count);
+                        successAdded();
+                      }}
+                      className="productPage__top-addCart"
+                    >
+                      <img src={product_cart_logo} alt="No img" />
+                      <span> В корзину</span>
+                    </div>
+
                     <div
                       onClick={(e) =>
                         addCompareProducts(e, oneProduct, oneProduct.id)
@@ -315,7 +320,7 @@ function ProductPage(props) {
                     {oneProduct.title}
                   </div>
                   <div className="productPage__top--price">
-                    <span>{oneProduct.discount_price}$</span>
+                    <span>{oneProduct.discount_price} сом</span>
                   </div>
                   <div className="productPage__top--availibility">
                     <span style={{ color: "#343E63", fontWeight: "700" }}>
@@ -343,26 +348,16 @@ function ProductPage(props) {
                 </div>
 
                 <div className="productPage__top--cartButtons">
-                  {isAuth ? (
-                    <div
-                      onClick={() => addAuthCart()}
-                      className="productPage__top-addCart"
-                    >
-                      <img src={product_cart_logo} alt="No img" />
-                      <span> В корзину</span>
-                    </div>
-                  ) : (
-                    <div
-                      onClick={() => {
-                        addItem(oneProduct, count);
-                        successAdded();
-                      }}
-                      className="productPage__top-addCart"
-                    >
-                      <img src={product_cart_logo} alt="No img" />
-                      <span> В корзину</span>
-                    </div>
-                  )}
+                  <div
+                    onClick={() => {
+                      addItem(oneProduct, count);
+                      successAdded();
+                    }}
+                    className="productPage__top-addCart"
+                  >
+                    <img src={product_cart_logo} alt="No img" />
+                    <span> В корзину</span>
+                  </div>
                   <div
                     onClick={(e) =>
                       addCompareProducts(e, oneProduct, oneProduct.id)
@@ -533,3 +528,52 @@ function ProductPage(props) {
 }
 
 export default ProductPage;
+
+//   {
+//     isAuth ? (
+//       <div
+//         onClick={() => addAuthCart()}
+//         className="productPage__top-addCart"
+//       >
+//         <img src={product_cart_logo} alt="No img" />
+//         <span> В корзину</span>
+//       </div>
+//     ) : (
+//       <div
+//         onClick={() => {
+//           addItem(oneProduct, count);
+//           successAdded();
+//         }}
+//         className="productPage__top-addCart"
+//       >
+//         <img src={product_cart_logo} alt="No img" />
+//         <span> В корзину</span>
+//       </div>
+//     );
+//   }
+
+//   <div className="productPage__top--cartButtons">
+//     {isAuth ? (
+//       <div onClick={() => addAuthCart()} className="productPage__top-addCart">
+//         <img src={product_cart_logo} alt="No img" />
+//         <span> В корзину</span>
+//       </div>
+//     ) : (
+//       <div
+//         onClick={() => {
+//           addItem(oneProduct, count);
+//           successAdded();
+//         }}
+//         className="productPage__top-addCart"
+//       >
+//         <img src={product_cart_logo} alt="No img" />
+//         <span> В корзину</span>
+//       </div>
+//     )}
+//     <div
+//       onClick={(e) => addCompareProducts(e, oneProduct, oneProduct.id)}
+//       className="productPage__top-compareBtn"
+//     >
+//       <img src={product_compare_logo} alt="No img" />
+//     </div>
+//   </div>;

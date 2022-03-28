@@ -18,8 +18,8 @@ function SearchPage() {
   const { addItem } = useCart();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const token = JSON.parse(localStorage.getItem("token"));
-  const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
+  //   const token = JSON.parse(localStorage.getItem("token"));
+  //   const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
   const searchedProducts = useSelector(
     (state) => state.searchData.searched_products
   );
@@ -33,30 +33,30 @@ function SearchPage() {
   const warnCompareAdded = () =>
     toast.warn("Максимальное количество товаров для сравнения-4!");
 
-  const addAuthCart = async (e, id) => {
-    e.stopPropagation();
-    const data = {
-      product: id,
-      quantity: count,
-    };
+  //   const addAuthCart = async (e, id) => {
+  //     e.stopPropagation();
+  //     const data = {
+  //       product: id,
+  //       quantity: count,
+  //     };
 
-    await $host
-      .post(`api/cart-item_product/`, data, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Token " + token,
-        },
-      })
-      .then((res) => {
-        successAdded();
+  //     await $host
+  //       .post(`api/cart-item_product/`, data, {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: "Token " + token,
+  //         },
+  //       })
+  //       .then((res) => {
+  //         successAdded();
 
-        console.log("Success", res);
-      })
-      .catch((e) => {
-        console.log("Ошибка", e);
-      });
-    //  e.preventDefault();
-  };
+  //         console.log("Success", res);
+  //       })
+  //       .catch((e) => {
+  //         console.log("Ошибка", e);
+  //       });
+  //     //  e.preventDefault();
+  //   };
 
   const addLocalCart = (e, id, count) => {
     e.stopPropagation();
@@ -112,25 +112,14 @@ function SearchPage() {
                     </div>
 
                     <div className="product__buttons">
-                      {isAuth ? (
-                        <div
-                          onClick={(e) => addAuthCart(e, el.id)}
-                          className="product__cart-button"
-                        >
-                          <img src={product_cart_logo} alt="No img" />
+                      <div
+                        onClick={(e) => addLocalCart(e, el)}
+                        className="product__cart-button"
+                      >
+                        <img src={product_cart_logo} alt="No img" />
 
-                          <span>В корзину</span>
-                        </div>
-                      ) : (
-                        <div
-                          onClick={(e) => addLocalCart(e, el)}
-                          className="product__cart-button"
-                        >
-                          <img src={product_cart_logo} alt="No img" />
-
-                          <span>В корзину</span>
-                        </div>
-                      )}
+                        <span>В корзину</span>
+                      </div>
 
                       <div
                         onClick={(e) => addCompareProducts(e, el, el.id)}

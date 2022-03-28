@@ -96,7 +96,9 @@ function CategoriesPage() {
         </div>
 
         <div className="categoriesPage__title">
-          <h1>CategoriesPage</h1>
+          <h1>
+            <span>{subCategory[0] && subCategory[0].category_item}</span>
+          </h1>
         </div>
 
         <div className="categoriesPage__content">

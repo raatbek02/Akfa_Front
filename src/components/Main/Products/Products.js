@@ -25,7 +25,7 @@ function Products() {
   const [product, setProduct] = useState([]);
   const [sort, setSort] = useState(null);
   const [type, setType] = useState("");
-  const [count] = useState(1);
+//   const [count] = useState(1);
   const [pageCount, setPageCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [sorting, setSorting] = React.useState("");
@@ -38,8 +38,8 @@ function Products() {
     setSorting(event.target.value);
   };
 
-  const token = JSON.parse(localStorage.getItem("token"));
-  const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
+  //   const token = JSON.parse(localStorage.getItem("token"));
+  //   const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
   const compare_products_local = useSelector(
     (state) => state.compareSlice.compare_products
   );
@@ -87,30 +87,30 @@ function Products() {
     setProduct(getPaginatedProducts);
   };
 
-  const addAuthCart = async (e, id) => {
-    e.stopPropagation();
-    const data = {
-      product: id,
-      quantity: count,
-    };
+  //   const addAuthCart = async (e, id) => {
+  //     e.stopPropagation();
+  //     const data = {
+  //       product: id,
+  //       quantity: count,
+  //     };
 
-    await $host
-      .post(`api/cart-item_product/`, data, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Token " + token,
-        },
-      })
-      .then((res) => {
-        successAdded();
+  //     await $host
+  //       .post(`api/cart-item_product/`, data, {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: "Token " + token,
+  //         },
+  //       })
+  //       .then((res) => {
+  //         successAdded();
 
-        console.log("Success", res);
-      })
-      .catch((e) => {
-        console.log("Ошибка", e);
-      });
-    //  e.preventDefault();
-  };
+  //         console.log("Success", res);
+  //       })
+  //       .catch((e) => {
+  //         console.log("Ошибка", e);
+  //       });
+  //     //  e.preventDefault();
+  //   };
 
   const addLocalCart = (e, id, count) => {
     e.stopPropagation();
@@ -231,7 +231,7 @@ function Products() {
                   <div className="product__item--content">
                     <div className="product__name">{el.title}</div>
                     <div className="product__price">
-                      <span>{el.discount_price} $</span>
+                      <span>{el.discount_price} сом</span>
                       {el.is_done ? (
                         <span> Есть</span>
                       ) : (
@@ -240,25 +240,14 @@ function Products() {
                     </div>
 
                     <div className="product__buttons">
-                      {isAuth ? (
-                        <div
-                          onClick={(e) => addAuthCart(e, el.id)}
-                          className="product__cart-button"
-                        >
-                          <img src={product_cart_logo} alt="No img" />
+                      <div
+                        onClick={(e) => addLocalCart(e, el)}
+                        className="product__cart-button"
+                      >
+                        <img src={product_cart_logo} alt="No img" />
 
-                          <span>В корзину</span>
-                        </div>
-                      ) : (
-                        <div
-                          onClick={(e) => addLocalCart(e, el)}
-                          className="product__cart-button"
-                        >
-                          <img src={product_cart_logo} alt="No img" />
-
-                          <span>В корзину</span>
-                        </div>
-                      )}
+                        <span>В корзину</span>
+                      </div>
 
                       <div
                         onClick={(e) => addCompareProducts(e, el, el.id)}
@@ -312,3 +301,29 @@ export default Products;
 //     rating: star,
 //   });
 // }
+
+// {/* <div className="product__buttons">
+//   {isAuth ? (
+//     <div
+//       onClick={(e) => addAuthCart(e, el.id)}
+//       className="product__cart-button"
+//     >
+//       <img src={product_cart_logo} alt="No img" />
+
+//       <span>В корзину</span>
+//     </div>
+//   ) : (
+//     <div onClick={(e) => addLocalCart(e, el)} className="product__cart-button">
+//       <img src={product_cart_logo} alt="No img" />
+
+//       <span>В корзину</span>
+//     </div>
+//   )}
+
+//   <div
+//     onClick={(e) => addCompareProducts(e, el, el.id)}
+//     className="product__compare-button"
+//   >
+//     <img src={product_compare_logo} alt="No img" />
+//   </div>
+// </div>; */}
