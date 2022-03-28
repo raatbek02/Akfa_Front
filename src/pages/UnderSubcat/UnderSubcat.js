@@ -52,8 +52,8 @@ function UnderSubcat() {
   const dispatch = useDispatch();
   const underSubcat_id = useSelector((s) => s.modalCatalog.underSubcat_id);
 
-  const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
-  const token = JSON.parse(localStorage.getItem("token"));
+  //   const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
+  //   const token = JSON.parse(localStorage.getItem("token"));
   const compare_products_local = useSelector(
     (state) => state.compareSlice.compare_products
   );
@@ -121,28 +121,28 @@ function UnderSubcat() {
     getUnderSubcatProducts();
   }, [underSubcat_id, id]);
 
-  const addAuthCart = async (e, id) => {
-    e.stopPropagation();
-    const data = {
-      product: id,
-      quantity: count,
-    };
+  //   const addAuthCart = async (e, id) => {
+  //     e.stopPropagation();
+  //     const data = {
+  //       product: id,
+  //       quantity: count,
+  //     };
 
-    await $host
-      .post(`api/cart-item_product/`, data, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Token " + token,
-        },
-      })
-      .then((res) => {
-        setCount(count);
-      })
-      .catch((e) => {
-        console.log("Ошибка", e);
-      });
-    //  e.preventDefault();
-  };
+  //     await $host
+  //       .post(`api/cart-item_product/`, data, {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: "Token " + token,
+  //         },
+  //       })
+  //       .then((res) => {
+  //         setCount(count);
+  //       })
+  //       .catch((e) => {
+  //         console.log("Ошибка", e);
+  //       });
+  //     //  e.preventDefault();
+  //   };
 
   const addLocalCart = (e, id, count) => {
     e.stopPropagation();
@@ -321,25 +321,14 @@ function UnderSubcat() {
                         <span> есть</span>
                       </div>
                       <div className="product__buttons">
-                        {isAuth ? (
-                          <div
-                            onClick={(e) => addAuthCart(e, el.id)}
-                            className="product__cart-button"
-                          >
-                            <img src={product_cart_logo} alt="No img" />
+                        <div
+                          onClick={(e) => addLocalCart(e, el)}
+                          className="product__cart-button"
+                        >
+                          <img src={product_cart_logo} alt="No img" />
 
-                            <span>В корзину</span>
-                          </div>
-                        ) : (
-                          <div
-                            onClick={(e) => addLocalCart(e, el)}
-                            className="product__cart-button"
-                          >
-                            <img src={product_cart_logo} alt="No img" />
-
-                            <span>В корзину</span>
-                          </div>
-                        )}
+                          <span>В корзину</span>
+                        </div>
 
                         <div
                           onClick={(e) => addCompareProducts(e, el, el.id)}

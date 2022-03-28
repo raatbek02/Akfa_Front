@@ -6,8 +6,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   CATEGORY_BANNER_DETAIL__ROUTE,
   SUBCATEGORIES_PAGE_ROUTE,
+  UNDERSUBCAT_PAGE_ROUTE,
 } from "../../utils/consts";
-import { setSubCategory_id } from "../../store/modalCatalog";
+import { setSubCategory_id, setUnderSubcat_id } from "../../store/modalCatalog";
 import { $host } from "../../http";
 import { CircularProgress } from "@mui/material";
 import grey_medLogo from "../../assets/images/categories_img/dark_medLogo.png";
@@ -122,7 +123,15 @@ function CategoriesPage() {
                 <div className="categoriesPage__item--bottom">
                   <ul>
                     {el.under_subcategories.map((el_2) => (
-                      <li>{el_2.title}</li>
+                      <li
+                        onClick={() => {
+                          navigate(`${UNDERSUBCAT_PAGE_ROUTE}/${el.id}`);
+                          dispatch(setUnderSubcat_id(el_2.id));
+                          localStorage.setItem("underSubcat_ID", el_2.id);
+                        }}
+                      >
+                        {el_2.title}
+                      </li>
                     ))}
                   </ul>
 
