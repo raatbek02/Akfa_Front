@@ -11,6 +11,10 @@ import { setSubCategory_id } from "../../store/modalCatalog";
 import { $host } from "../../http";
 import { CircularProgress } from "@mui/material";
 import grey_medLogo from "../../assets/images/categories_img/dark_medLogo.png";
+import subcat_1 from "../../assets/images/categories_img/subcat_1.jpg";
+import subcat_2 from "../../assets/images/categories_img/subcat_2.jpg";
+import subcat_3 from "../../assets/images/categories_img/subcat_3.jpg";
+
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 import "./CategoriesPage.css";
@@ -123,7 +127,7 @@ function CategoriesPage() {
                   </ul>
 
                   <div className="categoriesPage__bg">
-                    <img src={grey_medLogo} alt="" />
+                    <img src={el.image !== null ? el.image : subcat_1} alt="" />
                   </div>
                 </div>
               </div>
