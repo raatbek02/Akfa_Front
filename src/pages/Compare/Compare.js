@@ -80,10 +80,10 @@ function Compare() {
                         </div>
                       </div>
 
-                      {el.chars.map((item) => {
+                      {el.characteristics.map((item) => {
                         return (
                           <div key={item.id} className="compare__item--field">
-                            {item.value}
+                            {item.meaning}
                           </div>
                         );
                       })}
