@@ -6,7 +6,7 @@ function Home() {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <div style={{ background: "#FAFAF2" }}>
+    <div>
       <Main />
     </div>
   );

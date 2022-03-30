@@ -314,8 +314,27 @@ function SubcategoriesPage() {
                   <div className="product__item--content">
                     <div className="product__name">{el.title}</div>
                     <div className="product__price">
-                      <span>{el.discount_price} сом</span>
-                      <span> есть</span>
+                      {el.discount_price !== 0 ? (
+                        <span className="product__price--price">
+                          {el.discount_price} сом
+                        </span>
+                      ) : (
+                        <span className="product__price--price">
+                          По запросу
+                        </span>
+                      )}
+
+                      {/* {el.is_done ? (
+                        <span className="product__price--availability green">
+                          {" "}
+                          Есть
+                        </span>
+                      ) : (
+                        <span className="product__price--availability red">
+                          {" "}
+                          Нет
+                        </span>
+                      )} */}
                     </div>
                     <div className="product__buttons">
                       <div

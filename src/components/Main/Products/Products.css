@@ -114,7 +114,7 @@
   text-align: left;
 }
 
-.product__price span:first-child {
+.product__price--price {
   font-size: 18px;
   font-family: Gilroy;
   font-weight: 900;
@@ -126,11 +126,15 @@
     rgba(255, 72, 72, 1) 0%,
     rgba(170, 39, 39, 1) 100%
   );
-  margin-right: 12px;
+  margin-right: 15px;
 }
-.product__price span:last-child {
+.product__price--availability.green {
   font-weight: 700;
   color: #00a907;
+}
+.product__price--availability.red {
+  font-weight: 700;
+  color: rgb(233, 53, 53);
 }
 
 .product__buttons {
@@ -303,7 +307,7 @@
   .product__name {
     font-size: 12px;
   }
-  .product__price span:first-child {
+  .product__price--price {
     font-size: 14px;
   }
   .product__cart-button {

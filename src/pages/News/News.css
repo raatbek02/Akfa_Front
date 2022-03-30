@@ -20,6 +20,10 @@
 .news__left {
   width: 60%;
   color: #3e3e3e;
+  background-color: #fff;
+  box-shadow: 0px 10px 16px rgb(0 0 0 / 5%);
+  padding: 15px;
+  border-radius: 20px;
 }
 .news__right {
   width: 40%;

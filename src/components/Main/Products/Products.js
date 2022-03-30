@@ -25,7 +25,7 @@ function Products() {
   const [product, setProduct] = useState([]);
   const [sort, setSort] = useState(null);
   const [type, setType] = useState("");
-//   const [count] = useState(1);
+  //   const [count] = useState(1);
   const [pageCount, setPageCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [sorting, setSorting] = React.useState("");
@@ -231,12 +231,27 @@ function Products() {
                   <div className="product__item--content">
                     <div className="product__name">{el.title}</div>
                     <div className="product__price">
-                      <span>{el.discount_price} сом</span>
-                      {el.is_done ? (
-                        <span> Есть</span>
+                      {el.discount_price !== 0 ? (
+                        <span className="product__price--price">
+                          {el.discount_price} сом
+                        </span>
                       ) : (
-                        <span style={{ color: "rgb(233, 53, 53)" }}> Нет</span>
+                        <span className="product__price--price">
+                          По запросу
+                        </span>
                       )}
+
+                      {/* {el.is_done ? (
+                        <span className="product__price--availability green">
+                          {" "}
+                          Есть
+                        </span>
+                      ) : (
+                        <span className="product__price--availability red">
+                          {" "}
+                          Нет
+                        </span>
+                      )} */}
                     </div>
 
                     <div className="product__buttons">

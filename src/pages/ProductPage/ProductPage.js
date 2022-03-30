@@ -209,7 +209,11 @@ function ProductPage() {
                     {oneProduct.title}
                   </div>
                   <div className="productPage__top--price">
-                    <span>{oneProduct.discount_price}сом</span>
+                    {oneProduct.discount_price !== 0 ? (
+                      <span>{oneProduct.discount_price} сом</span>
+                    ) : (
+                      <span>По запросу</span>
+                    )}
                   </div>
                   <div className="productPage__top--availibility">
                     <span style={{ color: "#343E63", fontWeight: "700" }}>
