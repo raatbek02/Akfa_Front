@@ -33,10 +33,7 @@ function AppRouter() {
       </Routes>
 
       <div className="appRouter__bg">
-        <img
-          src="https://www.teahub.io/photos/full/19-199007_medicine-background.jpg"
-          alt=""
-        />
+        <img src={bg.image} alt="" />
       </div>
     </div>
   );
