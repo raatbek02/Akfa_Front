@@ -147,32 +147,35 @@ function Products() {
             <span>Товары</span>
           </h1>
         </div>
-        <ul className="product__sorting">
-          <li
-            onClick={() => {
-              setActiveItem(null);
-              setType(null);
-            }}
-            className={activeItem === null ? "active" : ""}
-          >
-            Все
-          </li>
-          {product_filter.map((obj) => {
-            return (
-              <li
-                key={obj.id}
-                onClick={() => {
-                  setActiveItem(obj.id);
-                  setSort(true);
-                  setType(obj.type);
-                }}
-                className={activeItem === obj.id ? "active" : ""}
-              >
-                {obj.name}
-              </li>
-            );
-          })}
-        </ul>
+        <div className="product__sorting">
+          <ul>
+            <li
+              onClick={() => {
+                setActiveItem(null);
+                setType(null);
+              }}
+              className={activeItem === null ? "active" : ""}
+            >
+              Все
+            </li>
+            {product_filter.map((obj) => {
+              return (
+                <li
+                  key={obj.id}
+                  onClick={() => {
+                    setActiveItem(obj.id);
+                    setSort(true);
+                    setType(obj.type);
+                  }}
+                  className={activeItem === obj.id ? "active" : ""}
+                >
+                  {obj.name}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+
         <div className="product__sorting--mobile">
           <FormControl sx={{ m: 1, minWidth: 150 }} color="error">
             <InputLabel id="demo-simple-select-autowidth-label">

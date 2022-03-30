@@ -147,14 +147,16 @@ function ProductPage() {
     <div className="productPage">
       <div className="productPage__container">
         <div className="productPage__path">
-          <div
-            onClick={() => navigate("/")}
-            className="productPage__path--icon"
-          >
-            <img src={home} alt="No img" />
-          </div>{" "}
-          <div>
-            {oneProduct.category} / {oneProduct.subcategory}
+          <div className="productPage__path--item">
+            <div
+              onClick={() => navigate("/")}
+              className="productPage__path--icon"
+            >
+              <img src={home} alt="No img" />
+            </div>{" "}
+            <div>
+              {oneProduct.category} / {oneProduct.subcategory}
+            </div>
           </div>
         </div>
         <div className="productPage__content">

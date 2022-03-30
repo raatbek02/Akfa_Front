@@ -26,11 +26,17 @@
   );
 }
 .product__sorting {
-  display: flex;
-  justify-content: flex-start;
+  display: inline-block;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 10px 16px rgb(0 0 0 / 5%);
   margin: 40px 0 75px;
+  padding: 10px 30px;
 }
-.product__sorting li {
+.product__sorting ul {
+  display: flex;
+}
+.product__sorting ul li {
   margin-right: 40px;
   font-family: Geometria;
   font-weight: 500;
@@ -40,7 +46,7 @@
   position: relative;
 }
 
-.product__sorting li.active {
+.product__sorting ul li.active {
   margin-right: 40px;
   font-family: Geometria;
   font-weight: 500;
@@ -57,7 +63,7 @@
   );
   cursor: pointer;
 }
-.product__sorting li.active::after {
+.product__sorting ul li.active::after {
   content: url("../../../assets//images/new_design/red_dot.svg");
   display: block;
   position: absolute;

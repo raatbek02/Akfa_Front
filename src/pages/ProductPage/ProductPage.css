@@ -9,10 +9,17 @@
   padding: 150px 120px;
 }
 .productPage__path {
+  margin-bottom: 20px;
+  display: inline-block;
+  background-color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0px 10px 16px rgb(0 0 0 / 5%);
+}
+.productPage__path--item {
   display: flex;
   align-items: center;
   font-size: 14px;
-  margin-bottom: 20px;
 }
 .productPage__path--icon {
   margin-right: 10px;
