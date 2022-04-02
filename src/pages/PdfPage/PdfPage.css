@@ -5,12 +5,33 @@
 } */
 
 .pdfPage__content {
+}
+.pdfPage__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  font-size: 24px;
+}
+
+/* .pdfPage__top--left {
+  
+} */
+.pdfPage__top--leftText {
+  color: #3e3e3e;
+  /* margin: 20px 0; */
+  /* font-size: 24px; */
+}
+.pdfPage__table {
   display: flex;
   flex-direction: column;
 }
 .pdfPage__left {
   width: 100%;
   margin-bottom: 30px;
+}
+.pdfPage__left img {
+  width: 50px;
 }
 .pdfPage table {
   width: 100%;

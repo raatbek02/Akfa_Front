@@ -154,6 +154,36 @@
   font-weight: 700;
 }
 
+.checkout__kp {
+  background-color: #fff;
+  padding: 20px 40px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+.checkout__kp h2 {
+  font-size: 36px;
+  margin-bottom: 30px;
+}
+.checkout__kp--content {
+  display: flex;
+  justify-content: space-between;
+}
+.checkout__kp button {
+  padding: 10px 40px;
+  font-size: 24px;
+  font-weight: 700;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+.checkout__noBtn {
+  background-color: crimson;
+  color: aliceblue;
+}
+.checkout__noBtn:hover {
+  background-color: rgb(141, 6, 33);
+}
+
 /* *********************************  max-width: 1200px  *************************************** */
 @media (max-width: 1200px) {
   .checkout {

@@ -4,8 +4,10 @@ import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { useCart } from "react-use-cart";
 import { $host } from "../../http";
+import Modal from "../../components/UI/Modal/Modal";
 // import { setAuthCart } from "../../store/carts";
 import "./Checkout.css";
+import HtmlToPdf from "../PdfPage/HtmlToPdf";
 
 function Checkout({ isDelivery }) {
   const [checkoutInput, setCheckoutInput] = useState({
@@ -21,6 +23,7 @@ function Checkout({ isDelivery }) {
     radio: "",
   });
   const [checkboxes, setCheckboxes] = useState([]);
+  const [active_kp, setActive_kp] = useState(false);
 
   const {
     register,
@@ -172,6 +175,13 @@ function Checkout({ isDelivery }) {
       });
   };
 
+  const styleBtn = {
+    backgroundColor: "chartreuse",
+    color: "lightyellow",
+    //  cursor: "pointer",
+    //  transition: "all 0.3s linear",
+  };
+
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -283,7 +293,9 @@ function Checkout({ isDelivery }) {
           ) : null} */}
           {!isDelivery ? (
             <div className="checkout--button">
-              <button type="submit">Отправить</button>
+              <button type="button" onClick={() => setActive_kp(true)}>
+                Отправить
+              </button>
             </div>
           ) : null}
         </div>
@@ -428,10 +440,48 @@ function Checkout({ isDelivery }) {
             </div> */}
 
             <div className="checkout--button">
-              <button type="submit">Отправить</button>
+              <button
+                type="button"
+                onClick={() => {
+                  setActive_kp(true);
+                }}
+              >
+                Отправить
+              </button>
             </div>
           </div>
         ) : null}
+
+        <Modal active={active_kp} setActive={setActive_kp}>
+          <div className="checkout__kp">
+            <h2>Распечатывть КП?</h2>
+            <div className="checkout__kp--content">
+              <div className="checkout__left">
+                <button
+                  onClick={() => {
+                    setActive_kp(false);
+                  }}
+                  type="submit"
+                  className="checkout__noBtn"
+                >
+                  Нет
+                </button>
+              </div>
+              <div className="checkout__right">
+                {/* <button type="submit" className="checkout__yesBtn">
+                  Да
+                </button> */}
+                <HtmlToPdf
+                  text={"Да"}
+                  style={styleBtn}
+                  setActive_kp={setActive_kp}
+                  firstName={checkoutInput.firstName}
+                  phoneNumber={checkoutInput.phoneNumber}
+                />
+              </div>
+            </div>
+          </div>
+        </Modal>
       </form>
     </div>
   );

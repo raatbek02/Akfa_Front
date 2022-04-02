@@ -3,6 +3,8 @@ import React, { useState } from "react";
 // import { useDispatch, useSelector } from "react-redux";
 import { useCart } from "react-use-cart";
 import { Link } from "react-scroll";
+import { toast } from "react-toastify";
+
 import minus_cart from "../../assets/images/new_design/minus_cart.svg";
 import plus_cart from "../../assets/images/new_design/plus_cart.svg";
 import cart_item_remove from "../../assets/images/new_design/cart_item_remove.svg";
@@ -125,6 +127,15 @@ function Cart() {
   //       return <p>Ваша корзина пустая! </p>;
   //     }
   //   }
+
+  //   const styleOfButton = {
+  //     color: "rgba(170, 39, 39, 1)",
+  //     border: "2px solid rgba(170, 39, 39, 1)",
+  //     cursor: "pointer",
+  //     transition: "all 0.3s linear",
+  //   };
+
+  const warnPdf = () => toast.warn("Сначала заполните форму!");
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
@@ -301,13 +312,13 @@ function Cart() {
                         Перейти к оформлению
                       </button>
                     </Link>
-                    <HtmlToPdf />
-                    {/* <button
-                      onClick={() => HtmlToPdf}
+                    {/* <HtmlToPdf text={" Счет на оплату"} style={styleOfButton} /> */}
+                    <button
+                      onClick={() => warnPdf()}
                       className="cart__total--priceButton"
                     >
                       Счет на оплату
-                    </button> */}
+                    </button>
                   </div>
                 </div>
               </div>

@@ -18,6 +18,8 @@ export class ComponentToPrint extends React.PureComponent {
     const items = this.props.items;
     const totalUniqueItems = this.props.totalUniqueItems;
     const cartTotal = this.props.cartTotal;
+    const firstName = this.props.firstName;
+    const phoneNumber = this.props.phoneNumber;
 
     return (
       <>
@@ -26,46 +28,72 @@ export class ComponentToPrint extends React.PureComponent {
           <div className="pdfPage">
             <div className="pdfPage__container">
               <div className="pdfPage__content">
-                <div className="pdfPage__left">
-                  <table>
-                    <tr>
-                      <th>Товар</th>
-                      <th>Количества</th>
-                      <th>Цена</th>
-                    </tr>
-                    {items.map((el) => {
-                      return (
-                        <tr>
-                          <td>{el.title}</td>
-                          <td>{el.quantity}</td>
-                          <td>{el.discount_price} сом</td>
-                        </tr>
-                      );
-                    })}
-                  </table>
+                <div className="pdfPage__top">
+                  <div className="pdfPage__top--left">
+                    {/* <div className="header__logo--item">
+                      <p>
+                        <span>Akfa</span>
+                        med farm
+                      </p>
+                    </div> */}
+                    <p className="pdfPage__top--leftText">
+                      Коммерческое предложение
+                    </p>
+                  </div>
+                  <div className="pdfPage__top--right">
+                    <p>Заказчик: {firstName}</p>
+                    <p>Номер телефона: {phoneNumber}</p>
+                  </div>
                 </div>
+                <div className="pdfPage__table">
+                  <div className="pdfPage__left">
+                    <table>
+                      <tr>
+                        <th>Товар</th>
+                        <th></th>
 
-                <div className="pdfPage__right">
-                  <div className="pdfPage__total">
-                    {/* <div> */}
-                    <ul>
-                      <li>
-                        <p>Всего товаров</p>
+                        <th>Кол-во</th>
+                        <th>Цена</th>
+                      </tr>
+                      {items.map((el) => {
+                        return (
+                          <tr>
+                            <td>{el.title}</td>
+                            <td>
+                              <img src={el.image} alt="" />
+                            </td>
+                            <td>{el.quantity}</td>
+                            <td>{el.discount_price} сом</td>
+                          </tr>
+                        );
+                      })}
+                    </table>
+                  </div>
 
-                        <span>{totalUniqueItems}</span>
-                      </li>
-                      <li>
-                        <p>Cумма</p>
+                  <div className="pdfPage__right">
+                    <div className="pdfPage__total">
+                      {/* <div> */}
+                      <ul>
+                        <li>
+                          <p>Всего товаров</p>
 
-                        <span>{cartTotal.toFixed(2)}</span>
-                      </li>
-                      <li>
-                        <p>Итого:</p>
+                          <span>{totalUniqueItems}</span>
+                        </li>
+                        <li>
+                          <p>Cумма</p>
 
-                        <span>{cartTotal.toFixed(2)}</span>
-                      </li>
-                    </ul>
-                    {/* </div> */}
+                          <span>{cartTotal.toFixed(2)}</span>
+                        </li>
+                        <li>
+                          <p>Итого:</p>
+
+                          <span>{cartTotal.toFixed(2)}</span>
+                        </li>
+                      </ul>
+                      {/* </div> */}
+                    </div>
+                    <div>{firstName}</div>
+                    <div>{phoneNumber}</div>
                   </div>
                 </div>
               </div>
@@ -77,14 +105,7 @@ export class ComponentToPrint extends React.PureComponent {
   }
 }
 
-const styleOfButton = {
-  color: "rgba(170, 39, 39, 1)",
-  border: "2px solid rgba(170, 39, 39, 1)",
-  cursor: "pointer",
-  transition: "all 0.3s linear",
-};
-
-function HtmlToPdf() {
+function HtmlToPdf({ text, style, setActive_kp, firstName, phoneNumber }) {
   const { totalUniqueItems, items, cartTotal } = useCart();
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -99,11 +120,19 @@ function HtmlToPdf() {
           totalUniqueItems={totalUniqueItems}
           cartTotal={cartTotal}
           ref={componentRef}
+          firstName={firstName}
+          phoneNumber={phoneNumber}
         />
       </div>
       <div>
-        <button onClick={handlePrint} style={styleOfButton}>
-          Счет на оплату
+        <button
+          onClick={() => {
+            handlePrint();
+            setActive_kp(false);
+          }}
+          style={style}
+        >
+          {text}
         </button>
       </div>
     </div>
