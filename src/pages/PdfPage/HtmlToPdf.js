@@ -92,8 +92,7 @@ export class ComponentToPrint extends React.PureComponent {
                       </ul>
                       {/* </div> */}
                     </div>
-                    <div>{firstName}</div>
-                    <div>{phoneNumber}</div>
+                   
                   </div>
                 </div>
               </div>

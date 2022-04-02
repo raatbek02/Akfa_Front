@@ -11,7 +11,6 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
-  font-size: 24px;
 }
 
 /* .pdfPage__top--left {
@@ -20,7 +19,12 @@
 .pdfPage__top--leftText {
   color: #3e3e3e;
   /* margin: 20px 0; */
-  /* font-size: 24px; */
+  font-size: 24px;
+}
+.pdfPage__top--right {
+  color: #3e3e3e;
+  font-size: 18px;
+  font-weight: 700;
 }
 .pdfPage__table {
   display: flex;
