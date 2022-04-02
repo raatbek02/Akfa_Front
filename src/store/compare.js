@@ -11,10 +11,10 @@ const compareSlice = createSlice({
     getCompareProducts(state, action) {
       if (state.compare_products.length < 4) {
         if (!state.compare_products.some((i) => i.id === action.payload.id)) {
-          state.compare_products.push(action.payload.el);
+          state.compare_products.push(action.payload.data);
         }
       } else {
-        state.compare_products.splice(0, 1, action.payload.el);
+        state.compare_products.splice(0, 1, action.payload.data);
       }
       localStorage.setItem(
         "compare_products",

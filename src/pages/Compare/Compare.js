@@ -11,10 +11,14 @@ import { $host } from "../../http";
 function Compare() {
   const [characteristicData, setCharacteristicData] = useState([]);
   //   const [addedChar, setAddedChar] = useState([]);
+
   const compare_products_local = useSelector(
     (state) => state.compareSlice.compare_products
   );
   const dispatch = useDispatch();
+
+  console.log("characteristicData", characteristicData);
+  console.log("compare_products_local", compare_products_local);
 
   useEffect(() => {
     const getCharasteristicData = async () => {
@@ -80,10 +84,10 @@ function Compare() {
                         </div>
                       </div>
 
-                      {el.characteristics.map((item) => {
+                      {el.chars.map((item) => {
                         return (
                           <div key={item.id} className="compare__item--field">
-                            {item.meaning}
+                            {item.value ? item.value : "нет"}
                           </div>
                         );
                       })}
