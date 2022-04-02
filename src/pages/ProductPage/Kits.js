@@ -112,9 +112,12 @@ function Kits({ oneProduct }) {
     addItem(id, count);
   };
 
-  const addCompareProducts = (e, el, id) => {
+  const addCompareProducts = async (e, id) => {
     e.stopPropagation();
-    dispatch(getCompareProducts({ el, id }));
+
+    await $host.get(`api/products/${id}`).then(({ data }) => {
+      dispatch(getCompareProducts({ data, id }));
+    });
 
     if (compare_products_local.length < 4) {
       successCompareAdded();
@@ -183,7 +186,7 @@ function Kits({ oneProduct }) {
                       </div>
 
                       <div
-                        onClick={(e) => addCompareProducts(e, el, el.id)}
+                        onClick={(e) => addCompareProducts(e, el.id)}
                         className="product__compare-button"
                       >
                         <img src={product_compare_logo} alt="No img" />

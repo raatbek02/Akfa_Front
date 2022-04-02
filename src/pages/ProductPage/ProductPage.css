@@ -218,6 +218,7 @@
   border: 1px solid #aa2727;
   border-radius: 10px;
   padding: 3px 5px 1px;
+  cursor: pointer;
 }
 .productPage__top-compareBtn:hover {
   border: 1px solid #5f0d0d;

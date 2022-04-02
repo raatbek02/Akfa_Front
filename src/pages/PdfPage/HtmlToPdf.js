@@ -63,7 +63,14 @@ export class ComponentToPrint extends React.PureComponent {
                               <img src={el.image} alt="" />
                             </td>
                             <td>{el.quantity}</td>
-                            <td>{el.discount_price} сом</td>
+                            <td>
+                              {" "}
+                              {el.discount_price !== 0 ? (
+                                <span>{el.discount_price} сом</span>
+                              ) : (
+                                <span>По запросу</span>
+                              )}
+                            </td>
                           </tr>
                         );
                       })}
@@ -81,18 +88,24 @@ export class ComponentToPrint extends React.PureComponent {
                         </li>
                         <li>
                           <p>Cумма</p>
-
-                          <span>{cartTotal.toFixed(2)}</span>
+                          {cartTotal !== 0 ? (
+                            <span>{cartTotal.toFixed(2)}</span>
+                          ) : (
+                            <span>По запросу</span>
+                          )}
                         </li>
                         <li>
                           <p>Итого:</p>
 
-                          <span>{cartTotal.toFixed(2)}</span>
+                          {cartTotal !== 0 ? (
+                            <span>{cartTotal.toFixed(2)}</span>
+                          ) : (
+                            <span>По запросу</span>
+                          )}
                         </li>
                       </ul>
                       {/* </div> */}
                     </div>
-                   
                   </div>
                 </div>
               </div>
