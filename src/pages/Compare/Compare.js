@@ -71,9 +71,16 @@ function Compare() {
                         </div>
                         <div className="compare__item--content">
                           <div className="compare__name">{el.title}</div>
-                          <div className="compare__price">
-                            <span>{el.discount_price} сом</span>
-                          </div>
+
+                          {el.discount_price !== 0 ? (
+                            <div className="compare__price">
+                              <span>{el.discount_price} сом</span>
+                            </div>
+                          ) : (
+                            <div className="compare__price">
+                              <span>По запросу</span>
+                            </div>
+                          )}
 
                           <div
                             onClick={() => dispatch(removeCompareItem(el.id))}

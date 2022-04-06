@@ -209,9 +209,16 @@ function Cart() {
                                   <img src={plus_cart} alt="No img" />
                                 </button>
                               </div>
-                              <div className="cart__price">
-                                <span>{obj.itemTotal.toFixed(2)}сом</span>
-                              </div>
+
+                              {obj.itemTotal !== 0 ? (
+                                <div className="cart__price">
+                                  <span>{obj.itemTotal.toFixed(2)}сом</span>
+                                </div>
+                              ) : (
+                                <span className="product__price--price">
+                                  По запросу
+                                </span>
+                              )}
                             </div>
                             <div className="cart__item--remove">
                               <span onClick={() => removeItem(obj.id)}>
