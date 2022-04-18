@@ -28,9 +28,6 @@ import compare_logo from "../../assets/images/compare_logo.svg";
 import login_logo from "../../assets/images/login_logo.svg";
 import lupa from "../../assets/images/new_design/lupa.svg";
 import catalog_logo from "../../assets/images/catalog_logo.svg";
-import header_logo from "../../assets/images/header/header_logo.png";
-import header_logo_svg from "../../assets/images/header/header_logo_svg.svg";
-
 import { $host } from "../../http";
 
 const list = [
@@ -91,27 +88,19 @@ function Header() {
     <header className="header">
       <div className="header__container">
         <div className="header__content computer">
-          <div className="header__content--item">
-            <div className="header__logo">
-              {/* <Link to="/">
-                <span>AkfaMedfarm</span>{" "}
-              </Link> */}
-
-              <Link to="/">
-                <div className="header__logo--item">
-                  {/* <p>
-                    <span>Akfa</span>
-                    med farm
-                  </p> */}
-                  <img
-                    style={{ width: "120px" }}
-                    src={header_logo_svg}
-                    alt=""
-                  />
-                </div>
-              </Link>
-            </div>
-
+          <div className="header__left">
+            <ul>
+              {list.map((obj, index) => {
+                return (
+                  <li key={index + 1}>
+                    <NavLink to={obj.path}>
+                      {/* <li key={index}>{obj.name}</li> */}
+                      {obj.name}
+                    </NavLink>
+                  </li>
+                );
+              })}
+            </ul>
             <div
               className="header__catalog"
               onClick={() => {
@@ -131,21 +120,21 @@ function Header() {
               </div>
             </div>
           </div>
-          <div className="header__content--item menu">
-            <ul className="header__menu_ul">
-              {list.map((obj, index) => {
-                return (
-                  <li key={index + 1}>
-                    <NavLink to={obj.path}>
-                      {/* <li key={index}>{obj.name}</li> */}
-                      {obj.name}
-                    </NavLink>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-          <div className="header__content--item assets">
+          <div className="header__right">
+            <div className="header__logo">
+              {/* <Link to="/">
+                <span>AkfaMedfarm</span>{" "}
+              </Link> */}
+
+              <Link to="/">
+                <div className="header__logo--item">
+                  <p>
+                    <span>Akfa</span>
+                    med farm
+                  </p>
+                </div>
+              </Link>
+            </div>
             <div className="header__assets">
               <div className="header__assets-top">
                 <div className="header__cart">
@@ -214,15 +203,10 @@ function Header() {
 
               <Link to="/">
                 <div className="header__logo--item">
-                  {/* <p>
+                  <p>
                     <span>Akfa</span>
                     med farm
-                  </p> */}
-                  <img
-                    style={{ width: "120px" }}
-                    src={header_logo_svg}
-                    alt=""
-                  />
+                  </p>
                 </div>
               </Link>
             </div>
@@ -362,117 +346,3 @@ function Header() {
 }
 
 export default Header;
-
-
-
-
-
-// {/* <div className="header__left">
-//             <ul>
-//               {list.map((obj, index) => {
-//                 return (
-//                   <li key={index + 1}>
-//                     <NavLink to={obj.path}>
-//                       {/* <li key={index}>{obj.name}</li> */}
-//                       {obj.name}
-//                     </NavLink>
-//                   </li>
-//                 );
-//               })}
-//             </ul>
-//             <div
-//               className="header__catalog"
-//               onClick={() => {
-//                 dispatch(setModalCatalog(!false));
-//               }}
-//             >
-//               <span>Каталог</span>
-
-//               <div
-//                 className={
-//                   modalCatalog
-//                     ? "header__catalog--icon _active"
-//                     : "header__catalog--icon"
-//                 }
-//               >
-//                 <span></span>
-//               </div>
-//             </div>
-//           </div>
-//           <div className="header__right">
-//             <div className="header__logo">
-//               {/* <Link to="/">
-//                 <span>AkfaMedfarm</span>{" "}
-//               </Link> */}
-
-//               <Link to="/">
-//                 <div className="header__logo--item">
-//                   {/* <p>
-//                     <span>Akfa</span>
-//                     med farm
-//                   </p> */}
-//                   <img
-//                     style={{ width: "150px" }}
-//                     src={header_logo_svg}
-//                     alt=""
-//                   />
-//                 </div>
-//               </Link>
-//             </div>
-//             <div className="header__assets">
-//               <div className="header__assets-top">
-//                 <div className="header__cart">
-//                   {/* <Link to={CART_ROUTE}>
-//                     <Badge badgeContent={totalUniqueItems} color="error">
-//                       <img src={cart_logo} alt="No img" />
-//                     </Badge>
-//                     <p>Корзина</p>
-//                   </Link> */}
-
-//                   <button onClick={() => navigate(CART_ROUTE)}>
-//                     <Badge badgeContent={totalUniqueItems} color="error">
-//                       <img src={cart_logo} alt="No img" />
-//                     </Badge>
-//                     <p>Корзина</p>
-//                   </button>
-//                 </div>
-
-//                 <div className="header__compare">
-//                   {/* <Link to={COMPARE__ROUTE}>
-//                     <Badge badgeContent={compareProducts.length} color="error">
-//                       <img src={compare_logo} alt="No img" />
-//                     </Badge>
-//                     <p>Сравнения</p>
-//                   </Link> */}
-
-//                   <button onClick={() => navigate(COMPARE__ROUTE)}>
-//                     <Badge badgeContent={compareProducts.length} color="error">
-//                       <img src={compare_logo} alt="No img" />
-//                     </Badge>
-//                     <p>Сравнения</p>
-//                   </button>
-//                 </div>
-
-//                 {/* <div
-//                   // onClick={() => setModalAuth(true)}
-//                   className="header__login"
-//                 >
-//                   <img src={login_logo} alt="No img" />
-//                   <p>Войти</p>
-//                 </div> */}
-//               </div>
-//               <div className="header__assets-bottom">
-//                 <input
-//                   type="text"
-//                   value={search}
-//                   onChange={(e) => setSearch(e.target.value)}
-//                   onKeyDown={(e) => searchHandler(e)}
-//                 />
-//                 <img
-//                   onClick={() => searchHandler_2()}
-//                   src={lupa}
-//                   alt="No img"
-//                 />
-//               </div>
-//             </div>
-//           </div> */}

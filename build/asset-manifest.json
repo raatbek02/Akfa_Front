@@ -1,8 +1,13 @@
 {
   "files": {
     "main.css": "/static/css/main.5d131639.chunk.css",
+<<<<<<< HEAD
     "main.js": "/static/js/main.368c6aba.chunk.js",
     "main.js.map": "/static/js/main.368c6aba.chunk.js.map",
+=======
+    "main.js": "/static/js/main.8043bf1f.chunk.js",
+    "main.js.map": "/static/js/main.8043bf1f.chunk.js.map",
+>>>>>>> parent of d18014f (w)
     "runtime-main.js": "/static/js/runtime-main.42930db8.js",
     "runtime-main.js.map": "/static/js/runtime-main.42930db8.js.map",
     "static/css/2.6d65cf44.chunk.css": "/static/css/2.6d65cf44.chunk.css",
@@ -47,6 +52,10 @@
     "static/css/2.6d65cf44.chunk.css",
     "static/js/2.07a55712.chunk.js",
     "static/css/main.5d131639.chunk.css",
+<<<<<<< HEAD
     "static/js/main.368c6aba.chunk.js"
+=======
+    "static/js/main.8043bf1f.chunk.js"
+>>>>>>> parent of d18014f (w)
   ]
 }
