@@ -1,18 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import { authRoutes, publicRoutes } from "../routes";
 import "../App.css";
-import { $host } from "../http";
 
 function AppRouter() {
-  const [bg, setbg] = useState({});
-
-  useEffect(() => {
-    $host.get(`api/bg`).then(({ data }) => {
-      setbg(data[0]);
-    });
-  }, []);
   const isAuth = useSelector((state) => state.isAuthSlice.isAuth);
   return (
     <div
@@ -31,10 +23,6 @@ function AppRouter() {
           <Route primary={false} key={path} path={path} element={Component} />
         ))}
       </Routes>
-
-      <div className="appRouter__bg">
-        <img src={bg.image} alt="" />
-      </div>
     </div>
   );
 }

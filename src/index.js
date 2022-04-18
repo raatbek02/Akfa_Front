@@ -7,8 +7,6 @@ import store from "./store";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
-
-console.log("process.env.REACT_APP_API_URL", process.env.REACT_APP_API_URL);
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>

@@ -79,42 +79,7 @@ function Banner() {
               </Swiper>
             </div>
 
-            <div className="banner__right">
-              <div className="banner__right--img">
-                <img src={bannerData[1] && bannerData[1].image} alt="No img" />
-                <div className="banner__btn--right">
-                  <button
-                    onClick={() =>
-                      navigate(
-                        `${BANNER_DETAIL__ROUTE}/${
-                          bannerData[1] && bannerData[1].id
-                        }`
-                      )
-                    }
-                  >
-                    Узнать больше
-                  </button>
-                </div>
-              </div>
-              <div className="banner__right--img">
-                <img src={bannerData[2] && bannerData[2].image} alt="No img" />
-                <div className="banner__btn--right">
-                  <button
-                    onClick={() =>
-                      navigate(
-                        `${BANNER_DETAIL__ROUTE}/${
-                          bannerData[2] && bannerData[2].id
-                        }`
-                      )
-                    }
-                  >
-                    Узнать больше
-                  </button>
-                </div>
-              </div>
-
-              {/* <img src={banner_img} alt="No img"></img> */}
-            </div>
+         
           </div>
         </div>
       </div>

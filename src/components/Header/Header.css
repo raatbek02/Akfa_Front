@@ -20,7 +20,19 @@
 }
 .header__content {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: space-between;
+}
+.header__content--item {
+	width: 25%;
+}
+.header__content--item.menu {
+	width: 50%;
+}
+.header__content--item.assets {
+	display: flex;
+	justify-content: flex-end;
+	/* align-items: center; */
 }
 .header__left {
   width: 45%;
@@ -30,14 +42,15 @@
   margin-top: 5px;
 }
 
-.header__left ul {
+.header__menu_ul {
   width: 100%;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   padding-left: 0;
 }
 
-.header__left ul li {
+.header__menu_ul li {
   font-size: 14px;
   margin-right: 18px;
   position: relative;
@@ -46,10 +59,10 @@
   color: #2e2d2d;
   font-weight: 700;
 }
-.header__left ul li:hover {
+.header__menu_ul li:hover {
   color: #ff0000;
 }
-.header__left ul li::after {
+.header__menu_ul li::after {
   content: url("../../assets/images/new_design/red_dot.svg");
   display: block;
   position: absolute;
@@ -63,24 +76,24 @@
   right: 50%;
   opacity: 0;
 }
-.header__left ul li:hover::after {
+.header__menu_ul li:hover::after {
   opacity: 1;
 }
-.header__left ul li:last-child {
+.header__menu_ul li:last-child {
   margin-right: 0;
 }
 .header__catalog {
-  width: 150px;
-  height: 40px;
+  width: 120px;
+  height: 30px;
   background: linear-gradient(
     90deg,
     rgba(255, 72, 72, 1) 0%,
     rgba(206, 53, 53, 1) 61%,
     rgba(170, 39, 75, 1) 100%
   );
-  font-size: 16px;
+  font-size: 14px;
   color: #fff;
-  margin-top: 15px;
+  margin-top: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -95,8 +108,8 @@
 .header__catalog--icon {
   z-index: 5;
   position: relative;
-  width: 20px;
-  height: 15px;
+  width: 15px;
+  height: 10px;
   cursor: pointer;
   display: block;
 }
@@ -200,10 +213,12 @@
   transition: all 0.3s linear;
 }
 .header__assets-top {
+max-width: 150px;
   display: flex;
   align-items: center;
   /* justify-content: flex-end; */
   justify-content: space-around;
+
 }
 .header__assets-top div {
   text-align: center;
@@ -453,7 +468,7 @@
   .header__left {
     width: 51%;
   }
-  .header__left ul li {
+  .header__menu_ul li {
     font-size: 12px;
     margin-right: 7px;
   }
